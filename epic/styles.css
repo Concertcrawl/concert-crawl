@@ -11,3 +11,9 @@ body {
 h1,h2 {
 	text-align: center;
 }
+
+.brandon {display: flex;}
+
+.brandon > img {
+	border-radius: 50%;
+}
