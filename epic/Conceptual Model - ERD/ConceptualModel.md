@@ -28,6 +28,8 @@
 
 * concertLocation
 
+* concertVenue
+
 * concertImage
 
 ## Band
