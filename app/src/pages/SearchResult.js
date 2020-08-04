@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col} from 'react-bootstrap'
+import { Container, Row, Col, Button} from 'react-bootstrap'
 
 export const SearchResult = () => {
   return (
@@ -18,10 +18,10 @@ export const SearchResult = () => {
             <p className="lead">Start Time</p>
           </Col>
           <Col md="2 m-auto">
-            <h2 className="text-center">Concert Name</h2>
+            <h2 className="text-center">Concert Name <Button variant="outline-dark" className="border-0 p-0"><h2>&#65291;</h2></Button></h2>
           </Col>
           <Col md="2 m-auto text-center">
-            <p className="lead">Headliner</p>
+            <p className="lead">Headliner <Button variant="outline-dark" className="border-0 p-0"><h2>&#11088;</h2></Button></p>
             <p className="lead">Concert Location</p>
           </Col>
           <Col md="2">
