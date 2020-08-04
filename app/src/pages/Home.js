@@ -7,9 +7,9 @@ export const Home = () => {
     <>
       <Container fluid className="bg-light p-0">
         <Jumbotron fluid>
-          <h1 className="text-center display-2">Concert Crawl Placeholder</h1>
+          <h1 className="text-center">Concert Crawl Placeholder</h1>
         </Jumbotron>
-        <h2 className="text-center display-4">About ConcertCrawl</h2>
+        <h2 className="text-center">About ConcertCrawl</h2>
         <p>
           Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.
 
@@ -25,22 +25,20 @@ export const Home = () => {
             </Form.Group>
             <Form.Group>
               <Row>
-                <Col xs="3" className="ml-5">
+                <Col xs={6} md={3} className="ml-md-5">
                   <Form.Label>Genre</Form.Label>
                   <Form.Control type="text"/>
                 </Col>
-                <Col xs="3">
+                <Col xs={6} md={3}>
                   <Form.Label>Location</Form.Label>
                   <Form.Control type="text"/>
                 </Col>
-                <Col xs="2">
+                <Col xs={5} md={2} className="ml-3 ml-md-0">
                   <Form.Label>Start Date</Form.Label>
                   <Form.Control type="text"/>
                 </Col>
-                <Col xs="1" className="pl-4">
-                  <h1 className="display-3">-</h1>
-                </Col>
-                <Col xs="2">
+                <h1 className="display-3">-</h1>
+                <Col xs={5} md={2}>
                   <Form.Label>End Date</Form.Label>
                   <Form.Control type="text"/>
                 </Col>
