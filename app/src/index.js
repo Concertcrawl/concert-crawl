@@ -6,6 +6,7 @@ import {Route, Switch} from "react-router";
 import {FourOhFour} from "./pages/FourOhFour";
 import {Home} from "./pages/Home";
 import { NavBar } from './pages/NavBar'
+import { Footer } from './pages/Footer'
 
 const Routing = () => (
   <>
@@ -16,6 +17,7 @@ const Routing = () => (
         <Route component={FourOhFour}/>
       </Switch>
     </BrowserRouter>
+    <Footer/>
   </>
 );
 ReactDOM.render(<Routing/>, document.querySelector('#root'));
