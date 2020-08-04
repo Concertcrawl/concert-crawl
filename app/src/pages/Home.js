@@ -8,8 +8,7 @@ export const Home = () => {
     <>
       <NavBar/>
       <Jumbotron fluid>
-        <h1>This is a test of the ConcertCrawl broadcasting system.</h1>
-        <p>Let us test you.</p>
+        <h1 className="text-center display-2">Concert Crawl Placeholder</h1>
       </Jumbotron>
       <SearchFunctionality/>
     </>
