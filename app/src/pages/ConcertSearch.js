@@ -1,5 +1,5 @@
 import React from "react"
-import { Form, Container, Row, Col } from 'react-bootstrap'
+import { Form, Container, Row, Col, Button } from 'react-bootstrap'
 
 export const SearchFunctionality = () => {
   return (
@@ -33,6 +33,9 @@ export const SearchFunctionality = () => {
                 </Col>
               </Row>
           </Form.Group>
+          <Button variant="primary" size="lg" block>
+            Search!
+          </Button>
         </Form>
       </Container>
     </>
