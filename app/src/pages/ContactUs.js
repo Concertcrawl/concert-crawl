@@ -6,29 +6,27 @@ export const ContactUs = () => {
     <>
       <Container>
         <Row className= "border border-dark mt-5">
-          <Row className = "text-center">
-            <h1 className= "text-center border-bottom border-dark"> About the Concert Crawl Team </h1>
-          </Row>
-          <Row className= "d-flex border-bottom border-dark p-5">
-            <Col xs = {2}>
+            <Col xs={12} className="p-0">
+              <h1 className= "text-center border-bottom border-dark m-0"> About the Concert Crawl Team </h1>
+            </Col>
+            <Col xs = {2} className="py-2">
               <Image src = "https://via.placeholder.com/150" roundedCircle alt = "placeholder"/>
             </Col>
-              <Col xs ={10}>
-                <p> Calvin Reed: </p>
-              </Col>
-            </Row>
-            <Row className= "border-bottom border-dark p-5">
-              <Col xs = {2}>
-                <Image src = "https://via.placeholder.com/150" roundedCircle alt = "placeholder"/>
-              </Col>
-              <Col xs ={10}>
-                <p>Dixie Cooper: </p>
-              </Col>
-            </Row>
-            <Row className= "border-bottom border-dark p-5">
+            <Col xs ={10} className="py-2">
+              <p> Calvin Reed: </p>
+            </Col>
+            <Col xs = {2} className="border-top border-dark py-2">
               <Image src = "https://via.placeholder.com/150" roundedCircle alt = "placeholder"/>
+            </Col>
+            <Col xs ={10} className="border-top border-dark py-2">
+              <p>Dixie Cooper: </p>
+            </Col>
+            <Col xs={2} className="border-top border-dark py-2">
+              <Image src = "https://via.placeholder.com/150" roundedCircle alt = "placeholder"/>
+            </Col>
+            <Col xs={10} className="border-top border-dark py-2">
               <p> Jordan Hicks: </p>
-            </Row>
+            </Col>
         </Row>
       </Container>
     </>
