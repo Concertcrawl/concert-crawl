@@ -9,7 +9,7 @@ export const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Item><Nav.Link href="/">Saved Concerts</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link href="/saved-concerts">Saved Concerts</Nav.Link></Nav.Item>
             <Nav.Item><Nav.Link href="/about">Followed Bands</Nav.Link></Nav.Item>
           </Nav>
           <Nav className="ml-auto">

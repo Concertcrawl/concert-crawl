@@ -22,8 +22,8 @@ const Routing = () => (
         <Route path="/register" component={RegisterUser}/>
         <Route path="/privacy-page" component={PrivacyPage}/>
         <Route path="/contact-us" component={ContactUs}/>
-        <Route path="/SavedConcerts" component={SavedConcerts}/>
-        <Route path="/ConcertInfoModal" component={ConcertInfoModal}/>
+        <Route path="/saved-concerts" component={SavedConcerts}/>
+        <Route path="/concert-modal" component={ConcertInfoModal}/>
         <Route component={FourOhFour}/>
       </Switch>
       <Footer/>
