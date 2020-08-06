@@ -10,6 +10,7 @@ import { Footer } from './pages/Footer'
 import { PrivacyPage } from './pages/PrivacyPage'
 import { ContactUs } from './pages/ContactUs'
 import { RegisterUser } from './pages/RegisterUser'
+import { SavedResults } from './pages/SavedResults'
 
 const Routing = () => (
   <>
@@ -20,6 +21,7 @@ const Routing = () => (
         <Route path="/register" component={RegisterUser}/>
         <Route path="/privacy-page" component={PrivacyPage}/>
         <Route path="/contact-us" component={ContactUs}/>
+        <Route path="/SavedResults" component={SavedResults}/>
         <Route component={FourOhFour}/>
       </Switch>
       <Footer/>

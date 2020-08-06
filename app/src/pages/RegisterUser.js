@@ -32,7 +32,7 @@ export const RegisterUser = () => {
                 </Form.Group>
               </Form>
             </Col>
-            <Col className="py-3 border-dark border-top">
+            <Col className="py-3 border-dark  border-top">
               <Form>
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email address</Form.Label>
