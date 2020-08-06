@@ -11,6 +11,7 @@ import { PrivacyPage } from './pages/PrivacyPage'
 import { ContactUs } from './pages/ContactUs'
 import { RegisterUser } from './pages/RegisterUser'
 import { SavedResults } from './pages/SavedResults'
+import { ConcertInfoModal} from './pages/ConcertInfoModal'
 
 const Routing = () => (
   <>
@@ -22,6 +23,7 @@ const Routing = () => (
         <Route path="/privacy-page" component={PrivacyPage}/>
         <Route path="/contact-us" component={ContactUs}/>
         <Route path="/SavedResults" component={SavedResults}/>
+        <Route path="/ConcertInfoModal" component={ConcertInfoModal}/>
         <Route component={FourOhFour}/>
       </Switch>
       <Footer/>
