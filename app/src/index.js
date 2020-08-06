@@ -7,6 +7,8 @@ import {FourOhFour} from "./pages/FourOhFour";
 import {Home} from "./pages/Home";
 import { NavBar } from './pages/NavBar'
 import { Footer } from './pages/Footer'
+import { PersonalSettings } from './pages/PersonalSettings'
+
 
 const Routing = () => (
   <>
@@ -14,6 +16,7 @@ const Routing = () => (
       <NavBar/>
       <Switch>
         <Route exact path="/" component={Home}/>
+        <Route path="/personalsettings" component={PersonalSettings}/>
         <Route component={FourOhFour}/>
       </Switch>
     </BrowserRouter>
