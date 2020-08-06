@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Col, Container, Form, Row} from 'react-bootstrap'
 
-export const PersonalSettings = () => {
+export const RegisterUser = () => {
   return(
     <>
       <Container className="border border-dark p-0 my-5">
