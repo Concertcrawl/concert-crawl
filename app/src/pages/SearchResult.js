@@ -20,7 +20,7 @@ export const SearchResult = () => {
             <h2 className="text-center">Concert Name <Button variant="outline-dark" className="border-0 p-0"><h2>&#65291;</h2></Button></h2>
           </Col>
           <Col xs={12} sm={3} md={4} lg={2} className="my-auto text-center">
-            <p className="lead">Headliner <Button variant="outline-dark" className="border-0 p-0"><h2><span role="img" aria-label="Star">&#11088;</span></h2></Button></p>
+            <p className="lead">Headliner <Button variant="outline-dark" className="border-0 p-0"><h2>local</h2></Button></p>
             <p className="lead">Concert Location</p>
           </Col>
           <Col md={2} className="d-none d-md-flex">
