@@ -1,31 +1,64 @@
-import React from 'react'
-import {Container, Row, Col, Modal} from 'react-bootstrap'
+import React, { useState } from 'react'
+import {Container, Row, Col, Modal, Button, Collapse} from 'react-bootstrap'
 import "../styles.css";
 
 export const ConcertInfoModal = (props) => {
+  const [open, setOpen] = useState(false);
+
   return(
   <>
     <Modal
       show={true}
       dialogClassName="custom-modal-style"
     >
-      <Modal.Dialog className="border border-dark">
-        <Modal.Header closeButton>
-          <Modal.Title> Date - Headliner - Location @ Time</Modal.Title>
+      <Modal.Dialog className="custom-modal-style">
+        <Modal.Header>
+          <h3 className='col-12 modal-title text-center'>Date - Headliner - Location @ Time
+            <Button type='button' className='close my-auto' data-dismiss='modal' aria-label='Close'>
+              <span aria-hidden='true'>&times;</span>
+            </Button>
+          </h3>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="p-0">
           <Container>
             <Row>
-              <Col>
-              <img src="https://via.placeholder.com/120x240?text=Vertical+Banner" alt="Placeholder" className="col-12"></img>
+              <Col xs={12} md={4} className="d-flex justify-content-center">
+                <img src="https://via.placeholder.com/240x240?text=Vertical+Banner" alt="Placeholder" className="img-fluid my-3">
+
+              </img>
               </Col>
-              <Col >
-                <h1> Headliner @ venue</h1>
-                <h2> Date & Time</h2>
+              <Col xs={12} md={8}>
+                <Container className="border mb-3">
+                  <h1> Headliner @ venue</h1>
+                </Container>
+                <Container className="border  my-3">
+                  <Row>
+                    <Col className="my-auto">
+                      <h2> Date & Time</h2>
+                    </Col>
+                    <Col>
+                      <Button className="my-3 btn-block btn-dark py-2">Purchase Tickets on Ticketmaster.</Button>
+                      <Button className="my-3 btn-block btn-dark py-2">Add this concert to your events!</Button>
+                    </Col>
+                  </Row>
+                </Container>
 
               </Col>
             </Row>
           </Container>
+          <Button variant="outline-dark"
+                  className="border-top border-bottom-0 border-right-0 border-left-0 btn-block p-0"
+                  onClick={() => setOpen(!open)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={open}
+          >v</Button>
+          <Collapse in={open}>
+            <div id="example-collapse-text">
+              <p className="display-4 border-bottom py-3 text-center">I really wanna<span role="img" aria-label="Star">&#11088;</span></p>
+              <p className="display-4 border-bottom py-3 text-center">Really really wanna<span role="img" aria-label="Star">&#11088;</span></p>
+              <p className="display-4 py-3 text-center">Jump off a bridge<span role="img" aria-label="Star">&#11088;</span></p>
+            </div>
+          </Collapse>
         </Modal.Body>
       </Modal.Dialog>
     </Modal>
