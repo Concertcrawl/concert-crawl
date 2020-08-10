@@ -12,8 +12,7 @@ import { PrivacyPage } from './pages/PrivacyPage'
 import { ContactUs } from './pages/ContactUs'
 import { RegisterUser } from './pages/RegisterUser'
 import { SavedConcerts } from './pages/SavedConcerts'
-import { FavoritedBand } from './pages/FavoriteBand'
-import { LoginModal } from './pages/LoginModal'
+import { UserFavorites } from './pages/UserFavorites'
 
 const Routing = () => (
   <>
@@ -25,7 +24,7 @@ const Routing = () => (
         <Route path="/privacy-page" component={PrivacyPage}/>
         <Route path="/contact-us" component={ContactUs}/>
         <Route path="/saved-concerts" component={SavedConcerts}/>
-        <Route path="/test" component={LoginModal}/>
+        <Route path ="/user-favorites" component={UserFavorites}/>
         <Route component={FourOhFour}/>
       </Switch>
       <Footer/>
