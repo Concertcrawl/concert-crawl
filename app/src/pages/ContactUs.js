@@ -4,27 +4,27 @@ import { Container, Row, Col, Image, Form, Button } from 'react-bootstrap'
 export const ContactUs = () => {
   return (
     <>
-      <Container>
-        <Row className="border border-dark mt-5">
-          <Col xs={12} className="p-0">
-            <h1 className="text-center border-bottom border-dark m-0"> About the Concert Crawl Team </h1>
+      <Container className = "pt-5">
+        <Row className="border border-dark">
+          <Col xs={12} className = "py-2">
+            <h1 className="text-center border-bottom border-dark"> About the Concert Crawl Team </h1>
           </Col>
-          <Col xs={2} className="py-2">
+          <Col xs={2} className="py-2 pt-3">
             <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
           </Col>
-          <Col xs={10} className="py-2">
+          <Col xs={10} className="py-2 pt-3">
             <p> Calvin Reed: </p>
           </Col>
-          <Col xs={2} className="border-top border-dark py-2">
+          <Col xs={2} className="border-top border-dark py-2 pt-3">
             <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
           </Col>
-          <Col xs={10} className="border-top border-dark py-2">
+          <Col xs={10} className="border-top border-dark py-2 pt-3">
             <p>Dixie Cooper: </p>
           </Col>
-          <Col xs={2} className="border-top border-dark py-2">
+          <Col xs={2} className="border-top border-dark py-2 pt-3">
             <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
           </Col>
-          <Col xs={10} className="border-top border-dark py-2">
+          <Col xs={10} className="border-top border-dark py-2 pt-3">
             <p> Jordan Hicks: </p>
           </Col>
         </Row>
@@ -34,6 +34,7 @@ export const ContactUs = () => {
       <Container xs={5}>
         <Row>
           <Col className="border border-dark mt-5 mb-5 p-5" md={{ span: 6, offset: 3 }}>
+            <h1 className="text-center"> Contact Us </h1>
             <Form>
               <Form.Group controlId="contactForm">
                 <Form.Group>
