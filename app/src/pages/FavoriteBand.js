@@ -8,22 +8,22 @@ export const FavoritedBand = () => {
 
   return (
     <>
-      <Container fluid>
+      <Container className="border border-dark p-0">
         <Row>
-          <Col md={2}>
-            <Button className="bg-transparent border-0"><span className="display-4 text-warning">&#9734;</span></Button>
+          <Col md={2} className="my-auto text-center">
+            <Button className="bg-transparent border-0"><span className="display-4 text-warning">&#11088;</span></Button>
           </Col>
-          <Col md={2}>
+          <Col md={4} lg={2} className="text-center">
             <img src="https://via.placeholder.com/200" alt="placeholder">
 
             </img>
           </Col>
-          <Col md={4}>
+          <Col md={3} lg={5} className="my-auto text-center">
             <h2>
             Band Name
             </h2>
           </Col>
-          <Col md={4}>
+          <Col md={3} lg={3} className="my-auto text-center">
             <Button variant="outline-dark"
                     onClick={() => setOpen(!open)}
                     aria-controls="example-collapse-text"
