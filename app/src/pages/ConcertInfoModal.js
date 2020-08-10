@@ -46,7 +46,7 @@ export const ConcertInfoModal = forwardRef((props, ref) => {
 
                     </img>
                   </Col>
-                  <Col xs={12} md={8}>
+                  <Col xs={12} md={8} className="my-5">
                     <Container className="border mb-3">
                       <h1> Headliner @ venue</h1>
                     </Container>
@@ -70,16 +70,16 @@ export const ConcertInfoModal = forwardRef((props, ref) => {
                       onClick={() => setOpen(!open)}
                       aria-controls="example-collapse-text"
                       aria-expanded={open}
-              >v</Button>
+              >Bands &#8659;</Button>
               <Collapse in={open}>
                 <div id="example-collapse-text">
-                  <p className="display-4 border-bottom py-3 text-center">I really wanna<span role="img"
+                  <p className="display-4 border-bottom py-3 text-center">Band A<span role="img"
                                                                                               aria-label="Star">&#11088;</span>
                   </p>
-                  <p className="display-4 border-bottom py-3 text-center">Really really wanna<span role="img"
+                  <p className="display-4 border-bottom py-3 text-center">Band B<span role="img"
                                                                                                    aria-label="Star">&#11088;</span>
                   </p>
-                  <p className="display-4 py-3 text-center">Jump off a bridge<span role="img"
+                  <p className="display-4 py-3 text-center">Band C<span role="img"
                                                                                    aria-label="Star">&#11088;</span></p>
                 </div>
               </Collapse>
