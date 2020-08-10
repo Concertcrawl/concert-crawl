@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom'
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles.css';
-import {BrowserRouter} from "react-router-dom";
-import {Route, Switch} from "react-router";
-import {FourOhFour} from "./pages/FourOhFour";
-import {Home} from "./pages/Home";
+import { BrowserRouter } from "react-router-dom";
+import { Route, Switch } from "react-router";
+import { FourOhFour } from "./pages/FourOhFour";
+import { Home } from "./pages/Home";
 import { NavBar } from './pages/NavBar'
 import { Footer } from './pages/Footer'
 import { PrivacyPage } from './pages/PrivacyPage'

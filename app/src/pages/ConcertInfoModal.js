@@ -74,13 +74,13 @@ export const ConcertInfoModal = forwardRef((props, ref) => {
               <Collapse in={open}>
                 <div id="example-collapse-text">
                   <p className="display-4 border-bottom py-3 text-center">Band A<span role="img"
-                                                                                              aria-label="Star">&#11088;</span>
+                                                                                      aria-label="Star">&#11088;</span>
                   </p>
                   <p className="display-4 border-bottom py-3 text-center">Band B<span role="img"
-                                                                                                   aria-label="Star">&#11088;</span>
+                                                                                      aria-label="Star">&#11088;</span>
                   </p>
                   <p className="display-4 py-3 text-center">Band C<span role="img"
-                                                                                   aria-label="Star">&#11088;</span></p>
+                                                                        aria-label="Star">&#11088;</span></p>
                 </div>
               </Collapse>
             </Modal.Body>
