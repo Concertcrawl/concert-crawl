@@ -9,15 +9,12 @@ export const PrivacyPage = () => {
           <Col xs={12} className="p-0">
             <h1 fluid className="text-center mt-3 border-bottom border-dark"> Privacy Page </h1>
           </Col>
-        </Row>
-        <Row className="mt-5">
-          <Col className="ml-3">
-            <img src="https://via.placeholder.com/200" alt="placeholder"/>
-          </Col>
-          <Col xs={9}>
-            <p> Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi
-              tomatillo melon azuki bean garlic.
-            </p>
+          </Row>
+        <Row className ="mt-5">
+            <Col className ="ml-3">
+              <img src= "https://via.placeholder.com/200" alt="placeholder"/>
+            </Col>
+            <Col xs={9} className = "pb-5">
             <p>
               Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean
               collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.
