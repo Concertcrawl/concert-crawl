@@ -9,10 +9,10 @@ export const ContactUs = () => {
           <Col xs={12} className = "py-2">
             <h1 className="text-center border-bottom border-dark"> About the Concert Crawl Team </h1>
           </Col>
-          <Col xs={2} className="py-2 pt-3">
+          <Col xs={4} className="py-2 pt-3">
             <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
           </Col>
-          <Col xs={10} className="py-2 pt-3">
+          <Col xs={8} className="py-2 pt-3">
             <p> Calvin Reed: </p>
           </Col>
           <Col xs={2} className="border-top border-dark py-2 pt-3">

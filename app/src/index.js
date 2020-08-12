@@ -13,6 +13,7 @@ import { ContactUs } from './pages/ContactUs'
 import { RegisterUser } from './pages/RegisterUser'
 import { SavedConcerts } from './pages/SavedConcerts'
 import { FavoritedBand } from './pages/FavoriteBand'
+import { LoginModal } from './pages/LoginModal'
 
 const Routing = () => (
   <>
@@ -24,7 +25,7 @@ const Routing = () => (
         <Route path="/privacy-page" component={PrivacyPage}/>
         <Route path="/contact-us" component={ContactUs}/>
         <Route path="/saved-concerts" component={SavedConcerts}/>
-        <Route path="/test" component={FavoritedBand}/>
+        <Route path="/test" component={LoginModal}/>
         <Route component={FourOhFour}/>
       </Switch>
       <Footer/>

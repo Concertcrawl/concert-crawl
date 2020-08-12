@@ -11,7 +11,7 @@ export const FavoritedBand = () => {
       <Container className="border border-dark p-0">
         <Row>
           <Col md={2} className="my-auto text-center">
-            <Button className="bg-transparent border-0"><span className="display-4 text-warning">&#11088;</span></Button>
+            <Button className="bg-transparent border-0"><span className="display-4 text-warning" role="img" aria-label="star">&#11088;</span></Button>
           </Col>
           <Col md={4} lg={2} className="text-center">
             <img src="https://via.placeholder.com/200" alt="placeholder">

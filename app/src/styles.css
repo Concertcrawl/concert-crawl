@@ -1,3 +1,7 @@
 .custom-modal-style {
     min-width: 50vw;
 }
+
+.form-sizing {
+    max-width: 300px;
+}
