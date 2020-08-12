@@ -7,14 +7,14 @@ export const PrivacyPage = () => {
       <Container className="border border-dark  mb-5 mt-5">
         <Row>
           <Col xs={12} className="p-0">
-            <h1 fluid className="text-center mt-3 border-bottom border-dark"> Privacy Page </h1>
+            <h1 className="text-center mt-3 border-bottom border-dark"> Privacy Page </h1>
           </Col>
         </Row>
         <Row className="mt-5">
-          <Col>
+          <Col className = "text-center mb-md-0 mb-4">
             <img src="https://via.placeholder.com/200" alt="placeholder" className = "img-fluid"/>
           </Col>
-          <Col xs={12} md={9} className="pb-5">
+          <Col xs={12} md={9} className="pb-2">
             <p>
               Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean
               collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.
