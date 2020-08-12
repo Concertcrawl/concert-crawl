@@ -10,7 +10,7 @@ export const NavBar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Item><Nav.Link href="/saved-concerts">Saved Concerts</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link href="/about">Followed Bands</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link href="/user-favorites">Followed Bands</Nav.Link></Nav.Item>
           </Nav>
           <Nav className="ml-auto">
             <Nav.Item><Nav.Link href="/register">Log In</Nav.Link></Nav.Item>
