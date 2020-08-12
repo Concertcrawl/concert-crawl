@@ -11,10 +11,10 @@ export const PrivacyPage = () => {
           </Col>
         </Row>
         <Row className="mt-5">
-          <Col className="ml-3">
-            <img src="https://via.placeholder.com/200" alt="placeholder"/>
+          <Col>
+            <img src="https://via.placeholder.com/200" alt="placeholder" className = "img-fluid"/>
           </Col>
-          <Col xs={9} className="pb-5">
+          <Col xs={12} md={9} className="pb-5">
             <p>
               Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean
               collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.
