@@ -13,8 +13,8 @@ CREATE TABLE profile (
 CREATE TABLE concert (
     concertId BINARY(16) NOT NULL,
     concertName VARCHAR(100) NOT NULL,
-    concertDate datetime NOT NULL,
-    concertTime datetime(6),
+    concertDate DATETIME NOT NULL,
+    concertTime DATETIME(6),
     concertVenueName VARCHAR(60) NOT NULL,
     concertAddress VARCHAR(80) NOT NULL,
     concertZip CHAR(5) NOT NULL,
