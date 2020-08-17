@@ -1,69 +1,61 @@
--- this is a comment in SQL (yes, the space is needed!)
--- these statements will drop the tables and re-add them
--- this is akin to reformatting and reinstalling Windows (OS X never needs a reinstall...) ;)
--- never ever ever ever ever ever ever ever ever ever ever ever ever ever ever ever ever ever ever ever
--- do this on live data!!!!
-DROP TABLE IF EXISTS `like`;
-DROP TABLE IF EXISTS image;
-DROP TABLE IF EXISTS tweet;
-DROP TABLE IF EXISTS `profile`;
-
 CREATE TABLE profile (
-    -- this creates the attribute for the primary key
-    -- auto_increment tells mySQL to number them {1, 2, 3, ...}
-    -- not null means the attribute is required!
-                         profileId BINARY(16) NOT NULL,
-                         profileActivationToken CHAR(32),
-                         profileAtHandle VARCHAR(32) NOT NULL UNIQUE,
-                         profileAvatarUrl  VARCHAR(255),
-    -- to make sure duplicate data cannot exist, create a unique index
-                         profileEmail VARCHAR(128) NOT NULL,
-    -- to make something optional, exclude the not null
-                         profileHash CHAR(97) NOT NULL,
-                         profilePhone VARCHAR(32),
-                         UNIQUE(profileEmail),
-                         UNIQUE(profileAtHandle),
-    -- this officiates the primary key for the entity
-                         PRIMARY KEY(profileId)
+    userId BINARY(16) NOT NULL,
+    userFirstName VARCHAR(30) NOT NULL,
+    userLastName VARCHAR(30) NOT NULL,
+    userProfileName VARCHAR(30) NOT NULL,
+    userEmail VARCHAR(128) NOT NULL,
+    userHashedPassword CHAR(97) NOT NULL,
+    UNIQUE(userProfileName),
+    UNIQUE(userEmail),
+    PRIMARY KEY(userId)
 );
--- create the tweet entity
-CREATE TABLE tweet (
-    -- this is for yet another primary key...
-                       tweetId BINARY(16) NOT NULL,
-    -- this is for a foreign key; auto_incremented is omitted by design
-                       tweetProfileId BINARY(16) NOT NULL,
-                       tweetContent VARCHAR(140) NOT NULL,
-    -- notice dates don't need a size parameter
-                       tweetDate DATETIME(6) NOT NULL,
-    -- this creates an index before making a foreign key
-                       INDEX(tweetProfileId),
-    -- this creates the actual foreign key relation
-                       FOREIGN KEY(tweetProfileId) REFERENCES profile(profileId),
-    -- and finally create the primary key
-                       PRIMARY KEY(tweetId)
+
+CREATE TABLE concert (
+    concertId BINARY(16) NOT NULL,
+    concertName VARCHAR(100) NOT NULL,
+    concertDate datetime NOT NULL,
+    concertTime datetime(6),
+    concertVenueName VARCHAR(60) NOT NULL,
+    concertAddress VARCHAR(80) NOT NULL,
+    concertZip CHAR(5) NOT NULL,
+    concertLat FLOAT(10, 6),
+    concertLong Float(10, 6),
+    PRIMARY KEY(concertId),
+    INDEX(concertName)
 );
--- create the tweetImage entity
-CREATE TABLE image (
-                       imageId BINARY(16) NOT NULL,
-                       imageTweetId BINARY(16) NOT NULL,
-                       imageCloudinaryToken VARCHAR(255) NOT NULL,
-                       imageUrl VARCHAR(128) NOT NULL ,
-                       INDEX(imageId),
-                       INDEX(imageTweetId),
-                       FOREIGN KEY(imageTweetId) REFERENCES tweet(tweetId),
-                       PRIMARY KEY (imageId)
+
+CREATE TABLE band (
+    bandId BINARY(16) NOT NULL,
+    bandName VARCHAR(50) NOT NULL,
+    bandGenre VARCHAR(20) NOT NULL,
+    bandDescription VARCHAR(100),
+    bandImage VARCHAR(30),
+    UNIQUE(bandName),
+    INDEX(bandName),
+    PRIMARY KEY(bandId)
 );
--- create the like entity (a weak entity from an m-to-n for profile --> tweet)
-CREATE TABLE `like` (
-    -- these are not auto_increment because they're still foreign keys
-                        likeTweetId BINARY(16) NOT NULL,
-                        likeProfileId BINARY(16) NOT NULL,
-                        likeDate DATETIME(6) NOT NULL,	-- index the foreign keys
-                        INDEX(likeProfileId),
-                        INDEX(likeTweetId),
-    -- create the foreign key relations
-                        FOREIGN KEY(likeTweetId) REFERENCES tweet(tweetId),
-                        FOREIGN KEY(likeProfileId) REFERENCES profile(profileId),
-    -- finally, create a composite foreign key with the two foreign keys
-                        PRIMARY KEY(likeProfileId, likeTweetId)
+
+CREATE TABLE concertBands (
+    concertBandsBandId BINARY(16),
+    concertBandsConcertId BINARY(16),
+    concertBandsIsHeadliner BIT,
+    FOREIGN KEY (concertBandsBandId) REFERENCES band(bandId),
+    FOREIGN KEY (concertBandsConcertId) REFERENCES concert(concertId),
+    PRIMARY KEY(concertBandsBandId, concertBandsConcertId)
+);
+
+CREATE TABLE userFavorites (
+    userFavoritesUserId BINARY(16),
+    userFavoritesBandId BINARY(16),
+    FOREIGN KEY(userFavoritesUserId) REFERENCES profile(userId),
+    FOREIGN KEY(userFavoritesBandId) REFERENCES band(bandId),
+    PRIMARY KEY(userFavoritesUserId, userFavoritesBandId)
+);
+
+CREATE TABLE userConcerts (
+    userConcertsUserId BINARY(16),
+    userConcertConcertId BINARY(16),
+    FOREIGN KEY(userConcertsUserId) REFERENCES profile(userId),
+    FOREIGN KEY(userConcertConcertId) REFERENCES concert(concertId),
+    PRIMARY KEY(userConcertsUserId, userConcertConcertId)
 );
