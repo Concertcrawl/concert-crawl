@@ -5,6 +5,7 @@ CREATE TABLE profile (
     userProfileName VARCHAR(30) NOT NULL,
     userEmail VARCHAR(128) NOT NULL,
     userHashedPassword CHAR(97) NOT NULL,
+    userZip CHAR(5),
     UNIQUE(userProfileName),
     UNIQUE(userEmail),
     PRIMARY KEY(userId)
@@ -59,3 +60,24 @@ CREATE TABLE userConcerts (
     FOREIGN KEY(userConcertConcertId) REFERENCES concert(concertId),
     PRIMARY KEY(userConcertsUserId, userConcertConcertId)
 );
+
+
+
+-- Necessary user functions
+-- Creating Profile:  INSERT INTO profile(userId, userFirstName, userLastName, userProfileName, userEmail, userHashedPassword) VALUES (UUID_TO_BIN("placeholderUUID"), "John", "Doe", "JohnDoe", "johndoe@doe.edu", "placeholderHash");
+-- Updating Password: UPDATE profile SET userPassword = "placeholderHash" WHERE userId = UUID_TO_BIN("placeholderUUID");
+-- Updating FirstName: UPDATE profile SET userFirstName = "placeholderFirstName" WHERE userId = UUID_TO_BIN("placeholderUUID");
+-- Updating Location: UPDATE profile SET userZip = "12345" WHERE userId = UUID_TO_BIN("placeholderUUID");
+-- Delete User Account: DELETE FROM profile WHERE userId = UUID_TO_BIN("placeholderUUID");
+
+-- Necessary concert creation functions
+-- Creating concert: INSERT INTO concert(concertId, concertName, concertDate, concertTime, concertVenueName, concertAddress, concertZip, concertLat, concertLong) VALUES (UUID_TO_BIN("placeholderUUID"), "Some Concert", "Some Date", "Some Time", "Some Venue", "Some Address", "12345", "1234567890.123456", "1234567890.123456");
+-- Deleting concert: DELETE FROM concert WHERE concertId = UUID_TO_BIN("placeholderUUID");
+
+-- Necessary band creation functions
+-- Creating band: INSERT INTO band(bandId, bandName, bandGenre, bandDescription, bandImage) VALUES (UUID_TO_BIN("placeholderUUID"), "Some Band Name", "Band Genre", "Some long description", "Some Band Image Link");
+
+-- Necessary concert search functions
+-- Finding by location: SELECT concertName, concertDate, concertTime, concertVenueName, concertAddress
+-- Finding by band:
+
