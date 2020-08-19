@@ -78,6 +78,13 @@ CREATE TABLE userConcerts (
 -- Creating band: INSERT INTO band(bandId, bandName, bandGenre, bandDescription, bandImage) VALUES (UUID_TO_BIN("placeholderUUID"), "Some Band Name", "Band Genre", "Some long description", "Some Band Image Link");
 
 -- Necessary concert search functions
--- Finding by location: SELECT concertName, concertDate, concertTime, concertVenueName, concertAddress
--- Finding by band:
+-- Finding by location: SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertAddress, band.bandName, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE concert.concertZip = "87102";
+-- Finding by band: SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertAddress, band.bandName, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE band.bandName = "Test Band";
+-- Finding by genre: SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertAddress, band.bandName, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE band.bandGenre = "Band Genre";
+-- Finding by date: SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertAddress, band.bandName, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE concert.concertDate <= "2020-12-31";
+-- Finding by date and location:
+-- Finding by genre and location:
+-- Finding by genre and date:
+-- Finding by genre, date, and location:
+
 
