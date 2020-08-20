@@ -1,8 +1,31 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button, Col, Container, Form, Jumbotron, Row } from 'react-bootstrap'
 import { SearchResult } from './SearchResult'
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css"
+
+
 
 export const Home = () => {
+
+
+  const initialState = {search: "", genre: "", location: "", sDate: "", eDate: ""}
+  const [eachEntry, setEachEntry] = useState(initialState);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  const {search, genre, location} = eachEntry;
+
+  const handleInputChange = e => {
+    setEachEntry({...eachEntry, [e.target.name]: e.target.value});
+  }
+
+  const handleSubmit = () => {
+    eachEntry.sDate = startDate.toISOString().split('T')[0];
+    eachEntry.eDate = endDate.toISOString().split('T')[0];
+    console.log(eachEntry)
+  }
+
   return (
     <>
       <Container fluid className="bg-light p-0">
@@ -28,32 +51,66 @@ export const Home = () => {
         <Container fluid className="bg-dark py-3">
           <Container className="mb-3 text-light">
             <Form>
-              <Form.Group>
+              <Form.Group controlId='searchField'>
                 <Form.Label className="mx-auto"><h2>Concert Search</h2></Form.Label>
-                <Form.Control type="text"/>
+                <Form.Control
+                  type="text"
+                  name="search"
+                  value={search}
+                  onChange={handleInputChange}
+                />
               </Form.Group>
               <Form.Group>
                 <Row>
                   <Col xs={6} md={3} className="ml-md-5">
                     <Form.Label>Genre</Form.Label>
-                    <Form.Control type="text"/>
+                    <Form.Control
+                      type="text"
+                      name="genre"
+                      value={genre}
+                      onChange={handleInputChange}
+                    />
                   </Col>
                   <Col xs={6} md={3}>
                     <Form.Label>Location</Form.Label>
-                    <Form.Control type="text"/>
+                    <Form.Control
+                      type="text"
+                      name="location"
+                      value={location}
+                      onChange={handleInputChange}
+                    />
                   </Col>
                   <Col xs={5} md={2} className="ml-3 ml-md-0">
-                    <Form.Label>Start Date</Form.Label>
-                    <Form.Control type="text"/>
+                    <Form.Label>
+                      Start Date
+                    </Form.Label>
+                    <DatePicker
+                      className="form-control"
+                      selected={startDate}
+                      onChange={(date) => {setStartDate(date); if (date > endDate) {setEndDate(date);}}}
+                      selectsStart
+                      startDate={startDate}
+                      endDate={startDate}
+                    />
                   </Col>
                   <h1 className="display-3">-</h1>
                   <Col xs={5} md={2}>
-                    <Form.Label>End Date</Form.Label>
-                    <Form.Control type="text"/>
+                    <Form.Label>
+                      End Date
+                    </Form.Label>
+                    <DatePicker
+                      className="form-control"
+                      selected={endDate}
+                      onChange={date => setEndDate(date)}
+                      selectsEnd
+                      startDate={startDate}
+                      endDate={endDate}
+                      minDate={startDate}
+                    />
                   </Col>
                 </Row>
               </Form.Group>
-              <Button variant="primary" size="lg" block>
+              <Button onClick={handleSubmit} variant="primary" size="lg" block>
                 Search!
               </Button>
             </Form>
