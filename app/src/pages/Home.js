@@ -9,12 +9,12 @@ import "react-datepicker/dist/react-datepicker.css"
 export const Home = () => {
 
 
-  const initialState = {search: "", genre: "", location: "", sDate: "", eDate: ""}
+  const initialState = {band: "", genre: "", location: "", sDate: "", eDate: ""}
   const [eachEntry, setEachEntry] = useState(initialState);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
-  const {search, genre, location} = eachEntry;
+  const {band, genre, location} = eachEntry;
 
   const handleInputChange = e => {
     setEachEntry({...eachEntry, [e.target.name]: e.target.value});
@@ -51,12 +51,12 @@ export const Home = () => {
         <Container fluid className="bg-dark py-3">
           <Container className="mb-3 text-light">
             <Form>
-              <Form.Group controlId='searchField'>
-                <Form.Label className="mx-auto"><h2>Concert Search</h2></Form.Label>
+              <Form.Group controlId='bandField'>
+                <Form.Label className="mx-auto"><h2>Band Search</h2></Form.Label>
                 <Form.Control
                   type="text"
-                  name="search"
-                  value={search}
+                  name="band"
+                  value={band}
                   onChange={handleInputChange}
                 />
               </Form.Group>

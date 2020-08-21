@@ -16,9 +16,9 @@ CREATE TABLE concert (
     concertName VARCHAR(100) NOT NULL,
     concertDate DATETIME NOT NULL,
     concertTime DATETIME(6),
-    concertVenueName VARCHAR(60) NOT NULL,
-    concertAddress VARCHAR(80) NOT NULL,
-    concertZip CHAR(5) NOT NULL,
+    concertVenueName VARCHAR(60),
+    concertAddress VARCHAR(80),
+    concertZip CHAR(5),
     concertLat FLOAT(10, 6),
     concertLong Float(10, 6),
     PRIMARY KEY(concertId),
@@ -28,8 +28,8 @@ CREATE TABLE concert (
 CREATE TABLE band (
     bandId BINARY(16) NOT NULL,
     bandName VARCHAR(50) NOT NULL,
-    bandGenre VARCHAR(20) NOT NULL,
-    bandDescription VARCHAR(100),
+    bandGenre VARCHAR(20),
+    bandDescription VARCHAR(1000),
     bandImage VARCHAR(30),
     UNIQUE(bandName),
     INDEX(bandName),
@@ -61,8 +61,6 @@ CREATE TABLE userConcerts (
     PRIMARY KEY(userConcertsUserId, userConcertConcertId)
 );
 
-
-
 -- Necessary user functions
 -- Creating Profile:  INSERT INTO profile(userId, userFirstName, userLastName, userProfileName, userEmail, userHashedPassword) VALUES (UUID_TO_BIN("placeholderUUID"), "John", "Doe", "JohnDoe", "johndoe@doe.edu", "placeholderHash");
 -- Updating Password: UPDATE profile SET userPassword = "placeholderHash" WHERE userId = UUID_TO_BIN("placeholderUUID");
@@ -70,12 +68,30 @@ CREATE TABLE userConcerts (
 -- Updating Location: UPDATE profile SET userZip = "12345" WHERE userId = UUID_TO_BIN("placeholderUUID");
 -- Delete User Account: DELETE FROM profile WHERE userId = UUID_TO_BIN("placeholderUUID");
 
+-- Followed band functions
+-- Add Band to Followed Band: INSERT INTO userFavorites(userFavoritesUserId, userFavoritesBandId) VALUES
+-- Add Concert to Followed Concert: INSERT INTO userConcerts(userConcertsUserId, userConcertConcertId) VALUES
+-- Remove Band from Followed Band: DELETE FROM userFavorites WHERE userFavoritesUserId =
+-- Remove Concert from Followed Concert: DELETE FROM userConcerts WHERE userConcertsUserId =
+
+
 -- Necessary concert creation functions
--- Creating concert: INSERT INTO concert(concertId, concertName, concertDate, concertTime, concertVenueName, concertAddress, concertZip, concertLat, concertLong) VALUES (UUID_TO_BIN("placeholderUUID"), "Some Concert", "Some Date", "Some Time", "Some Venue", "Some Address", "12345", "1234567890.123456", "1234567890.123456");
+-- Creating concert: INSERT INTO concert(concertId, concertName, concertDate, concertTime, concertVenueName, concertAddress, concertZip, concertLat, concertLong) VALUES (UUID_TO_BIN("fb257fc5-2cbc-489b-bb02-a71d40f31ff6"), "Some Concert", "2020-12-30", "2020-12-30 21:00:00", "Some Venue", "Some Address", "12345", "1234567890.123456", "1234567890.123456");
 -- Deleting concert: DELETE FROM concert WHERE concertId = UUID_TO_BIN("placeholderUUID");
 
 -- Necessary band creation functions
--- Creating band: INSERT INTO band(bandId, bandName, bandGenre, bandDescription, bandImage) VALUES (UUID_TO_BIN("placeholderUUID"), "Some Band Name", "Band Genre", "Some long description", "Some Band Image Link");
+-- Creating band: INSERT INTO band(bandId, bandName, bandGenre, bandDescription, bandImage) VALUES (UUID_TO_BIN("a812b8d8-1819-400e-9771-2176bf82579c"), "Test Band Name", "Test Genre", "Some long description", "Some Band Image Link");
+
+
+
+
+
+
+
+
+
+
+
 
 -- Necessary concert search functions
 -- Finding by location: SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertAddress, band.bandName, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE concert.concertZip = "87102";
