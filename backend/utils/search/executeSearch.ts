@@ -33,7 +33,7 @@ export async function executeSearch() {
     // }
     // console.log(sql)
     //
-    let [results] = await mySqlConnection.execute('SELECT * FROM `band` WHERE `bandGenre` = ?', ["Test Genre"])
+    let [results] = await mySqlConnection.execute('SELECT * FROM `band`')
     console.log(results)
     return "Does this work?";
 }
