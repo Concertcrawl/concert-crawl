@@ -60,7 +60,6 @@ function dataDownloader(): Promise<any> {
                     }
                     const mySqlConnection = await connect()
                     const createPosts = async (array: any[]) => {
-                        const posts: Post[] = []
                         for (let currentPost of array) {
                             if (!currentPost.name.includes("Megaticket") && !currentPost.classifications[0].genre.name.includes('Theatre')) {
                                 let post: Post = {
@@ -69,9 +68,9 @@ function dataDownloader(): Promise<any> {
                                     concertGenre: currentPost.classifications[0].genre.name,
                                     concertDate: currentPost.dates.start.localDate,
                                     concertTime: currentPost.dates.start?.localTime ?? '00:00:000',
-                                    concertVenue: currentPost._embedded.venues[0].name,
-                                    concertAddress: currentPost._embedded.venues[0].address.line1 + ' ' + currentPost._embedded.venues[0].city.name + ' ' + currentPost._embedded.venues[0].state.stateCode,
-                                    concertZip: currentPost._embedded.venues[0].postalCode,
+                                    concertVenue: currentPost._embedded.venues[0]?.name,
+                                    concertAddress: currentPost._embedded.venues[0]?.address.line1 + ' ' + currentPost._embedded.venues[0].city.name + ' ' + currentPost._embedded.venues[0].state.stateCode,
+                                    concertZip: currentPost._embedded.venues[0]?.postalCode,
                                     concertLat: currentPost._embedded.venues[0].location?.latitude ?? 123.1234,
                                     concertLong: currentPost._embedded.venues[0].location?.longitude ?? 123.1234,
                                     concertBands: currentPost._embedded?.attractions
@@ -90,31 +89,33 @@ function dataDownloader(): Promise<any> {
                                 } catch (error) {
                                     console.log(post)
                                 }
-                                for (let j = 0; j < post.concertBands.length; j++) {
-                                    if (post.concertBands[j] == post.concertBands[0]) {
-                                        let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[0].name])
-                                        console.log(storedUuid[0])
+                                if (post.concertBands.length > 0) {
+                                    for (let j = 0; j < post.concertBands.length; j++) {
+                                        if (post.concertBands[j] == post.concertBands[0] && currentPost._embedded?.attractions[0].name != undefined) {
+                                            let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[0].name])
+                                            console.log(storedUuid[0])
 
-                                        // @ts-ignore
-                                        if (storedUuid[0] == '') {
-                                            let headLinerUuid = uuidv4()
-                                            await mySqlConnection.execute(insertBand, [headLinerUuid, currentPost._embedded?.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name])
-                                            await mySqlConnection.execute(insertConcertBand, [post.concertUuid, headLinerUuid, 1])
-                                        } else {
                                             // @ts-ignore
-                                            await mySqlConnection.execute(insertConcertBand, [post.concertUuid, storedUuid[0][0].uuid, 1])
-                                        }
-                                    } else {
-                                        let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[j].name])
-                                        console.log(storedUuid[0])
-                                        // @ts-ignore
-                                        if (storedUuid[0] == '') {
-                                            let bandsUuid = uuidv4()
-                                            await mySqlConnection.execute(insertBand, [bandsUuid, currentPost._embedded?.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name])
-                                            await mySqlConnection.execute(insertConcertBand, [post.concertUuid, bandsUuid, 0])
-                                        } else {
+                                            if (storedUuid[0] == '') {
+                                                let headLinerUuid = uuidv4()
+                                                await mySqlConnection.execute(insertBand, [headLinerUuid, currentPost._embedded?.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name])
+                                                await mySqlConnection.execute(insertConcertBand, [post.concertUuid, headLinerUuid, 1])
+                                            } else {
+                                                // @ts-ignore
+                                                await mySqlConnection.execute(insertConcertBand, [post.concertUuid, storedUuid[0][0].uuid, 1])
+                                            }
+                                        } else if (currentPost._embedded?.attractions[j].name != undefined) {
+                                            let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[j].name])
+                                            console.log(storedUuid[0])
                                             // @ts-ignore
-                                            await mySqlConnection.execute(insertConcertBand, [post.concertUuid, storedUuid[0][0].uuid, 0])
+                                            if (storedUuid[0] == '') {
+                                                let bandsUuid = uuidv4()
+                                                await mySqlConnection.execute(insertBand, [bandsUuid, currentPost._embedded?.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name])
+                                                await mySqlConnection.execute(insertConcertBand, [post.concertUuid, bandsUuid, 0])
+                                            } else {
+                                                // @ts-ignore
+                                                await mySqlConnection.execute(insertConcertBand, [post.concertUuid, storedUuid[0][0].uuid, 0])
+                                            }
                                         }
                                     }
                                 }
@@ -126,6 +127,7 @@ function dataDownloader(): Promise<any> {
 
                 } catch (error) {
                     console.error(error)
+                    console.log(`Error at state: ${states[i]}, page ${page}.`)
                 }
             } while (page < maxPage)
             console.log(`Download of ${states[i]} complete!`)

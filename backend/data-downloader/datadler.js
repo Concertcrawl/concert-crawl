@@ -106,14 +106,13 @@ function dataDownloader() {
                                                     case 2:
                                                         mySqlConnection_1 = _a.sent();
                                                         createPosts = function (array) { return __awaiter(_this, void 0, void 0, function () {
-                                                            var posts, _i, array_1, currentPost, post, insertBand, insertConcertBand, mySqlConcertQuery, selectBandUuid, error_2, j, storedUuid, headLinerUuid, storedUuid, bandsUuid;
-                                                            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
-                                                            return __generator(this, function (_m) {
-                                                                switch (_m.label) {
+                                                            var _i, array_1, currentPost, post, insertBand, insertConcertBand, mySqlConcertQuery, selectBandUuid, error_2, j, storedUuid, headLinerUuid, storedUuid, bandsUuid;
+                                                            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r;
+                                                            return __generator(this, function (_s) {
+                                                                switch (_s.label) {
                                                                     case 0:
-                                                                        posts = [];
                                                                         _i = 0, array_1 = array;
-                                                                        _m.label = 1;
+                                                                        _s.label = 1;
                                                                     case 1:
                                                                         if (!(_i < array_1.length)) return [3 /*break*/, 21];
                                                                         currentPost = array_1[_i];
@@ -124,75 +123,78 @@ function dataDownloader() {
                                                                             concertGenre: currentPost.classifications[0].genre.name,
                                                                             concertDate: currentPost.dates.start.localDate,
                                                                             concertTime: (_b = (_a = currentPost.dates.start) === null || _a === void 0 ? void 0 : _a.localTime) !== null && _b !== void 0 ? _b : '00:00:000',
-                                                                            concertVenue: currentPost._embedded.venues[0].name,
-                                                                            concertAddress: currentPost._embedded.venues[0].address.line1 + ' ' + currentPost._embedded.venues[0].city.name + ' ' + currentPost._embedded.venues[0].state.stateCode,
-                                                                            concertZip: currentPost._embedded.venues[0].postalCode,
-                                                                            concertLat: (_d = (_c = currentPost._embedded.venues[0].location) === null || _c === void 0 ? void 0 : _c.latitude) !== null && _d !== void 0 ? _d : 123.1234,
-                                                                            concertLong: (_f = (_e = currentPost._embedded.venues[0].location) === null || _e === void 0 ? void 0 : _e.longitude) !== null && _f !== void 0 ? _f : 123.1234,
-                                                                            concertBands: (_g = currentPost._embedded) === null || _g === void 0 ? void 0 : _g.attractions
+                                                                            concertVenue: (_c = currentPost._embedded.venues[0]) === null || _c === void 0 ? void 0 : _c.name,
+                                                                            concertAddress: ((_d = currentPost._embedded.venues[0]) === null || _d === void 0 ? void 0 : _d.address.line1) + ' ' + currentPost._embedded.venues[0].city.name + ' ' + currentPost._embedded.venues[0].state.stateCode,
+                                                                            concertZip: (_e = currentPost._embedded.venues[0]) === null || _e === void 0 ? void 0 : _e.postalCode,
+                                                                            concertLat: (_g = (_f = currentPost._embedded.venues[0].location) === null || _f === void 0 ? void 0 : _f.latitude) !== null && _g !== void 0 ? _g : 123.1234,
+                                                                            concertLong: (_j = (_h = currentPost._embedded.venues[0].location) === null || _h === void 0 ? void 0 : _h.longitude) !== null && _j !== void 0 ? _j : 123.1234,
+                                                                            concertBands: (_k = currentPost._embedded) === null || _k === void 0 ? void 0 : _k.attractions
                                                                         };
                                                                         insertBand = "INSERT INTO band(bandId, bandName, bandGenre) VALUES (UUID_TO_BIN(?), ?, ?)";
                                                                         insertConcertBand = "INSERT INTO concertBands(concertBandsConcertId, concertBandsBandId, concertBandsIsHeadliner) VALUES (UUID_TO_BIN(?), UUID_TO_BIN(?), ?)";
                                                                         mySqlConcertQuery = "INSERT INTO concert(concertId, concertName, concertGenre, concertDate, concertTime, concertVenueName, concertAddress, concertZip, concertLat, concertLong) VALUES (UUID_TO_BIN(:concertUuid), :concertName, :concertGenre, :concertDate, :concertTime, :concertVenue, :concertAddress, :concertZip, :concertLat, :concertLong)";
                                                                         selectBandUuid = "SELECT BIN_TO_UUID(band.bandId) AS uuid FROM band WHERE band.bandName = ?";
-                                                                        _m.label = 2;
+                                                                        _s.label = 2;
                                                                     case 2:
-                                                                        _m.trys.push([2, 4, , 5]);
+                                                                        _s.trys.push([2, 4, , 5]);
                                                                         return [4 /*yield*/, mySqlConnection_1.execute(mySqlConcertQuery, post)];
                                                                     case 3:
-                                                                        _m.sent();
+                                                                        _s.sent();
                                                                         return [3 /*break*/, 5];
                                                                     case 4:
-                                                                        error_2 = _m.sent();
+                                                                        error_2 = _s.sent();
                                                                         console.log(post);
                                                                         return [3 /*break*/, 5];
                                                                     case 5:
+                                                                        if (!(post.concertBands.length > 0)) return [3 /*break*/, 20];
                                                                         j = 0;
-                                                                        _m.label = 6;
+                                                                        _s.label = 6;
                                                                     case 6:
                                                                         if (!(j < post.concertBands.length)) return [3 /*break*/, 20];
-                                                                        if (!(post.concertBands[j] == post.concertBands[0])) return [3 /*break*/, 13];
-                                                                        return [4 /*yield*/, mySqlConnection_1.execute(selectBandUuid, [(_h = currentPost._embedded) === null || _h === void 0 ? void 0 : _h.attractions[0].name])];
+                                                                        if (!(post.concertBands[j] == post.concertBands[0] && ((_l = currentPost._embedded) === null || _l === void 0 ? void 0 : _l.attractions[0].name) != undefined)) return [3 /*break*/, 13];
+                                                                        return [4 /*yield*/, mySqlConnection_1.execute(selectBandUuid, [(_m = currentPost._embedded) === null || _m === void 0 ? void 0 : _m.attractions[0].name])];
                                                                     case 7:
-                                                                        storedUuid = _m.sent();
+                                                                        storedUuid = _s.sent();
                                                                         console.log(storedUuid[0]);
                                                                         if (!(storedUuid[0] == '')) return [3 /*break*/, 10];
                                                                         headLinerUuid = uuid_1.v4();
-                                                                        return [4 /*yield*/, mySqlConnection_1.execute(insertBand, [headLinerUuid, (_j = currentPost._embedded) === null || _j === void 0 ? void 0 : _j.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name])];
+                                                                        return [4 /*yield*/, mySqlConnection_1.execute(insertBand, [headLinerUuid, (_o = currentPost._embedded) === null || _o === void 0 ? void 0 : _o.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name])];
                                                                     case 8:
-                                                                        _m.sent();
+                                                                        _s.sent();
                                                                         return [4 /*yield*/, mySqlConnection_1.execute(insertConcertBand, [post.concertUuid, headLinerUuid, 1])];
                                                                     case 9:
-                                                                        _m.sent();
+                                                                        _s.sent();
                                                                         return [3 /*break*/, 12];
                                                                     case 10: 
                                                                     // @ts-ignore
                                                                     return [4 /*yield*/, mySqlConnection_1.execute(insertConcertBand, [post.concertUuid, storedUuid[0][0].uuid, 1])];
                                                                     case 11:
                                                                         // @ts-ignore
-                                                                        _m.sent();
-                                                                        _m.label = 12;
+                                                                        _s.sent();
+                                                                        _s.label = 12;
                                                                     case 12: return [3 /*break*/, 19];
-                                                                    case 13: return [4 /*yield*/, mySqlConnection_1.execute(selectBandUuid, [(_k = currentPost._embedded) === null || _k === void 0 ? void 0 : _k.attractions[j].name])];
+                                                                    case 13:
+                                                                        if (!(((_p = currentPost._embedded) === null || _p === void 0 ? void 0 : _p.attractions[j].name) != undefined)) return [3 /*break*/, 19];
+                                                                        return [4 /*yield*/, mySqlConnection_1.execute(selectBandUuid, [(_q = currentPost._embedded) === null || _q === void 0 ? void 0 : _q.attractions[j].name])];
                                                                     case 14:
-                                                                        storedUuid = _m.sent();
+                                                                        storedUuid = _s.sent();
                                                                         console.log(storedUuid[0]);
                                                                         if (!(storedUuid[0] == '')) return [3 /*break*/, 17];
                                                                         bandsUuid = uuid_1.v4();
-                                                                        return [4 /*yield*/, mySqlConnection_1.execute(insertBand, [bandsUuid, (_l = currentPost._embedded) === null || _l === void 0 ? void 0 : _l.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name])];
+                                                                        return [4 /*yield*/, mySqlConnection_1.execute(insertBand, [bandsUuid, (_r = currentPost._embedded) === null || _r === void 0 ? void 0 : _r.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name])];
                                                                     case 15:
-                                                                        _m.sent();
+                                                                        _s.sent();
                                                                         return [4 /*yield*/, mySqlConnection_1.execute(insertConcertBand, [post.concertUuid, bandsUuid, 0])];
                                                                     case 16:
-                                                                        _m.sent();
+                                                                        _s.sent();
                                                                         return [3 /*break*/, 19];
                                                                     case 17: 
                                                                     // @ts-ignore
                                                                     return [4 /*yield*/, mySqlConnection_1.execute(insertConcertBand, [post.concertUuid, storedUuid[0][0].uuid, 0])];
                                                                     case 18:
                                                                         // @ts-ignore
-                                                                        _m.sent();
-                                                                        _m.label = 19;
+                                                                        _s.sent();
+                                                                        _s.label = 19;
                                                                     case 19:
                                                                         j++;
                                                                         return [3 /*break*/, 6];
@@ -212,6 +214,7 @@ function dataDownloader() {
                                                     case 4:
                                                         error_1 = _a.sent();
                                                         console.error(error_1);
+                                                        console.log("Error at state: " + states[i] + ", page " + page + ".");
                                                         return [3 /*break*/, 5];
                                                     case 5: return [2 /*return*/];
                                                 }
