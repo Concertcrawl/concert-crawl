@@ -1,0 +1,97 @@
+import {connect} from "../src/database";
+import {throws} from "assert";
+
+require('dotenv').config()
+
+const axios = require('axios')
+
+interface Post {
+    concertName: string | null,
+    concertGenre: number,
+    concertDate: number,
+    concertTime: number|null,
+    concertVenue: string|null,
+    concertAddress: string|null,
+    concertZip: number|null,
+    concertLat?: number|string,
+    concertLong?: number|string
+}
+
+function dataDownloader(): Promise<any> {
+    return main()
+
+    async function main() {
+        try {
+            await downloadPosts()
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+
+    async function downloadPosts() {
+        const url = `https://app.ticketmaster.com/discovery/v2/events.json?countryCode=US`
+        let maxPage = 0
+        let states = ['AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY'];
+        for (let i = 0; i < states.length; i++) {
+            let page = 0;
+            do {
+                try {
+                    const {data} =
+                        await axios.get(url, {
+                            params: {
+                                apikey: process.env.TICKETMASTER_API_KEY,
+                                page: ++page,
+                                classificationName: 'music',
+                                size: 100,
+                                stateCode: states[i]
+                            }
+                        })
+                    const correctedData = data._embedded.events
+                    if (data.page.totalPages > 9) {
+                        maxPage = 9;
+                    } else {
+                    maxPage = data.page.totalPages
+                    }
+                    const mySqlConnection = await connect()
+                    const createPosts = async (array: any[]) => {
+                        const posts: Post[] = []
+                        for (let currentPost of array) {
+                            if (!currentPost.name.includes("Megaticket") && !currentPost.classifications[0].genre.name.includes('Theatre')) {
+                                let post: Post = {
+                                    concertName: currentPost.name,
+                                    concertGenre: currentPost.classifications[0].genre.name,
+                                    concertDate: currentPost.dates.start.localDate,
+                                    concertTime: currentPost.dates.start?.localTime ?? '00:00:000',
+                                    concertVenue: currentPost._embedded.venues[0].name,
+                                    concertAddress: currentPost._embedded.venues[0].address.line1 + ' ' + currentPost._embedded.venues[0].city.name + ' ' + currentPost._embedded.venues[0].state.stateCode,
+                                    concertZip: currentPost._embedded.venues[0].postalCode,
+                                    concertLat: currentPost._embedded.venues[0].location?.latitude ?? 123.1234,
+                                    concertLong: currentPost._embedded.venues[0].location?.longitude ?? 123.1234
+                                }
+
+                                let mySqlQuery = "INSERT INTO concert(concertId, concertName, concertGenre, concertDate, concertTime, concertVenueName, concertAddress, concertZip, concertLat, concertLong) VALUES (UUID_TO_BIN(UUID()), :concertName, :concertGenre, :concertDate, :concertTime, :concertVenue, :concertAddress, :concertZip, :concertLat, :concertLong)"
+                                try {
+                                    await mySqlConnection.execute(mySqlQuery, post)
+                                } catch (error) {
+                                    console.log(error)
+                                    console.log(post)
+                                }
+                            }
+                        }
+                        console.log(`Downloaded page: ${page} of ${maxPage}.`)
+                    }
+                    await createPosts(correctedData)
+
+                } catch (error) {
+                    console.error(error)
+                }
+            } while (page < maxPage)
+            console.log(`Download of ${states[i]} complete!`)
+        }
+        console.log('Download finished!')
+    }
+}
+
+dataDownloader().catch(error => console.error(error))

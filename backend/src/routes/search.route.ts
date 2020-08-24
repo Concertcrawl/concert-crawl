@@ -3,6 +3,6 @@ import { searchControl } from "../controllers/search.controller";
 
 const router = Router();
 
-router.route('/').get(searchControl)
+router.route('/s=band=:band?&genre=:genre?&location=:location?&sDate=:sDate?&eDate=:eDate?').get(searchControl)
 
 export default router;
