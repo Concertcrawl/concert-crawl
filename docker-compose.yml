@@ -17,9 +17,6 @@ services:
         - ./backend/src:/home/node/app/src
         - ./backend/utils:/home/node/app/utils/
         - ./backend/tsconfig.json:/home/node/app/tsconfig.json
-        - ./backend/src:/home/node/app/src 
-        - ./backend/utils:/home/node/app/utils/ 
-        - ./backend/tsconfig.json:/home/node/app/tsconfig.json
   sql:
     build: ./sql
     # Make sure to update this to match your project.
