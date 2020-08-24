@@ -58,12 +58,6 @@ function dataDownloader(): Promise<any> {
                     else {
                         continue
                     }
-                    // if (data._embedded.events != undefined) {
-                    //     correctedData = data._embedded.events
-                    // } else {
-                    //     console.log(data._embedded)
-                    //     continue
-                    // }
                     if (data.page.totalPages > 9) {
                         maxPage = 9;
                     } else {
