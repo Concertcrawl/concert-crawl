@@ -95,12 +95,25 @@ function dataDownloader() {
                                                             })];
                                                     case 1:
                                                         data = (_a.sent()).data;
-                                                        correctedData = data._embedded.events;
+                                                        console.log(data);
+                                                        correctedData = void 0;
+                                                        if (data._embedded != undefined) {
+                                                            correctedData = data._embedded.events;
+                                                        }
+                                                        else {
+                                                            return [2 /*return*/, "continue"];
+                                                        }
+                                                        // if (data._embedded.events != undefined) {
+                                                        //     correctedData = data._embedded.events
+                                                        // } else {
+                                                        //     console.log(data._embedded)
+                                                        //     continue
+                                                        // }
                                                         if (data.page.totalPages > 9) {
                                                             maxPage = 9;
                                                         }
                                                         else {
-                                                            maxPage = data.page.totalPages;
+                                                            maxPage = data.page.totalPages - 1;
                                                         }
                                                         return [4 /*yield*/, database_1.connect()];
                                                     case 2:
@@ -125,7 +138,7 @@ function dataDownloader() {
                                                                             concertTime: (_b = (_a = currentPost.dates.start) === null || _a === void 0 ? void 0 : _a.localTime) !== null && _b !== void 0 ? _b : '00:00:000',
                                                                             concertVenue: (_c = currentPost._embedded.venues[0]) === null || _c === void 0 ? void 0 : _c.name,
                                                                             concertAddress: ((_d = currentPost._embedded.venues[0]) === null || _d === void 0 ? void 0 : _d.address.line1) + ' ' + currentPost._embedded.venues[0].city.name + ' ' + currentPost._embedded.venues[0].state.stateCode,
-                                                                            concertZip: (_e = currentPost._embedded.venues[0]) === null || _e === void 0 ? void 0 : _e.postalCode,
+                                                                            concertZip: (_e = currentPost._embedded.venues[0]) === null || _e === void 0 ? void 0 : _e.postalCode.substring(0, 5),
                                                                             concertLat: (_g = (_f = currentPost._embedded.venues[0].location) === null || _f === void 0 ? void 0 : _f.latitude) !== null && _g !== void 0 ? _g : 123.1234,
                                                                             concertLong: (_j = (_h = currentPost._embedded.venues[0].location) === null || _h === void 0 ? void 0 : _h.longitude) !== null && _j !== void 0 ? _j : 123.1234,
                                                                             concertBands: (_k = currentPost._embedded) === null || _k === void 0 ? void 0 : _k.attractions
@@ -146,7 +159,7 @@ function dataDownloader() {
                                                                         console.log(post);
                                                                         return [3 /*break*/, 5];
                                                                     case 5:
-                                                                        if (!(post.concertBands.length > 0)) return [3 /*break*/, 20];
+                                                                        if (!(post.concertBands != undefined)) return [3 /*break*/, 20];
                                                                         j = 0;
                                                                         _s.label = 6;
                                                                     case 6:
@@ -213,8 +226,7 @@ function dataDownloader() {
                                                         return [3 /*break*/, 5];
                                                     case 4:
                                                         error_1 = _a.sent();
-                                                        console.error(error_1);
-                                                        console.log("Error at state: " + states[i] + ", page " + page + ".");
+                                                        console.log(error_1);
                                                         return [3 /*break*/, 5];
                                                     case 5: return [2 /*return*/];
                                                 }

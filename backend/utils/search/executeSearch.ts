@@ -6,15 +6,15 @@ export async function executeSearch(test: any) {
     console.log(test)
 
     const params = [];
-    console.log(test.band, test.genre, test.location, test.sDate, test.eDate)
+    console.log(test.name, test.genre, test.location, test.sDate, test.eDate)
 
-    // let sql = "SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertAddress, band.bandName, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE 1 = 1";
-    let sql = "SELECT * FROM band WHERE true"
+    let sql = "SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertAddress, band.bandName, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE 1 = 1";
+    // let sql = "SELECT * FROM band WHERE true"
 
-    if (test.band != undefined) {
-        sql += ' AND band.bandName = ?'
-        params.push(test.band)
-        console.log("Band pushed.")
+    if (test.name != undefined) {
+        sql += " AND concert.concertName LIKE ?"
+        params.push("%"+test.name+"%")
+        console.log("Band pushed.", params)
     }
     if (test.genre != undefined) {
         sql += ' AND band.bandGenre = ?'
@@ -40,6 +40,6 @@ export async function executeSearch(test: any) {
     console.log(sql)
 
     let [results] = await mySqlConnection.execute(sql, params)
-    console.log(results)
+    // console.log(results)
     return results;
 }

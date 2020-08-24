@@ -52,11 +52,22 @@ function dataDownloader(): Promise<any> {
                                 stateCode: states[i]
                             }
                         })
-                    const correctedData = data._embedded.events
+                    let correctedData
+                    if (data._embedded != undefined){
+                        correctedData = data._embedded.events}
+                    else {
+                        continue
+                    }
+                    // if (data._embedded.events != undefined) {
+                    //     correctedData = data._embedded.events
+                    // } else {
+                    //     console.log(data._embedded)
+                    //     continue
+                    // }
                     if (data.page.totalPages > 9) {
                         maxPage = 9;
                     } else {
-                        maxPage = data.page.totalPages
+                        maxPage = data.page.totalPages - 1
                     }
                     const mySqlConnection = await connect()
                     const createPosts = async (array: any[]) => {
@@ -70,7 +81,7 @@ function dataDownloader(): Promise<any> {
                                     concertTime: currentPost.dates.start?.localTime ?? '00:00:000',
                                     concertVenue: currentPost._embedded.venues[0]?.name,
                                     concertAddress: currentPost._embedded.venues[0]?.address.line1 + ' ' + currentPost._embedded.venues[0].city.name + ' ' + currentPost._embedded.venues[0].state.stateCode,
-                                    concertZip: currentPost._embedded.venues[0]?.postalCode,
+                                    concertZip: currentPost._embedded.venues[0]?.postalCode.substring(0, 5),
                                     concertLat: currentPost._embedded.venues[0].location?.latitude ?? 123.1234,
                                     concertLong: currentPost._embedded.venues[0].location?.longitude ?? 123.1234,
                                     concertBands: currentPost._embedded?.attractions
@@ -89,7 +100,7 @@ function dataDownloader(): Promise<any> {
                                 } catch (error) {
                                     console.log(post)
                                 }
-                                if (post.concertBands.length > 0) {
+                                if (post.concertBands != undefined) {
                                     for (let j = 0; j < post.concertBands.length; j++) {
                                         if (post.concertBands[j] == post.concertBands[0] && currentPost._embedded?.attractions[0].name != undefined) {
                                             let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[0].name])
@@ -125,8 +136,7 @@ function dataDownloader(): Promise<any> {
                     }
                     await createPosts(correctedData)
 
-                } catch (error) {
-                }
+                } catch (error) { console.log(error) }
             } while (page < maxPage)
             console.log(`Download of ${states[i]} complete!`)
         }
