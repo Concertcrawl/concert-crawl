@@ -13,7 +13,6 @@ services:
      ports:
         - 8080:4200
      volumes:
-        - ./backend:/home/node/app
         - ./backend/src:/home/node/app/src
         - ./backend/utils:/home/node/app/utils/
         - ./backend/tsconfig.json:/home/node/app/tsconfig.json

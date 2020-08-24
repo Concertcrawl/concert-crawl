@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var database_1 = require("../src/database");
+var database_1 = require("../../src/database");
 require('dotenv').config();
 var uuid_1 = require("uuid");
 var axios = require('axios');
