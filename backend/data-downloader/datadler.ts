@@ -107,8 +107,6 @@ function dataDownloader(): Promise<any> {
                                         // Determining if band is headliner.
                                         if (post.concertBands[j] == post.concertBands[0] && currentPost._embedded?.attractions[0].name != undefined) {
                                             let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[0].name])
-                                            console.log(storedUuid[0])
-
                                             // @ts-ignore
                                             // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
                                             if (storedUuid[0] == '') {
@@ -123,7 +121,6 @@ function dataDownloader(): Promise<any> {
                                         } else if (currentPost._embedded?.attractions[j].name != undefined) {
                                             // Selecting uuid from concert.
                                             let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[j].name])
-                                            console.log(storedUuid[0])
                                             // @ts-ignore
                                             // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
                                             if (storedUuid[0] == '') {
