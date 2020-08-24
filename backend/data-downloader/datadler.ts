@@ -94,14 +94,12 @@ function dataDownloader(): Promise<any> {
                                 let selectBandUuid = "SELECT BIN_TO_UUID(band.bandId) AS uuid FROM band WHERE band.bandName = ?"
 
                                 // Submitting concert information with mysql query.
-                                try {
-                                    await mySqlConnection.execute(mySqlConcertQuery, post)
-                                } catch (error) {
-                                    console.log(post)
-                                }
-
-                                // Checking if there are bands listed in concert.
                                 if (post.concertBands != undefined) {
+                                    try {
+                                        await mySqlConnection.execute(mySqlConcertQuery, post)
+                                    } catch (error) {
+                                        console.log(post)
+                                    }
                                     // Iterating through each band.
                                     for (let j = 0; j < post.concertBands.length; j++) {
                                         // Determining if band is headliner.

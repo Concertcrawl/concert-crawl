@@ -96,12 +96,14 @@ function dataDownloader() {
                                                     case 1:
                                                         data = (_a.sent()).data;
                                                         correctedData = void 0;
+                                                        // Checking if pulled data has event data, if not moving to next page or state.
                                                         if (data._embedded != undefined) {
                                                             correctedData = data._embedded.events;
                                                         }
                                                         else {
                                                             return [2 /*return*/, "continue"];
                                                         }
+                                                        // Api only allowed up to 10 pages, checking for total number of pages and setting max page based on that number.
                                                         if (data.page.totalPages > 9) {
                                                             maxPage = 9;
                                                         }
@@ -140,6 +142,7 @@ function dataDownloader() {
                                                                         insertConcertBand = "INSERT INTO concertBands(concertBandsConcertId, concertBandsBandId, concertBandsIsHeadliner) VALUES (UUID_TO_BIN(?), UUID_TO_BIN(?), ?)";
                                                                         mySqlConcertQuery = "INSERT INTO concert(concertId, concertName, concertGenre, concertDate, concertTime, concertVenueName, concertAddress, concertZip, concertLat, concertLong) VALUES (UUID_TO_BIN(:concertUuid), :concertName, :concertGenre, :concertDate, :concertTime, :concertVenue, :concertAddress, :concertZip, :concertLat, :concertLong)";
                                                                         selectBandUuid = "SELECT BIN_TO_UUID(band.bandId) AS uuid FROM band WHERE band.bandName = ?";
+                                                                        if (!(post.concertBands != undefined)) return [3 /*break*/, 20];
                                                                         _s.label = 2;
                                                                     case 2:
                                                                         _s.trys.push([2, 4, , 5]);
@@ -152,16 +155,17 @@ function dataDownloader() {
                                                                         console.log(post);
                                                                         return [3 /*break*/, 5];
                                                                     case 5:
-                                                                        if (!(post.concertBands != undefined)) return [3 /*break*/, 20];
                                                                         j = 0;
                                                                         _s.label = 6;
                                                                     case 6:
                                                                         if (!(j < post.concertBands.length)) return [3 /*break*/, 20];
                                                                         if (!(post.concertBands[j] == post.concertBands[0] && ((_l = currentPost._embedded) === null || _l === void 0 ? void 0 : _l.attractions[0].name) != undefined)) return [3 /*break*/, 13];
-                                                                        return [4 /*yield*/, mySqlConnection_1.execute(selectBandUuid, [(_m = currentPost._embedded) === null || _m === void 0 ? void 0 : _m.attractions[0].name])];
+                                                                        return [4 /*yield*/, mySqlConnection_1.execute(selectBandUuid, [(_m = currentPost._embedded) === null || _m === void 0 ? void 0 : _m.attractions[0].name])
+                                                                            // @ts-ignore
+                                                                            // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
+                                                                        ];
                                                                     case 7:
                                                                         storedUuid = _s.sent();
-                                                                        console.log(storedUuid[0]);
                                                                         if (!(storedUuid[0] == '')) return [3 /*break*/, 10];
                                                                         headLinerUuid = uuid_1.v4();
                                                                         return [4 /*yield*/, mySqlConnection_1.execute(insertBand, [headLinerUuid, (_o = currentPost._embedded) === null || _o === void 0 ? void 0 : _o.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name])];
@@ -181,10 +185,12 @@ function dataDownloader() {
                                                                     case 12: return [3 /*break*/, 19];
                                                                     case 13:
                                                                         if (!(((_p = currentPost._embedded) === null || _p === void 0 ? void 0 : _p.attractions[j].name) != undefined)) return [3 /*break*/, 19];
-                                                                        return [4 /*yield*/, mySqlConnection_1.execute(selectBandUuid, [(_q = currentPost._embedded) === null || _q === void 0 ? void 0 : _q.attractions[j].name])];
+                                                                        return [4 /*yield*/, mySqlConnection_1.execute(selectBandUuid, [(_q = currentPost._embedded) === null || _q === void 0 ? void 0 : _q.attractions[j].name])
+                                                                            // @ts-ignore
+                                                                            // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
+                                                                        ];
                                                                     case 14:
                                                                         storedUuid = _s.sent();
-                                                                        console.log(storedUuid[0]);
                                                                         if (!(storedUuid[0] == '')) return [3 /*break*/, 17];
                                                                         bandsUuid = uuid_1.v4();
                                                                         return [4 /*yield*/, mySqlConnection_1.execute(insertBand, [bandsUuid, (_r = currentPost._embedded) === null || _r === void 0 ? void 0 : _r.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name])];
