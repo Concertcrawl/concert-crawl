@@ -126,8 +126,6 @@ function dataDownloader(): Promise<any> {
                     await createPosts(correctedData)
 
                 } catch (error) {
-                    console.error(error)
-                    console.log(`Error at state: ${states[i]}, page ${page}.`)
                 }
             } while (page < maxPage)
             console.log(`Download of ${states[i]} complete!`)
