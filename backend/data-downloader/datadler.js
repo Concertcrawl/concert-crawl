@@ -95,7 +95,6 @@ function dataDownloader() {
                                                             })];
                                                     case 1:
                                                         data = (_a.sent()).data;
-                                                        console.log(data);
                                                         correctedData = void 0;
                                                         if (data._embedded != undefined) {
                                                             correctedData = data._embedded.events;
@@ -103,12 +102,6 @@ function dataDownloader() {
                                                         else {
                                                             return [2 /*return*/, "continue"];
                                                         }
-                                                        // if (data._embedded.events != undefined) {
-                                                        //     correctedData = data._embedded.events
-                                                        // } else {
-                                                        //     console.log(data._embedded)
-                                                        //     continue
-                                                        // }
                                                         if (data.page.totalPages > 9) {
                                                             maxPage = 9;
                                                         }

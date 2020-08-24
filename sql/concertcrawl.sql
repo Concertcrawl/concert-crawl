@@ -28,8 +28,8 @@ CREATE TABLE concert (
 
 CREATE TABLE band (
     bandId BINARY(16) NOT NULL,
-    bandName VARCHAR(50) NOT NULL,
-    bandGenre VARCHAR(20),
+    bandName VARCHAR(100) NOT NULL,
+    bandGenre VARCHAR(100),
     bandDescription VARCHAR(1000),
     bandImage VARCHAR(30),
     UNIQUE(bandName),

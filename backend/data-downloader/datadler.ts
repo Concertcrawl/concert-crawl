@@ -53,20 +53,25 @@ function dataDownloader(): Promise<any> {
                             }
                         })
                     let correctedData
+                    // Checking if pulled data has event data, if not moving to next page or state.
                     if (data._embedded != undefined){
                         correctedData = data._embedded.events}
                     else {
                         continue
                     }
+
+                    // Api only allowed up to 10 pages, checking for total number of pages and setting max page based on that number.
                     if (data.page.totalPages > 9) {
                         maxPage = 9;
                     } else {
                         maxPage = data.page.totalPages - 1
                     }
+                    // Declaring mysql connection.
                     const mySqlConnection = await connect()
                     const createPosts = async (array: any[]) => {
                         for (let currentPost of array) {
                             if (!currentPost.name.includes("Megaticket") && !currentPost.classifications[0].genre.name.includes('Theatre')) {
+                                // Defining post object with external data.
                                 let post: Post = {
                                     concertUuid: uuidv4(),
                                     concertName: currentPost.name,
@@ -88,19 +93,24 @@ function dataDownloader(): Promise<any> {
                                 let mySqlConcertQuery = "INSERT INTO concert(concertId, concertName, concertGenre, concertDate, concertTime, concertVenueName, concertAddress, concertZip, concertLat, concertLong) VALUES (UUID_TO_BIN(:concertUuid), :concertName, :concertGenre, :concertDate, :concertTime, :concertVenue, :concertAddress, :concertZip, :concertLat, :concertLong)"
                                 let selectBandUuid = "SELECT BIN_TO_UUID(band.bandId) AS uuid FROM band WHERE band.bandName = ?"
 
-
+                                // Submitting concert information with mysql query.
                                 try {
                                     await mySqlConnection.execute(mySqlConcertQuery, post)
                                 } catch (error) {
                                     console.log(post)
                                 }
+
+                                // Checking if there are bands listed in concert.
                                 if (post.concertBands != undefined) {
+                                    // Iterating through each band.
                                     for (let j = 0; j < post.concertBands.length; j++) {
+                                        // Determining if band is headliner.
                                         if (post.concertBands[j] == post.concertBands[0] && currentPost._embedded?.attractions[0].name != undefined) {
                                             let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[0].name])
                                             console.log(storedUuid[0])
 
                                             // @ts-ignore
+                                            // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
                                             if (storedUuid[0] == '') {
                                                 let headLinerUuid = uuidv4()
                                                 await mySqlConnection.execute(insertBand, [headLinerUuid, currentPost._embedded?.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name])
@@ -109,10 +119,13 @@ function dataDownloader(): Promise<any> {
                                                 // @ts-ignore
                                                 await mySqlConnection.execute(insertConcertBand, [post.concertUuid, storedUuid[0][0].uuid, 1])
                                             }
+                                        // All bands other than headliner.
                                         } else if (currentPost._embedded?.attractions[j].name != undefined) {
+                                            // Selecting uuid from concert.
                                             let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[j].name])
                                             console.log(storedUuid[0])
                                             // @ts-ignore
+                                            // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
                                             if (storedUuid[0] == '') {
                                                 let bandsUuid = uuidv4()
                                                 await mySqlConnection.execute(insertBand, [bandsUuid, currentPost._embedded?.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name])
