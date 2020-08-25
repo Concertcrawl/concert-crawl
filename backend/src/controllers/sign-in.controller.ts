@@ -10,15 +10,11 @@ import {selectUserByUserEmail} from "../../utils/profile/selectUserByUserEmail";
 
 export async function signInController(request: Request, response: Response, nextFunction: NextFunction) {
     try {
-
         const {userPassword} = request.body;
-
-
         passport.authenticate(
             'local',
             {session: false},
             async (err: any, passportUser: User) => {
-                console.log(passportUser)
                 const {userId, userEmail} = passportUser;
                 const signature: string = uuid();
                 const authorization: string = generateJwt({userId, userEmail}, signature);
@@ -49,7 +45,7 @@ export async function signInController(request: Request, response: Response, nex
 
                     return response.json({status: 200, data: null, message: "Sign in successful."})
                 };
-
+                //@ts-ignore
                 const isPasswordValid: boolean = passportUser && await validatePassword(passportUser.userHash, userPassword);
 
                 return isPasswordValid ? signInSuccessful() : signInFailed("Invalid email or password");
@@ -64,12 +60,12 @@ export async function signInController(request: Request, response: Response, nex
 const LocalStrategy = passportLocal.Strategy;
 
 const passportStrategy: Strategy = new LocalStrategy(
-  {
-   usernameField: 'userEmail',
-   passwordField: "userPassword"
-  },
-  async (email, password, done) => {
-      try {
+    {
+        usernameField: 'userEmail',
+        passwordField: "userPassword"
+    },
+    async (email, password, done) => {
+        try {
 
           const profile: User | undefined = await selectUserByUserEmail
           (email);

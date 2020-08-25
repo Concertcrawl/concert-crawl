@@ -4,7 +4,7 @@ CREATE TABLE user (
     userLastName VARCHAR(30) NOT NULL,
     userProfileName VARCHAR(30) NOT NULL,
     userEmail VARCHAR(128) NOT NULL,
-    userHashedPassword CHAR(97) NOT NULL,
+    userHash CHAR(97) NOT NULL,
     userActivationToken CHAR(32),
     userZip CHAR(5),
     UNIQUE(userProfileName),
@@ -64,7 +64,7 @@ CREATE TABLE userConcerts (
 );
 
 -- Necessary user functions
--- Creating Profile:  INSERT INTO profile(userId, userFirstName, userLastName, userProfileName, userEmail, userHashedPassword) VALUES (UUID_TO_BIN("placeholderUUID"), "John", "Doe", "JohnDoe", "johndoe@doe.edu", "placeholderHash");
+-- Creating Profile:  INSERT INTO profile(userId, userFirstName, userLastName, userProfileName, userEmail, userHash) VALUES (UUID_TO_BIN("placeholderUUID"), "John", "Doe", "JohnDoe", "johndoe@doe.edu", "placeholderHash");
 -- Updating Password: UPDATE profile SET userPassword = "placeholderHash" WHERE userId = UUID_TO_BIN("placeholderUUID");
 -- Updating FirstName: UPDATE profile SET userFirstName = "placeholderFirstName" WHERE userId = UUID_TO_BIN("placeholderUUID");
 -- Updating Location: UPDATE profile SET userZip = "12345" WHERE userId = UUID_TO_BIN("placeholderUUID");

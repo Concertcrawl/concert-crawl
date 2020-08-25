@@ -14,7 +14,7 @@
 
 * userEmail
 
-* userHashedPassword
+* userHash
 
 ## Concert
 

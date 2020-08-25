@@ -5,13 +5,12 @@ export async function selectUserByUserActivationToken(userActivationToken: strin
     try {
         const mysqlConnection = await connect();
 
-        const [rows] = await mysqlConnection.execute('SELECT BIN_TO_UUID(userId) as userId, userFirstName, userLastName, userProfileName, userEmail, userHashedPassword, userZip FROM user WHERE userActivationToken = :userActivationToken',
+        const [rows] = await mysqlConnection.execute('SELECT BIN_TO_UUID(userId) as userId, userFirstName, userLastName, userProfileName, userEmail, userHash, userZip FROM user WHERE userActivationToken = :userActivationToken',
             {userActivationToken});
-            console.log(rows)
 
         // @ts-ignore is required because rows need to be interacted with as an array
         return rows.length !== 0 ? {...rows[0]}
-: undefined;
+            : undefined;
 
     } catch (e) {
         console.error(e)
