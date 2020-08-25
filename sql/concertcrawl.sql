@@ -57,10 +57,10 @@ CREATE TABLE userFavorites (
 
 CREATE TABLE userConcerts (
     userConcertsUserId BINARY(16),
-    userConcertConcertId BINARY(16),
+    userConcertsConcertId BINARY(16),
     FOREIGN KEY(userConcertsUserId) REFERENCES user(userId),
-    FOREIGN KEY(userConcertConcertId) REFERENCES concert(concertId),
-    PRIMARY KEY(userConcertsUserId, userConcertConcertId)
+    FOREIGN KEY(userConcertsConcertId) REFERENCES concert(concertId),
+    PRIMARY KEY(userConcertsUserId, userConcertsConcertId)
 );
 
 -- Necessary user functions
