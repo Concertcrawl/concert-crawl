@@ -4,6 +4,7 @@ import morgan from 'morgan'
 import { indexRoutes } from './routes/index.route'
 import SearchRoute from './routes/search.route'
 import SignUpRoute from './routes/signup.route'
+import {SignInRouter} from "./routes/sign-in.route";
 
 // The following class creates the app and instantiates the server
 export class App {
@@ -35,6 +36,7 @@ export class App {
     this.app.use('/search', SearchRoute)
     this.app.use('/apis', indexRoutes)
     this.app.use('/sign-up', SignUpRoute)
+    this.app.use('/sign-in', SignInRouter)
   }
 
   // starts the server and tells the terminal to post a message that the server is running and on what port

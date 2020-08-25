@@ -8,7 +8,7 @@ export const signInValidator = {
         escape: true
     },
     userEmail: {
-        isEmail{
+        isEmail: {
             errorMessage: 'Please provide a valid email'
         },
         // Uncomment the next line to sanitize email, but it removes +1 from testing email addresses.
