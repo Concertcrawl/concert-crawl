@@ -1,4 +1,4 @@
-export interface Favorites{
+export interface FavoriteBand{
     userFavoritesUserId: string,
     userFavoritesBandId: string
 }
