@@ -10,7 +10,7 @@ const axios = require('axios')
 interface Post {
     concertUuid: string,
     concertName: string | null,
-    concertGenre: number,
+    concertGenre: string,
     concertDate: number,
     concertTime: number | null,
     concertVenue: string | null,
