@@ -3,6 +3,7 @@ import {setActivationToken, setHash} from '../../utils/auth.utils';
 import {User} from "../../utils/interfaces/User";
 import {Status} from "../../utils/interfaces/Status";
 import MailComposer from "nodemailer/lib/mail-composer";
+import { insertUser } from "../../utils/user/insertUser";
 
 const mailgun = require("mailgun-js")
 
