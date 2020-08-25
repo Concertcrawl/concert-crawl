@@ -6,8 +6,7 @@ import passportLocal, {Strategy} from 'passport-local';
 import uuid from "uuid";
 import {generateJwt, validatePassword} from "../../utils/auth.utils";
 import {User} from "../../utils/interfaces/User";
-
-//import {selectUserByUserEmail} from ...
+import {selectUserByUserEmail} from "../../utils/profile/selectUserByUserEmail";
 
 export async function signInController(request: Request, response: Response, nextFunction: NextFunction) {
     try {
@@ -72,7 +71,7 @@ const passportStrategy: Strategy = new LocalStrategy(
   async (email, password, done) => {
       try {
 
-          const profile: User | undefined = await selectUserbyUserEmail
+          const profile: User | undefined = await selectUserByUserEmail
           (email);
 
           return profile ? done(null, profile) : done(undefined, undefined,
