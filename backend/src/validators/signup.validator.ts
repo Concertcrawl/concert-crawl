@@ -48,12 +48,12 @@ export const signupValidator = {
         trim: true,
         escape: true
     },
-    // userPasswordConfirm: {
-    //     isLength: {
-    //         errorMessage: 'confirm password must be at least eight characters',
-    //         options: { min: 8 }
-    //     },
-    //     trim: true,
-    //     escape: true
-    // }
+    userPasswordConfirm: {
+        isLength: {
+            errorMessage: 'confirm password must be at least eight characters',
+            options: { min: 8 }
+        },
+        trim: true,
+        escape: true
+    }
 };
