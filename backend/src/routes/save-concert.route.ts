@@ -3,8 +3,6 @@ import {isLoggedIn} from "../controllers/isLoggedIn.controller";
 import {toggleSavedConcert} from "../controllers/toggleSavedConcert";
 import {Router} from "express";
 
-const router = Router();
-router.route('/')
+export const SaveConcert = Router();
+SaveConcert.route('/')
     .post(isLoggedIn, toggleSavedConcert)
-
-export default router

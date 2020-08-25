@@ -6,12 +6,13 @@ import {SavedConcert} from "../../utils/interfaces/SavedConcert";
 import {removeSavedConcert} from "../../utils/concert/removeSavedConcert";
 import {saveConcert} from "../../utils/concert/saveConcert";
 import {selectConcert} from "../../utils/concert/selectConcert";
+import {validationResult} from "express-validator";
 
 
 export async function toggleSavedConcert(request: Request,response: Response) {
 
     try{
-        console.log(request.body)
+        validationResult(request).throw()
         const {userConcertsConcertId} = request.body
         const user: User = request.session?.profile
         const userConcertsUserId = <string>user.userId
@@ -22,6 +23,7 @@ export async function toggleSavedConcert(request: Request,response: Response) {
         }
 
         const select = await selectConcert(savedConcert)
+        console.log(select)
 
 
         // @ts-ignore
