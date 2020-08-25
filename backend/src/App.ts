@@ -6,7 +6,7 @@ import SearchRoute from './routes/search.route'
 import SignUpRoute from './routes/signup.route'
 import {SignInRouter} from "./routes/sign-in.route";
 import {passportMiddleware} from "./lib/auth.controller";
-
+import {SignOutRoute} from "./routes/sign-out.route";
 
 const session = require("express-session");
 import passport = require('passport');
@@ -59,6 +59,7 @@ export class App {
     this.app.use('/apis', indexRoutes)
     this.app.use('/sign-up', SignUpRoute)
     this.app.use('/sign-in', SignInRouter)
+    this.app.use('/sign-out', SignOutRoute)
   }
 
   // starts the server and tells the terminal to post a message that the server is running and on what port
