@@ -1,7 +1,5 @@
 import {connect} from "../../src/database";
 import {FavoriteBand} from "../interfaces/FavoriteBand";
-import {toggleFavoritedBands} from "../../src/controllers/toggleFavoritedBands";
-
 
 export async function selectBand(favoriteBand: FavoriteBand) {
     try{
