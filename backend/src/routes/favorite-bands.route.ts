@@ -1,10 +1,10 @@
 import {connect} from "../database";
 import {isLoggedIn} from "../controllers/isLoggedIn.controller";
-import {toggleFavoriteBands} from "../controllers/toggleFavoriteBands.controller";
+import {toggleFavoritedBands} from "../controllers/toggleFavoritedBands";
 import Router from "express";
 
 const router = Router();
 router.route('/')
-  .post(isLoggedIn, toggleFavoriteBands)
+  .post(isLoggedIn, toggleFavoritedBands)
 
 export default router
