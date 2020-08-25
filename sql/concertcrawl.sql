@@ -1,4 +1,4 @@
-CREATE TABLE profile (
+CREATE TABLE user (
     userId BINARY(16) NOT NULL,
     userFirstName VARCHAR(30) NOT NULL,
     userLastName VARCHAR(30) NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE concertBands (
 CREATE TABLE userFavorites (
     userFavoritesUserId BINARY(16),
     userFavoritesBandId BINARY(16),
-    FOREIGN KEY(userFavoritesUserId) REFERENCES profile(userId),
+    FOREIGN KEY(userFavoritesUserId) REFERENCES user(userId),
     FOREIGN KEY(userFavoritesBandId) REFERENCES band(bandId),
     PRIMARY KEY(userFavoritesUserId, userFavoritesBandId)
 );
@@ -58,7 +58,7 @@ CREATE TABLE userFavorites (
 CREATE TABLE userConcerts (
     userConcertsUserId BINARY(16),
     userConcertConcertId BINARY(16),
-    FOREIGN KEY(userConcertsUserId) REFERENCES profile(userId),
+    FOREIGN KEY(userConcertsUserId) REFERENCES user(userId),
     FOREIGN KEY(userConcertConcertId) REFERENCES concert(concertId),
     PRIMARY KEY(userConcertsUserId, userConcertConcertId)
 );
