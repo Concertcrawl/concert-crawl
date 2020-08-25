@@ -5,6 +5,7 @@ CREATE TABLE profile (
     userProfileName VARCHAR(30) NOT NULL,
     userEmail VARCHAR(128) NOT NULL,
     userHashedPassword CHAR(97) NOT NULL,
+    userActivationToken CHAR(32),
     userZip CHAR(5),
     UNIQUE(userProfileName),
     UNIQUE(userEmail),

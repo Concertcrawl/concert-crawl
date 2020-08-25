@@ -3,6 +3,7 @@ import morgan from 'morgan'
 // Routes
 import { indexRoutes } from './routes/index.route'
 import SearchRoute from './routes/search.route'
+import SignUpRoute from './routes/signup.route'
 
 // The following class creates the app and instantiates the server
 export class App {
@@ -33,6 +34,7 @@ export class App {
     // TODO add "/apis"
     this.app.use('/search', SearchRoute)
     this.app.use('/apis', indexRoutes)
+    this.app.use('/sign-up', SignUpRoute)
   }
 
   // starts the server and tells the terminal to post a message that the server is running and on what port
