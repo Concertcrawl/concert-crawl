@@ -11,6 +11,7 @@ import {SignOutRoute} from "./routes/sign-out.route";
 import {SaveConcertRouter} from "./routes/save-concert.route"
 import {FavoriteBandRouter} from "./routes/favorite-bands.route"
 import {ShowFavoritedBandRouter} from "./routes/favorite-bands.route";
+import {ShowSavedConcertRouter} from "./routes/save-concert.route";
 
 const session = require("express-session");
 import passport = require('passport');
@@ -68,6 +69,7 @@ export class App {
     this.app.use('/apis/favorite-band', FavoriteBandRouter)
     this.app.use('/apis/settings', SettingsRoute)
     this.app.use('/apis/user-bands', ShowFavoritedBandRouter)
+    this.app.use('/apis/user-concerts', ShowSavedConcertRouter)
   }
 
   // starts the server and tells the terminal to post a message that the server is running and on what port
