@@ -1,45 +1,40 @@
 import {connect} from "../../src/database";
+import {Search} from "../interfaces/Search";
 
-export async function executeSearch(test: any) {
+export async function executeSearch(search: Search) {
 
     const mySqlConnection = await connect()
-    console.log(test)
 
-    const params = [];
-    console.log(test.name, test.genre, test.location, test.sDate, test.eDate)
+    let params = []
+    const {name, genre, location, sDate, eDate} = search;
 
-    let sql = "SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertAddress, band.bandName, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE 1 = 1";
-    // let sql = "SELECT * FROM band WHERE true"
+    let sql = "SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertAddress, concert.concertZip, band.bandName, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE 1 = 1";
 
-    if (test.name != undefined) {
-        sql += " AND concert.concertName LIKE ?"
-        params.push("%"+test.name+"%")
-        console.log("Band pushed.", params)
+    if (name != undefined) {
+        sql += " AND concert.concertName LIKE ? OR band.bandName LIKE ?"
+        params.push("%"+name+"%", "%"+name+"%")
+        console.log("Concert pushed.")
     }
-    if (test.genre != undefined) {
+    if (genre != undefined) {
         sql += ' AND band.bandGenre = ?'
-        params.push(test.genre)
+        params.push(genre)
         console.log("Genre pushed.")
     }
-    if (test.location != undefined) {
-        sql += ' AND concert.concertZip = ?'
-        params.push(test.location)
+    if (location != undefined) {
+        sql += ' AND concert.concertAddress LIKE ?'
+        params.push("%"+location+"%")
         console.log("Location pushed.")
     }
-    if (test.sDate != undefined) {
+    if (sDate != undefined) {
         sql += ' AND concert.date >= ?'
-        params.push(test.sDate)
+        params.push(sDate)
         console.log("sDate pushed.")
     }
-    if (test.eDate != undefined) {
+    if (eDate != undefined) {
         sql += ' AND concert.date <= ?'
-        params.push(test.eDate)
+        params.push(eDate)
         console.log("eDate pushed")
     }
-    console.log(params)
-    console.log(sql)
-
     let [results] = await mySqlConnection.execute(sql, params)
-    // console.log(results)
     return results;
 }
