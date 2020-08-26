@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import {updateFirstName, updatePassword} from "../controllers/userSettings.controller";
+import {updateFirstName, updatePassword, updateZip} from "../controllers/userSettings.controller";
 import {isLoggedIn} from "../controllers/isLoggedIn.controller";
 import {asyncValidatorController} from "../controllers/asyncValidator.controller";
-import {firstNameValidator, passwordValidator} from "../validators/settings.validator";
+import {firstNameValidator, passwordValidator, zipValidator} from "../validators/settings.validator";
 
 const {checkSchema} = require('express-validator')
 
@@ -16,5 +16,8 @@ router.route('/updateName')
 
 router.route('/updatePassword')
     .post(asyncValidatorController(checkSchema(passwordValidator)), isLoggedIn, updatePassword)
+
+router.route('/updateZip')
+    .post(asyncValidatorController(checkSchema(zipValidator)), isLoggedIn, updateZip)
 
 export default router;

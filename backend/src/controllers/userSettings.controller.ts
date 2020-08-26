@@ -2,7 +2,8 @@ import {Request, Response} from "express";
 import {User} from "../../utils/interfaces/User";
 import {updateUserFirstName} from "../../utils/profile/updateUserFirstName";
 import {updateUserPassword} from "../../utils/profile/updateUserPassword";
-import {SetUserName, SetPassword} from "../../utils/interfaces/Settings";
+import {updateUserZip} from "../../utils/profile/updateZip";
+import {SetUserName, SetPassword, SetZip} from "../../utils/interfaces/Settings";
 import {setHash, validatePassword} from "../../utils/auth.utils";
 
 export async function updateFirstName(request: Request, response: Response) {
@@ -52,6 +53,29 @@ export async function updatePassword(request: Request, response: Response) {
         }
     } else {
         return response.json({status: 400, data: null, message: "New password does not match current password."})
+    }
+
+}
+
+export async function updateZip(request: Request, response: Response) {
+    const {userZip} = request.body
+    const user: User = request.session?.profile
+    const userId = <string>user.userId
+
+    const setZip: SetZip = {
+        userId,
+        userZip
+    }
+
+    try {
+        await updateUserZip(setZip)
+        return response.json({
+            status: 200,
+            data: null,
+            message: "Zip code update was successful."
+        })
+    } catch (error) {
+        return response.json({status: 400, data: null, message: "Zip code update failed."})
     }
 
 }
