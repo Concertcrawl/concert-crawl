@@ -14,6 +14,8 @@ interface Post {
     concertDate: number,
     concertTime: number | null,
     concertVenue: string | null,
+    concertImage: string,
+    concertTicketUrl: string,
     concertAddress: string | null,
     concertZip: number | null,
     concertLat?: number | string,
@@ -46,7 +48,7 @@ function dataDownloader(): Promise<any> {
                         await axios.get(url, {
                             params: {
                                 apikey: process.env.TICKETMASTER_API_KEY,
-                                page: ++page,
+                                page: page,
                                 classificationName: 'music',
                                 size: 100,
                                 stateCode: states[i]
@@ -54,12 +56,11 @@ function dataDownloader(): Promise<any> {
                         })
                     let correctedData
                     // Checking if pulled data has event data, if not moving to next page or state.
-                    if (data._embedded != undefined){
-                        correctedData = data._embedded.events}
-                    else {
+                    if (data._embedded.hasOwnProperty('events')) {
+                        correctedData = data._embedded.events
+                    } else {
                         continue
                     }
-
                     // Api only allowed up to 10 pages, checking for total number of pages and setting max page based on that number.
                     if (data.page.totalPages > 9) {
                         maxPage = 9;
@@ -79,26 +80,28 @@ function dataDownloader(): Promise<any> {
                                     concertDate: currentPost.dates.start.localDate,
                                     concertTime: currentPost.dates.start?.localTime ?? '00:00:000',
                                     concertVenue: currentPost._embedded.venues[0]?.name,
+                                    concertImage: currentPost?.images[0].url ?? 'No Images Available',
+                                    concertTicketUrl: currentPost?.url ?? 'Tickets Not Available',
                                     concertAddress: currentPost._embedded.venues[0]?.address.line1 + ' ' + currentPost._embedded.venues[0].city.name + ' ' + currentPost._embedded.venues[0].state.stateCode,
                                     concertZip: currentPost._embedded.venues[0]?.postalCode.substring(0, 5),
                                     concertLat: currentPost._embedded.venues[0].location?.latitude ?? 123.1234,
                                     concertLong: currentPost._embedded.venues[0].location?.longitude ?? 123.1234,
                                     concertBands: currentPost._embedded?.attractions
                                 }
+                                console.log(post)
 
 
                                 // Declaring MySQL functions.
-                                let insertBand = "INSERT INTO band(bandId, bandName, bandGenre) VALUES (UUID_TO_BIN(?), ?, ?)"
+                                let insertBand = "INSERT INTO band(bandId, bandName, bandGenre, bandImage) VALUES (UUID_TO_BIN(?), ?, ?, ?)"
                                 let insertConcertBand = "INSERT INTO concertBands(concertBandsConcertId, concertBandsBandId, concertBandsIsHeadliner) VALUES (UUID_TO_BIN(?), UUID_TO_BIN(?), ?)"
-                                let mySqlConcertQuery = "INSERT INTO concert(concertId, concertName, concertGenre, concertDate, concertTime, concertVenueName, concertAddress, concertZip, concertLat, concertLong) VALUES (UUID_TO_BIN(:concertUuid), :concertName, :concertGenre, :concertDate, :concertTime, :concertVenue, :concertAddress, :concertZip, :concertLat, :concertLong)"
+                                let mySqlConcertQuery = "INSERT INTO concert(concertId, concertName, concertGenre, concertDate, concertTime, concertVenueName, concertImage, concertTicketUrl, concertAddress, concertZip, concertLat, concertLong) VALUES (UUID_TO_BIN(:concertUuid), :concertName, :concertGenre, :concertDate, :concertTime, :concertVenue, :concertImage, :concertTicketUrl, :concertAddress, :concertZip, :concertLat, :concertLong)"
                                 let selectBandUuid = "SELECT BIN_TO_UUID(band.bandId) AS uuid FROM band WHERE band.bandName = ?"
 
-                                // Submitting concert information with mysql query.
-                                if (post.concertBands != undefined) {
+                                // Checking if concert has band information, if it does submitting concert information with mysql query.
+                                if (currentPost._embedded.hasOwnProperty('attractions') && !currentPost._embedded.attractions[0].name.includes('Tour')) {
                                     try {
                                         await mySqlConnection.execute(mySqlConcertQuery, post)
                                     } catch (error) {
-                                        console.log(post)
                                     }
                                     // Iterating through each band.
                                     for (let j = 0; j < post.concertBands.length; j++) {
@@ -109,7 +112,7 @@ function dataDownloader(): Promise<any> {
                                             // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
                                             if (storedUuid[0] == '') {
                                                 let headLinerUuid = uuidv4()
-                                                await mySqlConnection.execute(insertBand, [headLinerUuid, currentPost._embedded?.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name])
+                                                await mySqlConnection.execute(insertBand, [headLinerUuid, currentPost._embedded?.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name, currentPost._embedded.attractions[0].images[0].url])
                                                 await mySqlConnection.execute(insertConcertBand, [post.concertUuid, headLinerUuid, 1])
                                             } else {
                                                 // @ts-ignore
@@ -123,7 +126,7 @@ function dataDownloader(): Promise<any> {
                                             // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
                                             if (storedUuid[0] == '') {
                                                 let bandsUuid = uuidv4()
-                                                await mySqlConnection.execute(insertBand, [bandsUuid, currentPost._embedded?.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name])
+                                                await mySqlConnection.execute(insertBand, [bandsUuid, currentPost._embedded?.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name, currentPost._embedded.attractions[j].images[0].url])
                                                 await mySqlConnection.execute(insertConcertBand, [post.concertUuid, bandsUuid, 0])
                                             } else {
                                                 // @ts-ignore
@@ -132,16 +135,24 @@ function dataDownloader(): Promise<any> {
                                         }
                                     }
                                 }
+
                             }
                         }
                         console.log(`Downloaded page: ${page} of ${maxPage}.`)
                     }
                     await createPosts(correctedData)
+                    page++
+                } catch
+                    (error) {
+                    console.log(error)
+                    page++
+                }
+            }
 
-                } catch (error) { console.log(error) }
-            } while (page < maxPage)
+            while (page <= maxPage)
             console.log(`Download of ${states[i]} complete!`)
         }
+
         console.log('Download finished!')
     }
 }

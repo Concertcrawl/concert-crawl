@@ -19,6 +19,8 @@ CREATE TABLE concert (
     concertDate DATE NOT NULL,
     concertTime TIME,
     concertVenueName VARCHAR(200),
+    concertImage VARCHAR(200),
+    concertTicketUrl VARCHAR(200),
     concertAddress VARCHAR(300),
     concertZip VARCHAR(10),
     concertLat FLOAT(10, 6),
@@ -32,7 +34,7 @@ CREATE TABLE band (
     bandName VARCHAR(100) NOT NULL,
     bandGenre VARCHAR(100),
     bandDescription VARCHAR(1000),
-    bandImage VARCHAR(30),
+    bandImage VARCHAR(200),
     UNIQUE(bandName),
     INDEX(bandName),
     PRIMARY KEY(bandId)
