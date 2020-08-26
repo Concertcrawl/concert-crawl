@@ -16,6 +16,7 @@ export async function toggleSavedConcert(request: Request,response: Response) {
         const {userConcertsConcertId} = request.body
         const user: User = request.session?.profile
         const userConcertsUserId = <string>user.userId
+        let message: string
 
         const savedConcert: SavedConcert = {
             userConcertsUserId,
@@ -29,13 +30,15 @@ export async function toggleSavedConcert(request: Request,response: Response) {
         // @ts-ignore
         if (select[0]){
             const result = await removeSavedConcert(savedConcert)
+            message = 'Concert removed successfully.'
         }else{
             const result = await saveConcert(savedConcert)
+            message = 'Concert added successfully.'
         }
 
         const status: Status = {
             status: 200,
-            message: 'Concert successfully added.',
+            message: message,
             data: null
         };
         return response.json(status)
