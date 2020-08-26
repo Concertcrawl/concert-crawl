@@ -1,8 +1,9 @@
 import {Request, Response} from "express";
 import {User} from "../../utils/interfaces/User";
 import {updateUserFirstName} from "../../utils/profile/updateUserFirstName";
+import {updateUserPassword} from "../../utils/profile/updateUserPassword";
 import {SetUserName, SetPassword} from "../../utils/interfaces/Settings";
-import {setHash} from "../../utils/auth.utils";
+import {setHash, validatePassword} from "../../utils/auth.utils";
 
 export async function updateFirstName(request: Request, response: Response) {
     const {userFirstName} = request.body
@@ -28,7 +29,7 @@ export async function updateFirstName(request: Request, response: Response) {
 }
 
 export async function updatePassword(request: Request, response: Response) {
-    const {userPassword} = request.body
+    const {userPassword, currentEnteredPass} = request.body
     const userHash = await setHash(userPassword)
     const user: User = request.session?.profile
     const userId = <string>user.userId
@@ -38,15 +39,19 @@ export async function updatePassword(request: Request, response: Response) {
         userHash
     }
 
-    try {
-        await updateUserPassword(setPassword)
-        return response.json({
-            status: 200,
-            data: null,
-            message: "First name update was successful."
-        })
-    } catch (error) {
-        return response.json({status: 400, data: null, message: "First name update failed."})
+    if (await validatePassword(user.userHash, currentEnteredPass)) {
+        try {
+            await updateUserPassword(setPassword)
+            return response.json({
+                status: 200,
+                data: null,
+                message: "Password update was successful."
+            })
+        } catch (error) {
+            return response.json({status: 400, data: null, message: "Password update failed."})
+        }
+    } else {
+        return response.json({status: 400, data: null, message: "New password does not match current password."})
     }
 
 }

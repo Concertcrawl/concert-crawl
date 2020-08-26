@@ -1,4 +1,3 @@
-import {User} from "../interfaces/User";
 import {connect} from "../../src/database";
 import {SetUserName} from "../interfaces/Settings";
 
