@@ -14,7 +14,7 @@ export async function toggleFavoritedBands(request: Request,response: Response) 
         const {userFavoritesBandId} = request.body
         const user: User = request.session?.profile
         const userFavoritesUserId = <string>user.userId
-
+        let message: string;
         const favoritedBand: FavoriteBand = {
             userFavoritesUserId,
             userFavoritesBandId
@@ -26,13 +26,15 @@ export async function toggleFavoritedBands(request: Request,response: Response) 
         // @ts-ignore
         if (select[0]){
             const result = await removeFavoritedBand(favoritedBand)
+            message='Band removed successfully.'
         }else{
             const result = await saveBand(favoritedBand)
+            message='Band added successfully.'
         }
 
         const status: Status = {
             status: 200,
-            message: 'Band successfully added.',
+            message: message,
             data: null
         };
         return response.json(status)

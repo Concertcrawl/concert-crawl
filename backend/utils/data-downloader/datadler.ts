@@ -152,8 +152,8 @@ function dataDownloader(): Promise<any> {
             while (page <= maxPage)
             console.log(`Download of ${states[i]} complete!`)
         }
-
         console.log('Download finished!')
+        return
     }
 }
 
