@@ -4,11 +4,13 @@ import morgan from 'morgan'
 import { indexRoutes } from './routes/index.route'
 import SearchRoute from './routes/search.route'
 import SignUpRoute from './routes/signup.route'
+import SettingsRoute from "./routes/settings.route"
 import {SignInRouter} from "./routes/sign-in.route";
 import {passportMiddleware} from "./lib/auth.controller";
 import {SignOutRoute} from "./routes/sign-out.route";
 import {SaveConcertRouter} from "./routes/save-concert.route"
 import {FavoriteBandRouter} from "./routes/favorite-bands.route"
+
 const session = require("express-session");
 import passport = require('passport');
 const MemoryStore = require('memorystore')(session);
@@ -63,6 +65,7 @@ export class App {
     this.app.use('/apis/sign-out', SignOutRoute)
     this.app.use('/apis/save-concert', SaveConcertRouter)
     this.app.use('/apis/favorite-band', FavoriteBandRouter)
+    this.app.use('/apis/settings', SettingsRoute)
   }
 
   // starts the server and tells the terminal to post a message that the server is running and on what port

@@ -1,8 +1,8 @@
 export const signInValidator = {
     userPassword: {
         isLength: {
-            errorMessage: 'Password must be at least five characters',
-            options: {min: 5}
+            errorMessage: 'Password must be at least eight characters',
+            options: {min: 8}
         },
         trim: true,
         escape: true

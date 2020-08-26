@@ -11,7 +11,7 @@ export const signupValidator = {
         trim: true,
         escape: true,
         isLength: {
-            errorMessage: 'First Name too long! Max 30 characters.',
+            errorMessage: 'Last Name too long! Max 30 characters.',
             options: { max: 30 }
         }
     },
@@ -28,7 +28,7 @@ export const signupValidator = {
         escape: true,
         isNumeric: true,
         isLength: {
-            errorMessage: 'Profile name must be between 5 and 30 characters.',
+            errorMessage: 'Profile name must be between 5 characters long.',
             options: { min: 5, max: 5 }
         }
     },
@@ -50,7 +50,7 @@ export const signupValidator = {
     },
     userPasswordConfirm: {
         isLength: {
-            errorMessage: 'confirm password must be at least eight characters',
+            errorMessage: 'Confirmation password must be at least eight characters',
             options: { min: 8 }
         },
         trim: true,
