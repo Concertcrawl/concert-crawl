@@ -16,6 +16,7 @@ export async function selectUserFavorites(request: Request, response: Response) 
         return response.json(status)
 
     } catch(error){
+        console.log(error)
         const status:Status = {
             status:400,
             message:"User Favorites not selected.",
