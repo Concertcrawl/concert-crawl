@@ -5,7 +5,7 @@ import {Status} from "../../utils/interfaces/Status";
 
 export async function selectUserFavorites(request: Request, response: Response) {
     try{
-        const user: User = request.session?.user
+        const user: User = request.session?.profile
         const userId = <string>user.userId
         const select = await selectUserFavoritedBands(userId)
         const status:Status = {

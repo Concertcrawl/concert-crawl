@@ -11,4 +11,4 @@ FavoriteBandRouter.route('/')
 
 export const ShowFavoritedBandRouter = Router();
 ShowFavoritedBandRouter.route('/')
-.post(isLoggedIn, selectUserFavorites)
+.get(isLoggedIn, selectUserFavorites)
