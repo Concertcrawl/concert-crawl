@@ -8,7 +8,7 @@ export async function executeSearch(search: Search) {
     let params = []
     const {name, genre, location, sDate, eDate, venue} = search;
 
-    let sql = "SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertImage, concert.concertAddress, concert.concertZip, concert.concertTicketUrl, band.bandName, concertBands.concertBandsIsHeadliner, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE 1 = 1";
+    let sql = "SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertImage, concert.concertAddress, concert.concertZip, concert.concertTicketUrl, band.bandName, CAST(concertBands.concertBandsIsHeadliner AS UNSIGNED) AS isHeadliner, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE 1 = 1";
 
 
     if (name != undefined) {
@@ -27,12 +27,12 @@ export async function executeSearch(search: Search) {
         console.log("Location pushed.")
     }
     if (sDate != undefined) {
-        sql += ' AND concert.date >= ?'
+        sql += ' AND concert.concertDate >= ?'
         params.push(sDate)
         console.log("sDate pushed.")
     }
     if (eDate != undefined) {
-        sql += ' AND concert.date <= ?'
+        sql += ' AND concert.concertDate <= ?'
         params.push(eDate)
         console.log("eDate pushed")
     }

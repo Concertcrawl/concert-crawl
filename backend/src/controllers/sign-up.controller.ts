@@ -14,8 +14,7 @@ export async function signupUserController(request: Request, response: Response)
         const {userFirstName, userLastName, userProfileName, userEmail, userPassword, userZip} = request.body;
         const userHash = await setHash(userPassword);
         const userActivationToken = setActivationToken();
-        const basePath = `${request.protocol}://${request.get('host')}${request.originalUrl}activation/${userActivationToken}`
-        console.log(userActivationToken)
+        const basePath = `${request.protocol}://${request.get('host')}${request.originalUrl}/activation/${userActivationToken}`
 
         const message = `<h2>Welcome to ConcertCrawl.</h2>
                         <p>If you want to start favoriting bands and saving concerts you need to verify your email! Just click the link below!</p>
@@ -42,13 +41,10 @@ export async function signupUserController(request: Request, response: Response)
         }
 
         const result = await insertUser(user)
-
         const emailComposer: MailComposer = new MailComposer(mailgunMessage)
 
         emailComposer.compile().build((error: any, message: Buffer) => {
             const mg = mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN});
-
-            console.log(message.toString("ascii"))
             const compiledEmail = {
                 to: userEmail,
                 message: message.toString("ascii")
@@ -74,7 +70,6 @@ export async function signupUserController(request: Request, response: Response)
             message: error.message,
             data: null
         }
+        return response.json(status)
     }
-
-    return response.json(status)
 }
