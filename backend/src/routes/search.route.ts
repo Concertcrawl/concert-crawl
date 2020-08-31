@@ -7,7 +7,7 @@ const {checkSchema} = require("express-validator")
 
 const router = Router();
 
-router.route('/')
-    .post(asyncValidatorController(checkSchema(searchValidator)),searchControl)
+router.route('/name=:name?&genre=:genre?&location=:location?&sDate=:sDate?&eDate=:eDate?&venue=:venue?')
+    .get(asyncValidatorController(checkSchema(searchValidator)),searchControl)
 
 export default router;

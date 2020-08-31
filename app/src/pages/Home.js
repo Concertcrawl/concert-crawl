@@ -3,9 +3,23 @@ import { Button, Col, Container, Form, Jumbotron, Row } from 'react-bootstrap'
 import { SearchResult } from './SearchResult'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-import { Formik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchResults } from '../store/concertRedux'
 
 export const Home = () => {
+
+  const dispatch = useDispatch()
+
+  const search = useSelector(store => {
+    console.log("Redux store", store)
+    return store.search ? store.search : []
+  })
+
+  const sideEffects = () => {
+    dispatch(fetchResults())
+  }
+
+  React.useEffect(sideEffects, [])
 
   const initialState = {band: "", genre: "", location: "", sDate: "", eDate: ""}
   const [eachEntry, setEachEntry] = useState(initialState);

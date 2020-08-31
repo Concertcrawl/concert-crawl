@@ -6,6 +6,7 @@
 /concertcrawl.env
 */.pnp
 */.pnp.js
+/app/src/setupProxy.js
 
 # testing
 */coverage

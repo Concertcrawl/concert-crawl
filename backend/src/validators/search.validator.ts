@@ -1,6 +1,5 @@
 export const searchValidator = {
     name: {
-        escape: true,
         trim: true,
         optional: true,
         isLength: {
@@ -10,7 +9,6 @@ export const searchValidator = {
     },
     genre: {
         trim: true,
-        escape: true,
         optional: true,
         isLength: {
             errorMessage: 'Max input length is 100 characters.',

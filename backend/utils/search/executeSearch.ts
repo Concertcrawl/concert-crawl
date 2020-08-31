@@ -1,10 +1,11 @@
 import {connect} from "../../src/database";
 import {Search} from "../interfaces/Search";
 
+
 export async function executeSearch(search: Search) {
 
     const mySqlConnection = await connect()
-
+    console.log(search)
     let params = []
     const {name, genre, location, sDate, eDate, venue} = search;
 

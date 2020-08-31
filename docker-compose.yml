@@ -20,11 +20,11 @@ services:
     build: ./sql
     # Make sure to update this to match your project.
     env_file:
-       - ./concertcrawl.env
+      - ./concertcrawl.env
     command: --default-authentication-plugin=mysql_native_password
     volumes:
-     - compose-lesson:/var/lib/mysql
+      - concertcrawl:/var/lib/mysql
     ports:
-       - 33006:3306
+      - 33006:3306
 volumes:
-  compose-lesson:
+  concertcrawl:
