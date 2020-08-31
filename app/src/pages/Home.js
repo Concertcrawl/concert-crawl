@@ -3,11 +3,9 @@ import { Button, Col, Container, Form, Jumbotron, Row } from 'react-bootstrap'
 import { SearchResult } from './SearchResult'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
-
-
+import { Formik } from 'formik'
 
 export const Home = () => {
-
 
   const initialState = {band: "", genre: "", location: "", sDate: "", eDate: ""}
   const [eachEntry, setEachEntry] = useState(initialState);
@@ -20,10 +18,9 @@ export const Home = () => {
     setEachEntry({...eachEntry, [e.target.name]: e.target.value});
   }
 
-  const handleSubmit = () => {
+  const submitSearch = () => {
     eachEntry.sDate = startDate.toISOString().split('T')[0];
     eachEntry.eDate = endDate.toISOString().split('T')[0];
-    console.log(eachEntry)
   }
 
   return (
@@ -50,6 +47,7 @@ export const Home = () => {
         </Container>
         <Container fluid className="bg-dark py-3">
           <Container className="mb-3 text-light">
+            {/*<Formik initialValues={initialState} onSubmit={handleSubmit}>*/}
             <Form>
               <Form.Group controlId='bandField'>
                 <Form.Label className="mx-auto"><h2>Band Search</h2></Form.Label>
@@ -87,10 +85,14 @@ export const Home = () => {
                     <DatePicker
                       className="form-control"
                       selected={startDate}
-                      onChange={(date) => {setStartDate(date); if (date > endDate) {setEndDate(date);}}}
+                      onChange={(date) => {
+                        setStartDate(date);
+                        if (date > endDate) {setEndDate(date);}
+                        eachEntry.sDate = date.toISOString().split('T')[0];
+                      }}
                       selectsStart
                       startDate={startDate}
-                      endDate={startDate}
+                      endDate={endDate}
                     />
                   </Col>
                   <h1 className="display-3">-</h1>
@@ -101,7 +103,10 @@ export const Home = () => {
                     <DatePicker
                       className="form-control"
                       selected={endDate}
-                      onChange={date => setEndDate(date)}
+                      onChange={(date) => {
+                        setEndDate(date)
+                        eachEntry.eDate = date.toISOString().split('T')[0];
+                      }}
                       selectsEnd
                       startDate={startDate}
                       endDate={endDate}
@@ -110,10 +115,11 @@ export const Home = () => {
                   </Col>
                 </Row>
               </Form.Group>
-              <Button onClick={handleSubmit} variant="primary" size="lg" block>
+              <Button onClick={submitSearch} variant="primary" size="lg" block>
                 Search!
               </Button>
             </Form>
+            {/*</Formik>*/}
           </Container>
         </Container>
         <SearchResult/>
