@@ -8,20 +8,14 @@ import { fetchResults } from '../store/concertRedux'
 
 export const Home = () => {
 
+  const initialState = {band: "", genre: "", location: "", sDate: "", eDate: ""}
+
   const dispatch = useDispatch()
 
-  const search = useSelector(store => {
-    console.log("Redux store", store)
-    return store.search ? store.search : []
+  const concerts = useSelector(store => {
+    return store.concertsSearch
   })
 
-  const sideEffects = () => {
-    dispatch(fetchResults())
-  }
-
-  React.useEffect(sideEffects, [])
-
-  const initialState = {band: "", genre: "", location: "", sDate: "", eDate: ""}
   const [eachEntry, setEachEntry] = useState(initialState);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -33,8 +27,8 @@ export const Home = () => {
   }
 
   const submitSearch = () => {
-    eachEntry.sDate = startDate.toISOString().split('T')[0];
-    eachEntry.eDate = endDate.toISOString().split('T')[0];
+    console.log(eachEntry)
+    dispatch(fetchResults(band, genre, location, eachEntry.sDate, eachEntry.eDate))
   }
 
   return (
@@ -61,7 +55,6 @@ export const Home = () => {
         </Container>
         <Container fluid className="bg-dark py-3">
           <Container className="mb-3 text-light">
-            {/*<Formik initialValues={initialState} onSubmit={handleSubmit}>*/}
             <Form>
               <Form.Group controlId='bandField'>
                 <Form.Label className="mx-auto"><h2>Band Search</h2></Form.Label>
@@ -102,7 +95,7 @@ export const Home = () => {
                       onChange={(date) => {
                         setStartDate(date);
                         if (date > endDate) {setEndDate(date);}
-                        eachEntry.sDate = date.toISOString().split('T')[0];
+                        eachEntry.sDate = date?.toISOString().split('T')[0];
                       }}
                       selectsStart
                       startDate={startDate}
@@ -119,7 +112,7 @@ export const Home = () => {
                       selected={endDate}
                       onChange={(date) => {
                         setEndDate(date)
-                        eachEntry.eDate = date.toISOString().split('T')[0];
+                        eachEntry.eDate = date?.toISOString().split('T')[0];
                       }}
                       selectsEnd
                       startDate={startDate}
@@ -133,14 +126,10 @@ export const Home = () => {
                 Search!
               </Button>
             </Form>
-            {/*</Formik>*/}
           </Container>
         </Container>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
       </Container>
+        {concerts.map(concert => <SearchResult concert={concert} id={concert.concertId}/>)}
     </>
   )
 }

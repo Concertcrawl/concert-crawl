@@ -4,5 +4,6 @@ export interface Search {
     location: number,
     venue: string,
     sDate: number,
-    eDate: number
+    eDate: number,
+    page: number
 }

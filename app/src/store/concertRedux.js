@@ -6,16 +6,16 @@ const slice = createSlice({
   initialState: [],
   reducers: {
     getSearchResults : (concerts, action) => {
-      return action.payload
+      const {payload} = action
+      return payload
     }
   }
 })
 
 export const {getSearchResults} = slice.actions;
 
-export const fetchResults = () => async(dispatch) => {
-  const {data} = await httpConfig.get('/apis/search/name=justin&genre=&location=&sDate=&eDate=&venue=')
-  console.log(data)
+export const fetchResults = (name, genre, location, sDate, eDate) => async(dispatch) => {
+  const {data} = await httpConfig.get(`/apis/search/page=1&name=${name}&genre=${genre}&location=${location}&sDate=${sDate}&eDate=${eDate}&venue=`)
   dispatch(getSearchResults(data))
 }
 

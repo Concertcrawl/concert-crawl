@@ -5,3 +5,9 @@
 .form-sizing {
     max-width: 300px;
 }
+
+.cover {
+    max-height: 180px;
+    width: 320px;
+    object-fit: cover;
+}

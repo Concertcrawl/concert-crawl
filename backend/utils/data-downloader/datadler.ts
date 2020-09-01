@@ -23,6 +23,19 @@ interface Post {
     concertBands: string | Array<string>
 }
 
+const checkImageSize = (imageInfo: Array<object>) => {
+    let counter = 0
+    do {
+        // @ts-ignore
+        if (imageInfo.images[counter].width < 300) {
+            counter++
+        } else {
+            // @ts-ignore
+            return imageInfo.images[counter].url
+        }
+    } while (counter <= 5)
+}
+
 function dataDownloader(): Promise<any> {
     return main()
 
@@ -51,7 +64,8 @@ function dataDownloader(): Promise<any> {
                                 page: page,
                                 classificationName: 'music',
                                 size: 100,
-                                stateCode: states[i]
+                                stateCode: states[i],
+                                startDateTime: '2020-09-02T00:00:00Z'
                             }
                         })
                     let correctedData
@@ -71,7 +85,7 @@ function dataDownloader(): Promise<any> {
                     const mySqlConnection = await connect()
                     const createPosts = async (array: any[]) => {
                         for (let currentPost of array) {
-                            if (!currentPost.name.includes("Megaticket") && !currentPost.classifications[0].genre.name.includes('Theatre')) {
+                            if (!currentPost?.name.includes("Megaticket") && !currentPost.classifications[0].genre?.name.includes('Theatre')) {
                                 // Defining post object with external data.
                                 let post: Post = {
                                     concertUuid: uuidv4(),
@@ -80,7 +94,7 @@ function dataDownloader(): Promise<any> {
                                     concertDate: currentPost.dates.start.localDate,
                                     concertTime: currentPost.dates.start?.localTime ?? '00:00:000',
                                     concertVenue: currentPost._embedded.venues[0]?.name,
-                                    concertImage: currentPost?.images[0].url ?? 'No Images Available',
+                                    concertImage: checkImageSize(currentPost),
                                     concertTicketUrl: currentPost?.url ?? 'Tickets Not Available',
                                     concertAddress: currentPost._embedded.venues[0]?.address.line1 + ' ' + currentPost._embedded.venues[0].city.name + ' ' + currentPost._embedded.venues[0].state.stateCode,
                                     concertZip: currentPost._embedded.venues[0]?.postalCode.substring(0, 5),
@@ -98,7 +112,7 @@ function dataDownloader(): Promise<any> {
                                 let selectBandUuid = "SELECT BIN_TO_UUID(band.bandId) AS uuid FROM band WHERE band.bandName = ?"
 
                                 // Checking if concert has band information, if it does submitting concert information with mysql query.
-                                if (currentPost._embedded.hasOwnProperty('attractions') && !currentPost._embedded.attractions[0].name.includes('Tour')) {
+                                if (currentPost?._embedded.hasOwnProperty('attractions') && !currentPost._embedded.attractions[0]?.name.includes('Tour')) {
                                     try {
                                         await mySqlConnection.execute(mySqlConcertQuery, post)
                                     } catch (error) {
@@ -112,7 +126,7 @@ function dataDownloader(): Promise<any> {
                                             // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
                                             if (storedUuid[0] == '') {
                                                 let headLinerUuid = uuidv4()
-                                                await mySqlConnection.execute(insertBand, [headLinerUuid, currentPost._embedded?.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name, currentPost._embedded.attractions[0].images[0].url])
+                                                await mySqlConnection.execute(insertBand, [headLinerUuid, currentPost._embedded?.attractions[0].name, currentPost._embedded.attractions[0].classifications[0].genre.name, checkImageSize(currentPost._embedded.attractions[j])])
                                                 await mySqlConnection.execute(insertConcertBand, [post.concertUuid, headLinerUuid, 1])
                                             } else {
                                                 // @ts-ignore
@@ -126,7 +140,7 @@ function dataDownloader(): Promise<any> {
                                             // Determining if a band already exists, if it doesn't creates it and assigns a new uuid to it.
                                             if (storedUuid[0] == '') {
                                                 let bandsUuid = uuidv4()
-                                                await mySqlConnection.execute(insertBand, [bandsUuid, currentPost._embedded?.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name, currentPost._embedded.attractions[j].images[0].url])
+                                                await mySqlConnection.execute(insertBand, [bandsUuid, currentPost._embedded?.attractions[j].name, currentPost._embedded.attractions[j].classifications[0].genre.name, checkImageSize(currentPost._embedded.attractions[j])])
                                                 await mySqlConnection.execute(insertConcertBand, [post.concertUuid, bandsUuid, 0])
                                             } else {
                                                 // @ts-ignore

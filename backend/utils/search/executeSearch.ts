@@ -5,11 +5,10 @@ import {Search} from "../interfaces/Search";
 export async function executeSearch(search: Search) {
 
     const mySqlConnection = await connect()
-    console.log(search)
     let params = []
-    const {name, genre, location, sDate, eDate, venue} = search;
+    const {name, genre, location, sDate, eDate, venue, page} = search;
 
-    let sql = "SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertImage, concert.concertAddress, concert.concertZip, concert.concertTicketUrl, band.bandName, CAST(concertBands.concertBandsIsHeadliner AS UNSIGNED) AS isHeadliner, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE 1 = 1";
+    let sql = "SELECT concert.concertName, concert.concertDate, concert.concertTime, concert.concertVenueName, concert.concertImage, concert.concertAddress, concert.concertZip, concert.concertTicketUrl, band.bandName, CAST(concertBands.concertBandsIsHeadliner AS UNSIGNED) AS isHeadliner, band.bandGenre, band.bandDescription, band.bandImage FROM concertBands INNER JOIN concert on concert.concertId = concertBands.concertBandsConcertId INNER JOIN band on band.bandId = concertBands.concertBandsBandId WHERE concertBandsIsHeadliner = 1";
 
 
     if (name != undefined) {
@@ -42,6 +41,11 @@ export async function executeSearch(search: Search) {
         params.push("%"+venue+"%")
         console.log("Venue pushed.")
     }
+
+    sql += ' ORDER BY concertDate ASC LIMIT ? OFFSET ?'
+
+    params.push(20)
+    params.push((page-1)*20)
     let [results] = await mySqlConnection.execute(sql, params)
     return results;
 }

@@ -1,4 +1,4 @@
 import {combineReducers} from 'redux'
-import concertRedux from './concertRedux'
+import concertsSearch from './concertRedux'
 
-export default combineReducers({concertRedux})
+export default combineReducers({concertsSearch})
