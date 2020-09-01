@@ -1,9 +1,12 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import { Button, Modal, Container, Row, Col, Collapse } from 'react-bootstrap'
+import { Button, Col, Collapse, Container, Modal, Row } from 'react-bootstrap'
 
-export const ConcertInfoModal = forwardRef((props, ref) => {
+export const ConcertInfoModal = forwardRef((concert, ref) => {
   const [open, setOpen] = useState(false);
   const [show, setShow] = React.useState(false);
+
+  const {props} = concert
+  console.log(props)
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -27,7 +30,7 @@ export const ConcertInfoModal = forwardRef((props, ref) => {
         >
           <Modal.Dialog className="custom-modal-style">
             <Modal.Header>
-              <h3 className='col-12 modal-title text-center'>Date - Headliner - Location @ Time
+              <h3 className='col-12 modal-title text-center'>{props.concertDate.slice(0,10)} - {props.bandName} - {props.concertAddress} @ {props.concertTime}
                 <Button type='button' className='close my-auto' onClick={() => {
                   handleClose();
                   setOpen(false);
@@ -41,22 +44,22 @@ export const ConcertInfoModal = forwardRef((props, ref) => {
               <Container>
                 <Row>
                   <Col xs={12} md={4} className="d-flex justify-content-center">
-                    <img src="https://via.placeholder.com/240x240?text=Vertical+Banner" alt="Placeholder"
+                    <img src={props.concertImage} alt="Placeholder"
                          className="img-fluid my-3">
 
                     </img>
                   </Col>
                   <Col xs={12} md={8} className="my-5">
                     <Container className="border mb-3">
-                      <h1> Headliner @ venue</h1>
+                      <h1> {props.bandName} @ {props.concertVenueName}</h1>
                     </Container>
                     <Container className="border  my-3">
                       <Row>
                         <Col className="my-auto">
-                          <h2> Date & Time</h2>
+                          <h2> {props.concertDate.slice(0,10)} & {props.concertTime}</h2>
                         </Col>
                         <Col>
-                          <Button className="my-3 btn-block btn-dark py-2">Purchase Tickets on Ticketmaster.</Button>
+                          <Button className="my-3 btn-block btn-dark py-2" href={props.concertTicketUrl}>Purchase Tickets on Ticketmaster.</Button>
                           <Button className="my-3 btn-block btn-dark py-2">Add this concert to your events!</Button>
                         </Col>
                       </Row>

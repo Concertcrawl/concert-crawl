@@ -27,8 +27,10 @@ export const Home = () => {
   }
 
   const submitSearch = () => {
-    console.log(eachEntry)
     dispatch(fetchResults(band, genre, location, eachEntry.sDate, eachEntry.eDate))
+    setEachEntry({...initialState})
+    setStartDate(initialState.sDate)
+    setEndDate(initialState.eDate)
   }
 
   return (
@@ -94,7 +96,7 @@ export const Home = () => {
                       selected={startDate}
                       onChange={(date) => {
                         setStartDate(date);
-                        if (date > endDate) {setEndDate(date);}
+                        if (endDate !== '' && date > endDate) {setEndDate(date);}
                         eachEntry.sDate = date?.toISOString().split('T')[0];
                       }}
                       selectsStart

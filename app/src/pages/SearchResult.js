@@ -6,14 +6,14 @@ export const SearchResult = (props) => {
   const modalRef = React.useRef();
 
   const {concert} = props
-  const openModal = () => {
-    modalRef.current.openModal()
+  const openModal = (concert) => {
+    modalRef.current.openModal(concert)
   }
 
   return (
 
     <>
-      <ConcertInfoModal ref={modalRef}/>
+      <ConcertInfoModal props={concert} ref={modalRef}/>
       <Container fluid className="pb-3 mt-3">
         <Row className="border-top border-bottom border-dark">
           <Col md={1} className="d-none d-lg-flex">
