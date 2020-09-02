@@ -1,5 +1,6 @@
 import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
+import { LoginModal } from './LoginModal'
 
 export const NavBar = () => {
   return (
@@ -13,7 +14,7 @@ export const NavBar = () => {
             <Nav.Item><Nav.Link href="/user-favorites">Followed Bands</Nav.Link></Nav.Item>
           </Nav>
           <Nav className="ml-auto">
-            <Nav.Item><Nav.Link href="/register">Log In</Nav.Link></Nav.Item>
+            <Nav.Item><LoginModal/></Nav.Item>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

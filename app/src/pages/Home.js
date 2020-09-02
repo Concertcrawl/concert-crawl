@@ -6,6 +6,7 @@ import "react-datepicker/dist/react-datepicker.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchResults } from '../store/concertRedux'
 import  InfiniteScroll from 'react-infinite-scroller'
+import { LoginModal } from './LoginModal'
 
 export const Home = () => {
 
@@ -14,7 +15,7 @@ export const Home = () => {
   const dispatch = useDispatch()
 
   const concerts = useSelector(store => {
-    return store.concertsSearch
+    return store.concertsSearch ? store.concertsSearch : []
   })
 
   const [eachEntry, setEachEntry] = useState(initialState);
@@ -37,6 +38,7 @@ export const Home = () => {
   return (
     <>
       <Container fluid className="bg-light p-0">
+        <LoginModal></LoginModal>
         <Jumbotron fluid>
           <h1 className="text-center">Concert Crawl Placeholder</h1>
         </Jumbotron>

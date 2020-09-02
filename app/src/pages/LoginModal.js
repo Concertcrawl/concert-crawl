@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Modal, Row, Col, Button, Form } from 'react-bootstrap'
 
 
 export const LoginModal = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true)
 
 
   return (
     <>
+      <Button variant="primary" onClick={handleShow}>
+        Sign In
+      </Button>
       <Modal
-      show={true}
+      show={show}
+      onHide={handleClose}
       data-backdrop={false}
       className="test-class">
         <Form className="form-sizing">

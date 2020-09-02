@@ -127,8 +127,8 @@ export const RegisterUser = () => {
                         }
                       </Form.Group>
                       <Form.Group controlId="formBasicLocation">
-                        <Form.Label>Location</Form.Label>
-                        <Form.Control type="text" placeholder="Location" value={values.userZip} name="userZip"
+                        <Form.Label>Zip Code</Form.Label>
+                        <Form.Control type="text" placeholder="Zip Code" value={values.userZip} name="userZip"
                                       onChange={handleChange}
                                       onBlur={handleBlur}/>
                         {
