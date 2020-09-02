@@ -1,12 +1,21 @@
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import { Button, Col, Collapse, Container, Modal, Row } from 'react-bootstrap'
+import { httpConfig } from '../utils/http-config'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchSavedConcerts } from '../store/savedConcerts'
 
 export const ConcertInfoModal = forwardRef((concert, ref) => {
   const [open, setOpen] = useState(false);
   const [show, setShow] = React.useState(false);
+  const [color, setColor]=useState('btn-primary')
+
+  const dispatch = useDispatch()
+
+  const concerts = useSelector(store => {
+    return store.savedConcerts
+  })
 
   const {props} = concert
-  console.log(props)
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -16,6 +25,21 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
       openModal: () => handleShow()
     }
   });
+
+
+  const addConcert = () => {
+    console.log(concerts)
+    httpConfig.post("/apis/save-concert/", {userConcertsConcertId: props.concertId})
+      .then(reply => {
+          let {message, type} = reply
+          if(message.includes("added")) {
+            console.log(reply)
+            dispatch(fetchSavedConcerts())
+            setColor("btn-secondary")
+          }
+        }
+      );
+  }
 
   if (show) {
     return (
@@ -60,7 +84,7 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
                         </Col>
                         <Col>
                           <Button className="my-3 btn-block btn-dark py-2" href={props.concertTicketUrl}>Purchase Tickets on Ticketmaster.</Button>
-                          <Button className="my-3 btn-block btn-dark py-2">Add this concert to your events!</Button>
+                          <Button className="my-3 btn-block py-2" varient={color} id="concertsToggle" onClick={addConcert}>Add this concert to your events!</Button>
                         </Col>
                       </Row>
                     </Container>

@@ -6,6 +6,7 @@ import { SearchResult } from './SearchResult'
 
 export const SavedConcerts = () => {
   const dispatch = useDispatch()
+
   const concerts = useSelector(store => {
     return store.savedConcerts
   })
@@ -13,7 +14,9 @@ export const SavedConcerts = () => {
   const sideEffects = () => {
     dispatch (fetchSavedConcerts())
   }
+
   React.useEffect(sideEffects, [])
+
   return (
     <>
       <Container fluid className="border border-dark">

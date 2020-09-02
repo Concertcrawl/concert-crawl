@@ -7,21 +7,10 @@ import { SearchResult } from './SearchResult'
 export const FavoritedBand = (props) => {
   const {band} = props
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch()
-
-  const concerts = useSelector(store => {
-    console.log(store.fetchConcertsFromBand)
-    return store.fetchConcertsFromBand
-  })
-
-  const sideEffects = () => {
-    dispatch(fetchConcertsFromBands(band.bandId))
-  }
-  React.useEffect(sideEffects, [])
+  console.log(band)
 
   return (
     <>
-      {console.log(band)}
       <Container className="border border-dark px-0 mb-4">
         <Row>
           <Col md={2} className="my-auto text-center">
@@ -48,7 +37,6 @@ export const FavoritedBand = (props) => {
           <Col xs={12}>
             <Collapse in={open}>
               <div>
-                {concerts.map(concert => <SearchResult concert={concert} id={concert.concertId}/>)}
               </div>
             </Collapse>
           </Col>

@@ -4,6 +4,7 @@ import { FavoritedBand } from './FavoriteBand'
 import { SearchResult } from './SearchResult'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchFavoriteBands } from '../store/favoriteBands'
+import { fetchConcertsFromBands } from '../store/fetchConcertsFromBand'
 
 
 export const UserFavorites = () => {
@@ -11,6 +12,7 @@ export const UserFavorites = () => {
   const bands = useSelector(store => {
     return store.favoriteBand
   })
+
   const sideEffects = () => {
     dispatch (fetchFavoriteBands())
   }

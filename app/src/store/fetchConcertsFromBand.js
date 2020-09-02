@@ -1,5 +1,6 @@
 import { httpConfig } from '../utils/http-config'
 import { createSlice } from '@reduxjs/toolkit'
+import { fetchFavoriteBands } from './favoriteBands'
 
 const slice = createSlice({
   name:"favoriteConcert",

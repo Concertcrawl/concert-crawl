@@ -1,8 +1,11 @@
 import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
 import { LoginModal } from './sign-in/LoginModal'
+import { getAuth } from '../store/loginRedux'
+import {httpConfig} from '../utils/http-config'
 
 export const NavBar = () => {
+
   return (
     <>
       <Navbar bg="dark" className="navbar-dark">
