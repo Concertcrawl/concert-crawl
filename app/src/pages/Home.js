@@ -38,7 +38,6 @@ export const Home = () => {
   return (
     <>
       <Container fluid className="bg-light p-0">
-        <LoginModal></LoginModal>
         <Jumbotron fluid>
           <h1 className="text-center">Concert Crawl Placeholder</h1>
         </Jumbotron>
