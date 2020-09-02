@@ -7,8 +7,7 @@ const slice = createSlice({
   reducers:{
     getFavoriteBands: (bands, action) => {
       return action.payload
-    }
-
+    },
   }
 })
 

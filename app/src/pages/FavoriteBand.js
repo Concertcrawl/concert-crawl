@@ -1,9 +1,23 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Collapse, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchConcertsFromBands } from '../store/fetchConcertsFromBand'
+import { SearchResult } from './SearchResult'
 
 export const FavoritedBand = (props) => {
   const {band} = props
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch()
+
+  const concerts = useSelector(store => {
+    console.log(store.fetchConcertsFromBand)
+    return store.fetchConcertsFromBand
+  })
+
+  const sideEffects = () => {
+    dispatch(fetchConcertsFromBands(band.bandId))
+  }
+  React.useEffect(sideEffects, [])
 
   return (
     <>
@@ -34,6 +48,7 @@ export const FavoritedBand = (props) => {
           <Col xs={12}>
             <Collapse in={open}>
               <div>
+                {concerts.map(concert => <SearchResult concert={concert} id={concert.concertId}/>)}
               </div>
             </Collapse>
           </Col>

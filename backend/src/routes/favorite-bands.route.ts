@@ -9,12 +9,12 @@ import {check} from "express-validator";
 
 export const FavoriteBandRouter = Router();
 FavoriteBandRouter.route('/')
-  .post(isLoggedIn, asyncValidatorController([check("userFavoritesBandId", "Not a valid UUID.").isUUID()]), toggleFavoritedBands)
+    .post(isLoggedIn, asyncValidatorController([check("userFavoritesBandId", "Not a valid UUID.").isUUID()]), toggleFavoritedBands)
 
 export const ShowFavoritedBandRouter = Router();
 ShowFavoritedBandRouter.route('/')
-.get(isLoggedIn, asyncValidatorController([check("userFavoritesBandId", "Not a valid UUID.").isUUID()]), selectUserFavorites)
+    .get(isLoggedIn, selectUserFavorites)
 
 export const ShowConcertsByBandRouter = Router();
-ShowConcertsByBandRouter.route('/')
+ShowConcertsByBandRouter.route('/:bandId')
     .get(asyncValidatorController([check("bandId", "Not a valid UUID.").isUUID()]), selectConcertsByBand)

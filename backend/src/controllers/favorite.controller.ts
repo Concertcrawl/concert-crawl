@@ -29,7 +29,7 @@ export async function selectUserFavorites(request: Request, response: Response) 
 
 export async function selectConcertsByBand(request: Request, response: Response) {
     try {
-        const {bandId} = request.body
+        const {bandId} = request.params
         console.log(bandId)
         const concerts = await selectConcertBandId(bandId)
         const status:Status = {
