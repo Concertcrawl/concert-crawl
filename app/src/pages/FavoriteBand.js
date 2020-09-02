@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Collapse, Button } from 'react-bootstrap'
-import { SearchResult } from './SearchResult'
 
 export const FavoritedBand = (props) => {
   const {band} = props
@@ -8,13 +7,14 @@ export const FavoritedBand = (props) => {
 
   return (
     <>
+      {console.log(band)}
       <Container className="border border-dark px-0 mb-4">
         <Row>
           <Col md={2} className="my-auto text-center">
             <Button className="bg-transparent border-0"><span className="display-4 text-warning" role="img" aria-label="star">&#11088;</span></Button>
           </Col>
           <Col md={4} lg={2} className="text-center">
-            <img src={band.bandImage} alt="Picture of a band.">
+            <img src={band.bandImage} alt="A band." className="img-fluid">
 
             </img>
           </Col>

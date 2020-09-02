@@ -1,6 +1,6 @@
 import React from 'react';
 import { Nav, Navbar } from 'react-bootstrap';
-import { LoginModal } from './LoginModal'
+import { LoginModal } from './sign-in/LoginModal'
 
 export const NavBar = () => {
   return (

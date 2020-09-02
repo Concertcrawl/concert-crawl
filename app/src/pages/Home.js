@@ -6,7 +6,6 @@ import "react-datepicker/dist/react-datepicker.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchResults } from '../store/concertRedux'
 import  InfiniteScroll from 'react-infinite-scroller'
-import { LoginModal } from './LoginModal'
 
 export const Home = () => {
 
