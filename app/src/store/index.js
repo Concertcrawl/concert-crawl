@@ -1,4 +1,4 @@
 import {combineReducers} from 'redux'
 import concertsSearch from './concertRedux'
-
-export default combineReducers({concertsSearch})
+import favoriteBand from './favoriteBands'
+export default combineReducers({concertsSearch,favoriteBand})
