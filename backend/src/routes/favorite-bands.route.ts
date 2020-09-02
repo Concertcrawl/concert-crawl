@@ -2,7 +2,7 @@ import {connect} from "../database";
 import {isLoggedIn} from "../controllers/isLoggedIn.controller";
 import {toggleFavoritedBands} from "../controllers/toggleFavoritedBands";
 import {Router} from "express";
-import {selectUserFavorites} from "../controllers/favorite.controller";
+import {selectConcertsByBand, selectUserFavorites} from "../controllers/favorite.controller";
 import {asyncValidatorController} from "../controllers/asyncValidator.controller";
 import {check} from "express-validator";
 
@@ -13,4 +13,8 @@ FavoriteBandRouter.route('/')
 
 export const ShowFavoritedBandRouter = Router();
 ShowFavoritedBandRouter.route('/')
-.get(isLoggedIn, selectUserFavorites)
+.get(isLoggedIn, asyncValidatorController([check("userFavoritesBandId", "Not a valid UUID.").isUUID()]), selectUserFavorites)
+
+export const ShowConcertsByBandRouter = Router();
+ShowConcertsByBandRouter.route('/')
+    .get(asyncValidatorController([check("bandId", "Not a valid UUID.").isUUID()]), selectConcertsByBand)
