@@ -1,63 +1,200 @@
 import React from 'react'
-import { Button, Col, Container, Form, Row} from 'react-bootstrap'
+import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { httpConfig } from "../utils/http-config"
+import * as Yup from "yup";
+import { Formik } from "formik";
 
 export const RegisterUser = () => {
-  return(
-    <>
-      <Container className="border border-dark p-0 my-5">
-        <Row>
-          <Col xs={12} className="mt-5 mb-5">
-          <h2 className="text-center pb-2">Welcome To Concert Crawl!</h2>
-          </Col>
-        </Row>
-        <Container xs={12}>
-          <Row>
-            <Col className="border-right border-top border-dark py-3">
-              <Form>
-                <Form.Group controlId="formBasicFirstName">
-                  <Form.Label>First Name</Form.Label>
-                  <Form.Control type="text" placeholder="First Name" />
-                </Form.Group>
-                <Form.Group controlId="formBasicLastName">
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control type="text" placeholder="Last Name" />
-                </Form.Group>
-                <Form.Group controlId="formBasicProfileName">
-                  <Form.Label>Profile Name</Form.Label>
-                  <Form.Control type="text" placeholder="Profile Name" />
-                </Form.Group>
-                <Form.Group controlId="formBasicLocation">
-                  <Form.Label>Location</Form.Label>
-                  <Form.Control type="text" placeholder="Location" />
-                </Form.Group>
-              </Form>
-            </Col>
-            <Col className="py-3 border-dark  border-top">
-              <Form>
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Label>Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" />
-                  <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                  </Form.Text>
-                </Form.Group>
-                <Form.Group controlId="formBasicPassword">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-                <Form.Group controlId="formConfirmPassword">
-                  <Form.Label>Confirm Password</Form.Label>
-                  <Form.Control type="password" placeholder="Confirm Password"></Form.Control>
-                </Form.Group>
-                <Button variant="secondary" type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </Col>
 
-          </Row>
-        </Container>
-      </Container>
-      </>
+  const signUp = {
+    userFirstName: '',
+    userLastName: '',
+    userProfileName: '',
+    userZip: '',
+    userEmail: '',
+    userPassword: '',
+    userPasswordConfirm: ''
+  }
+
+  const validator = Yup.object().shape({
+    userFirstName: Yup.string()
+      .required('First name is required.'),
+    userLastName: Yup.string()
+      .required("Last name is required."),
+    userProfileName: Yup.string()
+      .required("Profile name is required."),
+    userZip: Yup.string()
+      .required("Zip is required."),
+    userEmail: Yup.string()
+      .email("Email must be valid.")
+      .required("Email is required."),
+    userPassword: Yup.string()
+      .required("Password is required")
+      .min(8, "Password must be at least eight characters"),
+    userPasswordConfirm: Yup.string()
+      .required("Password Confirm is required")
+      .min(8, "Password must be at least eight characters")
+  });
+
+  const submitSignUp = (values, {resetForm, setStatus}) => {
+    console.log("SubmitStarted")
+    httpConfig.post("/apis/sign-up/", values)
+      .then(reply => {
+          let {message, type} = reply;
+
+          if (reply.status === 200) {
+            resetForm();
+          }
+          setStatus({message, type});
+        }
+      );
+  };
+
+  return (
+
+    <>
+      <Formik
+        initialValues={signUp}
+        onSubmit={submitSignUp}
+        validationSchema={validator}
+      >
+        {(props) => {
+          const {
+            status,
+            values,
+            errors,
+            touched,
+            dirty,
+            isSubmitting,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            handleReset
+          } = props;
+          console.log("", values)
+          return (
+            <Container className="border border-dark p-0 my-5">
+              <Row>
+                <Col xs={12} className="mt-5 mb-5">
+                  <h2 className="text-center pb-2">Welcome To Concert Crawl!</h2>
+                </Col>
+              </Row>
+              <Container xs={12}>
+                <Form onSubmit={handleSubmit}>
+                  <Row>
+                    <Col className="border-right border-top border-dark py-3">
+                      <Form.Group>
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control type="text" placeholder="First Name"
+                                      name="userFirstName"
+                                      value={values.userFirstName}
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}/>
+                        {
+                          errors.userFirstName && (
+                            <div className="alert alert-danger">
+                              {errors.userFirstName}
+                            </div>
+                          )
+                        }
+                      </Form.Group>
+                      <Form.Group>
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control type="text" placeholder="Last Name" name="userLastName"
+                                      value={values.userLastName}
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}/>
+                        {
+                          errors.userLastName && (
+                            <div className="alert alert-danger">
+                              {errors.userLastName}
+                            </div>
+                          )
+                        }
+                      </Form.Group>
+                      <Form.Group>
+                        <Form.Label>Profile Name</Form.Label>
+                        <Form.Control type="text" placeholder="Profile Name" value={values.userProfileName}
+                                      name="userProfileName"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}/>
+                        {
+                          errors.userProfileName && (
+                            <div className="alert alert-danger">
+                              {errors.userProfileName}
+                            </div>
+                          )
+                        }
+                      </Form.Group>
+                      <Form.Group controlId="formBasicLocation">
+                        <Form.Label>Location</Form.Label>
+                        <Form.Control type="text" placeholder="Location" value={values.userZip} name="userZip"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}/>
+                        {
+                          errors.userZip && (
+                            <div className="alert alert-danger">
+                              {errors.userZip}
+                            </div>
+                          )
+                        }
+                      </Form.Group>
+                    </Col>
+                    <Col className="py-3 border-dark  border-top">
+                      <Form.Group>
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" value={values.userEmail} name="userEmail" autoComplete="email"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}/>
+                        {
+                          errors.userEmail && (
+                            <div className="alert alert-danger">
+                              {errors.userEmail}
+                            </div>
+                          )
+                        }
+                      </Form.Group>
+                      <Form.Group>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" value={values.userPassword} name="userPassword" autoComplete="new-password"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}/>
+                        {
+                          errors.userPassword && (
+                            <div className="alert alert-danger">
+                              {errors.userPassword}
+                            </div>
+                          )
+                        }
+                      </Form.Group>
+                      <Form.Group>
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control type="password" placeholder="Confirm Password" value={values.userPasswordConfirm} autoComplete="new-password"
+                                      name="userPasswordConfirm"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}/>
+                        {
+                          errors.userPasswordConfirm && (
+                            <div className="alert alert-danger">
+                              {errors.userPasswordConfirm}
+                            </div>
+                          )
+                        }
+                      </Form.Group>
+                      <Form.Group>
+                        <Button variant="secondary" type="submit">
+                          Submit
+                        </Button>
+                      </Form.Group>
+                    </Col>
+                  </Row>
+                </Form>
+                {status && (<div className={status.type}>{status.message}</div>)}
+              </Container>
+            </Container>
+          )
+        }}
+      </Formik>
+    </>
   )
 }
