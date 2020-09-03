@@ -69,7 +69,7 @@ export const Home = () => {
             wanted to provide a user friendly experience to allow people to follow their favorite bands and see local
             live concerts in their area.
 
-            <br>Few experiences match up to the feeling of seeing your favorite band live in concert, the joy of hearing
+            Few experiences match up to the feeling of seeing your favorite band live in concert, the joy of hearing
             your favorite song live. We wanted to provide a user-first way to make sure that you can track and get
             tickets to local concerts, in an easy and concise manner.
 
