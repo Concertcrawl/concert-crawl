@@ -18,6 +18,7 @@ export const FavoritedBand = (props) => {
     return store.concertsFromBand
   })
 
+
   const sideEffects = () => {
     dispatch(fetchConcertsFromBands(band.bandId))
   }

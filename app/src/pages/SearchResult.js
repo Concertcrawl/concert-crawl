@@ -4,6 +4,7 @@ import { ConcertInfoModal } from './ConcertInfoModal'
 import { httpConfig } from '../utils/http-config'
 import { fetchSavedConcerts } from '../store/savedConcerts'
 import { useDispatch, useSelector } from 'react-redux'
+import { fetchFavoriteBands } from '../store/favoriteBands'
 
 export const SearchResult = (props) => {
   const modalRef = React.useRef();
@@ -50,6 +51,7 @@ export const SearchResult = (props) => {
             setStar('star-white')
           }
           dispatch(fetchSavedConcerts())
+          dispatch(fetchFavoriteBands())
         }
       );
   }
