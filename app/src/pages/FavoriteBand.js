@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Collapse, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchConcertsFromBands } from '../store/fetchConcertsFromBand'
-import { SearchResult } from './SearchResult'
+
 
 export const FavoritedBand = (props) => {
   const {band} = props

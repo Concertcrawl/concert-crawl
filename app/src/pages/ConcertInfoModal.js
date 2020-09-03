@@ -7,12 +7,17 @@ import { fetchSavedConcerts } from '../store/savedConcerts'
 export const ConcertInfoModal = forwardRef((concert, ref) => {
   const [open, setOpen] = useState(false);
   const [show, setShow] = React.useState(false);
-  const [color, setColor]=useState('btn-primary')
+  const [color, setColor]=useState('primary')
+  const [text, setText]=useState('Click to add concert!')
 
   const dispatch = useDispatch()
 
   const concerts = useSelector(store => {
     return store.savedConcerts
+  })
+
+  const auth = useSelector(store => {
+    return store.auth
   })
 
   const {props} = concert
@@ -26,17 +31,35 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
     }
   });
 
+  const testFavorites = () => {
+    console.log(auth)
+    if(auth !== null) {
+      {
+        concerts.forEach(e => {
+          if (e.concertId === props.concertId) {
+            console.log("Woo")
+            setColor("secondary")
+            setText("Click to remove concert.")
+          }
+        })
+      }
+    }
+  }
+  React.useEffect(testFavorites, [])
 
-  const addConcert = () => {
-    console.log(concerts)
+
+  const addConcert = async () => {
     httpConfig.post("/apis/save-concert/", {userConcertsConcertId: props.concertId})
       .then(reply => {
-          let {message, type} = reply
+          let {message} = reply
           if(message.includes("added")) {
-            console.log(reply)
-            dispatch(fetchSavedConcerts())
-            setColor("btn-secondary")
+            setColor("secondary")
+            setText("Click to remove concert.")
+          } else if(message.includes("removed")){
+            setColor("primary")
+            setText("Click to add concert!")
           }
+        dispatch(fetchSavedConcerts())
         }
       );
   }
@@ -69,7 +92,7 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
                 <Row>
                   <Col xs={12} md={4} className="d-flex justify-content-center">
                     <img src={props.concertImage} alt="Placeholder"
-                         className="img-fluid my-3">
+                         className="img-fluid my-auto cover">
 
                     </img>
                   </Col>
@@ -84,7 +107,12 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
                         </Col>
                         <Col>
                           <Button className="my-3 btn-block btn-dark py-2" href={props.concertTicketUrl}>Purchase Tickets on Ticketmaster.</Button>
-                          <Button className="my-3 btn-block py-2" varient={color} id="concertsToggle" onClick={addConcert}>Add this concert to your events!</Button>
+                          {auth === null && (
+                            <p>You need to log in to save this concert.</p>
+                          )}
+                          {auth !== null && (
+                            <Button className="my-3 btn-block py-2" variant={color} id="concertsToggle" onClick={addConcert}>{text}</Button>
+                          )}
                         </Col>
                       </Row>
                     </Container>
@@ -116,6 +144,4 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
       </>
     )
   }
-
-  return null;
 })

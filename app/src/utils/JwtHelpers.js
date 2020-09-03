@@ -50,9 +50,10 @@ export const UseJwtProfileId = () => {
 
 export const getToken = () => {
 	let token = window.localStorage.getItem("authorization");
+	console.log(jwtDecode(token))
 	const auth = token ? {
-		'profileId': jwtDecode(token).profileId,
-		'profileAtHandle': jwtDecode(token).profileAtHandle
+		'userId': jwtDecode(token).userId,
+		'userProfileName': jwtDecode(token).userProfileName
 	} : null
 	return auth
 }

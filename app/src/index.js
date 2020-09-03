@@ -21,23 +21,21 @@ const store = configureStore({reducer})
 
 const Routing = (store) => (
   <>
-    <React.StrictMode>
-      <Provider store={store}>
-        <BrowserRouter>
-          <NavBar/>
-          <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/register" component={RegisterUser}/>
-            <Route path="/privacy-page" component={PrivacyPage}/>
-            <Route path="/contact-us" component={ContactUs}/>
-            <Route path="/saved-concerts" component={SavedConcerts}/>
-            <Route path="/user-favorites" component={UserFavorites}/>
-            <Route component={FourOhFour}/>
-          </Switch>
-          <Footer/>
-        </BrowserRouter>
-      </Provider>
-    </React.StrictMode>
+    <Provider store={store}>
+      <BrowserRouter>
+        <NavBar/>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/register" component={RegisterUser}/>
+          <Route path="/privacy-page" component={PrivacyPage}/>
+          <Route path="/contact-us" component={ContactUs}/>
+          <Route path="/saved-concerts" component={SavedConcerts}/>
+          <Route path="/user-favorites" component={UserFavorites}/>
+          <Route component={FourOhFour}/>
+        </Switch>
+        <Footer/>
+      </BrowserRouter>
+    </Provider>
   </>
 );
 ReactDOM.render(Routing(store), document.querySelector('#root'));

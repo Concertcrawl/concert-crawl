@@ -63,13 +63,9 @@ export const RegisterUser = () => {
             status,
             values,
             errors,
-            touched,
-            dirty,
-            isSubmitting,
             handleChange,
             handleBlur,
-            handleSubmit,
-            handleReset
+            handleSubmit
           } = props;
           console.log("", values)
           return (

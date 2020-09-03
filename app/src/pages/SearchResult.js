@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { ConcertInfoModal } from './ConcertInfoModal'
-import { httpConfig } from '../utils/http-config'
 
 export const SearchResult = (props) => {
   const modalRef = React.useRef();

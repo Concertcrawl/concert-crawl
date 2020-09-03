@@ -1,6 +1,5 @@
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import React from 'react'
-import {FormDebugger} from "../FormDebugger";
 
 
 export const LogInFormContent = (props) => {
@@ -9,18 +8,16 @@ export const LogInFormContent = (props) => {
     values,
     errors,
     touched,
-    dirty,
-    isSubmitting,
     handleChange,
     handleBlur,
     handleSubmit,
-    handleReset
   } = props;
   return (
     <Form onSubmit={handleSubmit}>
       <Row>
         <Col sm={12}>
-          <Form.Group>
+          <h2 className="px-5">Welcome to Concert Crawl!</h2>
+          <Form.Group className="px-5">
             <Form.Label column sm="3">
               Email
             </Form.Label>
@@ -41,7 +38,7 @@ export const LogInFormContent = (props) => {
           </Form.Group>
         </Col>
         <Col sm={12}>
-          <Form.Group>
+          <Form.Group className="px-5">
             <Form.Label column sm="3">
               Password
             </Form.Label>
@@ -57,22 +54,21 @@ export const LogInFormContent = (props) => {
           </Form.Group>
         </Col>
         <Col sm={12}>
-          <Form.Group>
+          <Form.Group className="px-5">
             <Button variant="secondary" type="submit">Submit Log In</Button>
           </Form.Group>
         </Col>
       </Row>
       <Row>
-        <Col sm="4">
+        <Col sm="6" className="px-5">
           <h4>
             New to Concert Crawl?
           </h4>
         </Col>
-        <Col sm="8">
-          <a href="/register"><h4>Click here!</h4></a>
+        <Col sm="6">
+          <a href="/register"><h4>Register here!</h4></a>
         </Col>
       </Row>
-      <FormDebugger {...props} />
       {status && (<div className={status.type}>{status.message}</div>)}
     </Form>
   )
