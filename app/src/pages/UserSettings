@@ -4,7 +4,14 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 export const UserSettings = () => {
   return (
     <>
+      <Container className="border border-dark p-0 my-5">
+        <Row>
+          <Col xs={12} className="mt-5 mb-5">
+            <h2 className="text-center pb-2"> User Settings!</h2>
+          </Col>
+        </Row>
 
+      </Container>
       </>
   )
 }
