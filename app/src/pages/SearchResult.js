@@ -31,6 +31,8 @@ export const SearchResult = (props) => {
       favBands.forEach(e => {
         if (e.bandId === concert.bandId) {
           setStar("star-yellow")
+        } else {
+          setStar("star-white")
         }
       })
     }
@@ -56,7 +58,6 @@ export const SearchResult = (props) => {
   return (
 
     <>
-      {console.log(concert)}
       <ConcertInfoModal props={concert} ref={modalRef}/>
       <Container fluid className="pb-3 mt-3">
         <Row className="border-top border-bottom border-dark">

@@ -2,11 +2,11 @@ import { httpConfig } from '../utils/http-config'
 import { createSlice } from '@reduxjs/toolkit'
 
 const slice = createSlice({
-  name:"favoriteConcert",
+  name:"concertsFromBands",
   initialState: [],
   reducers:{
     getConcertsFromBands: (concerts, action) => {
-      return action.payload
+      return [...concerts, ...action.payload]
     }
 
   }

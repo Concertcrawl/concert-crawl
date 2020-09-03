@@ -27,11 +27,13 @@ export const searchValidator = {
         },
         sDate: {
             isDate: true,
+            escape: true,
             trim: true,
             optional: true,
         },
         eDate: {
             isDate: true,
+            escape: true,
             trim: true,
             optional: true,
         },

@@ -151,7 +151,7 @@ export const Home = () => {
           </Container>
         </Container>
       </Container>
-        {concerts.map(concert => <SearchResult concert={concert} id={concert.concertId}/>)}
+        {concerts.map(concert => <SearchResult concert={concert} key={concert.concertId}/>)}
     </>
   )
 }

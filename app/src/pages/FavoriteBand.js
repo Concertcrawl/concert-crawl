@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Collapse, Button } from 'react-bootstrap'
 import { httpConfig } from '../utils/http-config'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { fetchFavoriteBands } from '../store/favoriteBands'
+import { fetchConcertsFromBands } from '../store/concertsFromBand'
+import { SearchResult } from './SearchResult'
 
 
 export const FavoritedBand = (props) => {
@@ -10,6 +12,17 @@ export const FavoritedBand = (props) => {
   const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch()
+
+  const concerts = useSelector(store => {
+    console.log(store.concertsFromBand)
+    return store.concertsFromBand
+  })
+
+  const sideEffects = () => {
+    dispatch(fetchConcertsFromBands(band.bandId))
+  }
+
+  React.useEffect(sideEffects, [])
 
   const removeBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: band.bandId})
@@ -50,6 +63,7 @@ export const FavoritedBand = (props) => {
           <Col xs={12}>
             <Collapse in={open}>
               <div>
+                {concerts.filter(concert => band.bandId === concert.bandId).map(concert => <SearchResult concert={concert} key={concert.concertId}/>)}
               </div>
             </Collapse>
           </Col>

@@ -2,7 +2,7 @@ import {combineReducers} from 'redux'
 import concertsSearch from './concertRedux'
 import favoriteBand from './favoriteBands'
 import savedConcerts from './savedConcerts'
-import fetchConcertsFromBand from './fetchConcertsFromBand'
+import concertsFromBand from './concertsFromBand'
 import auth from './loginRedux'
 
-export default combineReducers({concertsSearch, favoriteBand, savedConcerts, fetchConcertsFromBand, auth})
+export default combineReducers({concertsSearch, favoriteBand, savedConcerts, concertsFromBand, auth})
