@@ -7,7 +7,6 @@ const slice = createSlice({
   reducers: {
     getSearchResults : (concerts, action) => {
       const {payload} = action
-      console.log(payload)
       return payload.results
     }
   }

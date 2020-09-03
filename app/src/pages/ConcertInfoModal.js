@@ -32,12 +32,10 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
   });
 
   const testFavorites = () => {
-    console.log(auth)
     if(auth !== null) {
       {
         concerts.forEach(e => {
           if (e.concertId === props.concertId) {
-            console.log("Woo")
             setColor("secondary")
             setText("Click to remove concert.")
           }

@@ -7,7 +7,6 @@ export async function selectUserByUserEmail(userEmail: string) {
         const mysqlConnection = await connect();
 
         const [rows] = await mysqlConnection.execute('SELECT BIN_TO_UUID(userId) as userId, userActivationToken, userProfileName, userEmail, userHash, userFirstName, userLastName, userZip FROM user WHERE userEmail = :userEmail', {userEmail});
-        console.log(rows)
         // @ts-ignore is required, ts does not know that rows is an array yet.
         return rows.length !== 0 ? {...rows[0]} : undefined;
     } catch (e) {

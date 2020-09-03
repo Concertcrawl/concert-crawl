@@ -11,3 +11,15 @@
     width: 320px;
     object-fit: cover;
 }
+
+.star-yellow {
+    font-size: 50px;
+    color: yellow;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.star-white {
+    font-size: 50px;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}

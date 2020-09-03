@@ -37,7 +37,6 @@ export const RegisterUser = () => {
   });
 
   const submitSignUp = (values, {resetForm, setStatus}) => {
-    console.log("SubmitStarted")
     httpConfig.post("/apis/sign-up/", values)
       .then(reply => {
           let {message, type} = reply;
@@ -67,7 +66,6 @@ export const RegisterUser = () => {
             handleBlur,
             handleSubmit
           } = props;
-          console.log("", values)
           return (
             <Container className="border border-dark p-0 my-5">
               <Row>

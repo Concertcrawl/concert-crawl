@@ -19,7 +19,6 @@ export const fetchAuth = () => async(dispatch, getState) => {
 
   if (state.auth !== []) {
     const token = window.localStorage.getItem("authorization")
-    console.log(token)
     let decodedToken = token ? jwtDecode(token) : null
     if (decodedToken?.exp < Math.round( new Date() / 1000)){
       decodedToken = null

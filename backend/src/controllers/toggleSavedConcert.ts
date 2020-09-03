@@ -24,7 +24,6 @@ export async function toggleSavedConcert(request: Request,response: Response) {
         }
 
         const select = await selectConcert(savedConcert)
-        console.log(select)
 
 
         // @ts-ignore

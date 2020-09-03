@@ -21,7 +21,6 @@ export const NavBar = () => {
       .then(reply => {
         if (reply.status === 200) {
           window.localStorage.removeItem("authorization");
-          console.log(reply);
           window.location = "/";
           dispatch(fetchAuth())
         }

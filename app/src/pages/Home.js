@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchResults } from '../store/concertRedux'
 import { fetchAuth } from '../store/loginRedux'
 import { fetchSavedConcerts } from '../store/savedConcerts'
+import { fetchFavoriteBands } from '../store/favoriteBands'
 
 export const Home = () => {
 
@@ -26,8 +27,14 @@ export const Home = () => {
     return store.savedConcerts
   })
 
+
+  const favBands = useSelector(store => {
+    return store.favoriteBand
+  })
+
   const sideEffects = () => {
     dispatch(fetchSavedConcerts())
+    dispatch(fetchFavoriteBands())
   };
 
   React.useEffect(sideEffects, [])
@@ -52,7 +59,6 @@ export const Home = () => {
 
   return (
     <>
-      {console.log(savedConcerts)}
       <Container fluid className="bg-light p-0">
         <Jumbotron fluid>
           <h1 className="text-center">Concert Crawl Placeholder</h1>

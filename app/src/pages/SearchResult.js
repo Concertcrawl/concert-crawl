@@ -1,19 +1,63 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { ConcertInfoModal } from './ConcertInfoModal'
+import { httpConfig } from '../utils/http-config'
+import { fetchSavedConcerts } from '../store/savedConcerts'
+import { useDispatch, useSelector } from 'react-redux'
 
 export const SearchResult = (props) => {
   const modalRef = React.useRef();
 
+  const dispatch = useDispatch()
+
   const {concert} = props
+
+  const [star, setStar]=useState('star-white')
+
+  const auth = useSelector(store => {
+    return store.auth
+  })
+
+  const favBands = useSelector( store => {
+    return store.favoriteBand
+  })
 
   const openModal = (concert) => {
     modalRef.current.openModal(concert)
   }
 
+  const testFavorites = () => {
+    if(auth !== null) {
+      {
+        favBands.forEach(e => {
+          if (e.bandId === concert.bandId) {
+            setStar("star-yellow")
+          }
+        })
+      }
+    }
+  }
+
+  const addBand= async () => {
+    httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: concert.bandId})
+      .then(reply => {
+          let {message} = reply
+          if(message.includes("added")) {
+            setStar('star-yellow')
+          } else if(message.includes("removed")){
+            setStar('star-white')
+          }
+          dispatch(fetchSavedConcerts())
+        }
+      );
+  }
+
+  React.useEffect(testFavorites, [])
+
   return (
 
     <>
+      {console.log(favBands)}
       <ConcertInfoModal props={concert} ref={modalRef}/>
       <Container fluid className="pb-3 mt-3">
         <Row className="border-top border-bottom border-dark">
@@ -32,8 +76,8 @@ export const SearchResult = (props) => {
                                                              onClick={openModal}><h2>&#65291;</h2></Button></h2>
           </Col>
           <Col xs={12} sm={3} md={4} lg={2} className="my-auto text-center">
-            <p className="lead">{concert.bandName}<Button variant="outline-dark" className="border-0 p-0"><h2><span role="img"
-                                                                                                            aria-label="Star">&#11088;</span>
+            <p className="lead">{concert.bandName}<Button variant="outline-dark" className="border-0 p-0" onClick={addBand}><h2><span role="img"
+                                                                                                            aria-label="Star" className={star}>&#9733;</span>
             </h2></Button></p>
             <p className="lead">{concert.concertAddress}</p>
           </Col>
