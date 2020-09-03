@@ -13,7 +13,9 @@ export const ContactUs = () => {
             <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
           </Col>
           <Col xs={8} className="py-2 pt-3 border-top border-dark">
-            <p> Calvin Reed: </p>
+            <p> Calvin Reed: Calvin is a New Mexican born and raised Web Developer, who has a passion for live music.
+            Spending much of his formative years in small venues and at house shows, he has a huge passion for live
+            music, especially punk and metal. </p>
           </Col>
           <Col xs={4} className="border-top border-dark py-2 pt-3">
             <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
