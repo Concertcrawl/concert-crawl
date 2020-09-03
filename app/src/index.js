@@ -16,6 +16,7 @@ import { SavedConcerts } from './pages/SavedConcerts'
 import { UserFavorites } from './pages/UserFavorites'
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
+import { UserSettings} from './pages/UserSettings'
 
 const store = configureStore({reducer})
 
@@ -31,6 +32,7 @@ const Routing = (store) => (
           <Route path="/contact-us" component={ContactUs}/>
           <Route path="/saved-concerts" component={SavedConcerts}/>
           <Route path="/user-favorites" component={UserFavorites}/>
+          <Route path="/user-settings" component={UserSettings}/>
           <Route component={FourOhFour}/>
         </Switch>
         <Footer/>
