@@ -21,7 +21,6 @@ export const LoginModal = () => {
         className="test-class">
         <LogInForm/>
       </Modal>
-      )
     </>
 
   )

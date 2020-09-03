@@ -36,7 +36,7 @@ export const SearchResult = (props) => {
     }
   }
 
-  {React.useLayoutEffect(testFavorites, [])}
+  {React.useEffect(testFavorites, [])}
 
   const addBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: concert.bandId})

@@ -5,6 +5,8 @@ import { fetchAuth } from '../../store/loginRedux'
 import React from 'react'
 import { Formik } from 'formik'
 import { LogInFormContent } from './LogInFormContent'
+import { fetchSavedConcerts } from '../../store/savedConcerts'
+import { fetchFavoriteBands } from '../../store/favoriteBands'
 
 export const LogInForm = () => {
 
@@ -34,6 +36,8 @@ export const LogInForm = () => {
           window.localStorage.setItem("authorization", reply.headers["authorization"]);
           resetForm();
           dispatch(fetchAuth())
+          dispatch(fetchSavedConcerts())
+          dispatch(fetchFavoriteBands())
           // window.location = "/";
         }
         setStatus({message, type});

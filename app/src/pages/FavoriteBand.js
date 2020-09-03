@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Collapse, Button } from 'react-bootstrap'
 import { httpConfig } from '../utils/http-config'
-import { fetchSavedConcerts } from '../store/savedConcerts'
 import { useDispatch } from 'react-redux'
+import { fetchFavoriteBands } from '../store/favoriteBands'
 
 
 export const FavoritedBand = (props) => {
@@ -16,7 +16,7 @@ export const FavoritedBand = (props) => {
       .then(reply => {
           let {message} = reply
           console.log(message)
-          dispatch(fetchSavedConcerts())
+          dispatch(fetchFavoriteBands())
         }
       );
   }

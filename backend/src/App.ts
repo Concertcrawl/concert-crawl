@@ -28,6 +28,7 @@ export class App {
   ) {
     passportMiddleware; // eslint-disable-line
     this.app = express()
+    this.app.disable('etag')
     this.settings()
     this.middlewares()
     this.routes()
