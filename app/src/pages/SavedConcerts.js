@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchSavedConcerts } from '../store/savedConcerts'
 import { SearchResult } from './SearchResult'
 import { fetchAuth } from '../store/loginRedux'
+import { fetchFavoriteBands } from '../store/favoriteBands'
 
 export const SavedConcerts = () => {
   const dispatch = useDispatch()
@@ -16,9 +17,14 @@ export const SavedConcerts = () => {
     return store.savedConcerts
   })
 
+  useSelector(store => {
+    return store.favoriteBand
+  })
+
   const sideEffects = () => {
     dispatch (fetchSavedConcerts())
     dispatch (fetchAuth())
+    dispatch (fetchFavoriteBands())
   }
 
   React.useEffect(sideEffects, [])

@@ -1,18 +1,33 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Collapse, Button } from 'react-bootstrap'
+import { httpConfig } from '../utils/http-config'
+import { fetchSavedConcerts } from '../store/savedConcerts'
+import { useDispatch } from 'react-redux'
 
 
 export const FavoritedBand = (props) => {
   const {band} = props
   const [open, setOpen] = useState(false);
-  console.log(band)
+
+  const dispatch = useDispatch()
+
+  const removeBand = async () => {
+    httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: band.bandId})
+      .then(reply => {
+          let {message} = reply
+          console.log(message)
+          dispatch(fetchSavedConcerts())
+        }
+      );
+  }
 
   return (
     <>
+      {console.log(band)}
       <Container className="border border-dark px-0 mb-4">
         <Row>
           <Col md={2} className="my-auto text-center">
-            <Button className="bg-transparent border-0"><span className="display-4 text-warning" role="img" aria-label="star">&#11088;</span></Button>
+            <Button className="bg-transparent border-0"><span className="star-yellow display-4 text-warning" role="img" aria-label="star" onClick={removeBand}>&#9733;</span></Button>
           </Col>
           <Col md={4} lg={2} className="text-center">
             <img src={band.bandImage} alt="A band." className="img-fluid">

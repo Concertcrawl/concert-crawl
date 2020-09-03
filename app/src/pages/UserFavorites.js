@@ -3,7 +3,6 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { FavoritedBand } from './FavoriteBand'
 import { fetchFavoriteBands } from '../store/favoriteBands'
 import { fetchAuth} from '../store/loginRedux'
-import { httpConfig } from '../utils/http-config'
 import { useDispatch, useSelector } from 'react-redux'
 
 export const UserFavorites = () => {

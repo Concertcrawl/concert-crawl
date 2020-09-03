@@ -7,8 +7,8 @@ import { fetchSavedConcerts } from '../store/savedConcerts'
 export const ConcertInfoModal = forwardRef((concert, ref) => {
   const [open, setOpen] = useState(false);
   const [show, setShow] = React.useState(false);
-  const [color, setColor]=useState('primary')
-  const [text, setText]=useState('Click to add concert!')
+  const [color, setColor] = useState('primary')
+  const [text, setText] = useState('Click to add concert!')
 
   const dispatch = useDispatch()
 
@@ -32,32 +32,29 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
   });
 
   const testFavorites = () => {
-    if(auth !== null) {
-      {
-        concerts.forEach(e => {
-          if (e.concertId === props.concertId) {
-            setColor("secondary")
-            setText("Click to remove concert.")
-          }
-        })
-      }
+    if (auth !== null) {
+      concerts.forEach(e => {
+        if (e.concertId === props.concertId) {
+          setColor("secondary")
+          setText("Click to remove concert.")
+        }
+      })
     }
   }
   React.useEffect(testFavorites, [])
-
 
   const addConcert = async () => {
     httpConfig.post("/apis/save-concert/", {userConcertsConcertId: props.concertId})
       .then(reply => {
           let {message} = reply
-          if(message.includes("added")) {
+          if (message.includes("added")) {
             setColor("secondary")
             setText("Click to remove concert.")
-          } else if(message.includes("removed")){
+          } else if (message.includes("removed")) {
             setColor("primary")
             setText("Click to add concert!")
           }
-        dispatch(fetchSavedConcerts())
+          dispatch(fetchSavedConcerts())
         }
       );
   }
@@ -75,7 +72,8 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
         >
           <Modal.Dialog className="custom-modal-style">
             <Modal.Header>
-              <h3 className='col-12 modal-title text-center'>{props.concertDate.slice(0,10)} - {props.bandName} - {props.concertAddress} @ {props.concertTime}
+              <h3
+                className='col-12 modal-title text-center'>{props.concertDate.slice(0, 10)} - {props.bandName} - {props.concertAddress} @ {props.concertTime}
                 <Button type='button' className='close my-auto' onClick={() => {
                   handleClose();
                   setOpen(false);
@@ -101,15 +99,17 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
                     <Container className="border  my-3">
                       <Row>
                         <Col className="my-auto">
-                          <h2> {props.concertDate.slice(0,10)} & {props.concertTime}</h2>
+                          <h2> {props.concertDate.slice(0, 10)} & {props.concertTime}</h2>
                         </Col>
                         <Col>
-                          <Button className="my-3 btn-block btn-dark py-2" href={props.concertTicketUrl}>Purchase Tickets on Ticketmaster.</Button>
+                          <Button className="my-3 btn-block btn-dark py-2" href={props.concertTicketUrl}>Purchase
+                            Tickets on Ticketmaster.</Button>
                           {auth === null && (
                             <p>You need to log in to save this concert.</p>
                           )}
                           {auth !== null && (
-                            <Button className="my-3 btn-block py-2" variant={color} id="concertsToggle" onClick={addConcert}>{text}</Button>
+                            <Button className="my-3 btn-block py-2" variant={color} id="concertsToggle"
+                                    onClick={addConcert}>{text}</Button>
                           )}
                         </Col>
                       </Row>

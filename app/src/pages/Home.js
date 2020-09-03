@@ -5,7 +5,6 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchResults } from '../store/concertRedux'
-import { fetchAuth } from '../store/loginRedux'
 import { fetchSavedConcerts } from '../store/savedConcerts'
 import { fetchFavoriteBands } from '../store/favoriteBands'
 
@@ -19,16 +18,16 @@ export const Home = () => {
     return store.concertsSearch ? store.concertsSearch : []
   })
 
-  const auth = useSelector(store => {
+  useSelector(store => {
     return store.auth
   })
 
-  const savedConcerts = useSelector(store => {
+  useSelector(store => {
     return store.savedConcerts
   })
 
 
-  const favBands = useSelector(store => {
+  useSelector(store => {
     return store.favoriteBand
   })
 
