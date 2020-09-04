@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { httpConfig } from '../utils/http-config'
 
 export const UserSettings = () => {
+  console.log("Is this thing on?")
   return (
     <>
 

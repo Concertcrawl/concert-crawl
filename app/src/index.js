@@ -26,13 +26,13 @@ const Routing = (store) => (
       <BrowserRouter>
         <NavBar/>
         <Switch>
+          <Route exact path="/register" component={RegisterUser}/>
+          <Route exact path="/privacy-page" component={PrivacyPage}/>
+          <Route exact path="/contact-us" component={ContactUs}/>
+          <Route exact path="/saved-concerts" component={SavedConcerts}/>
+          <Route exact path="/user-favorites" component={UserFavorites}/>
+          <Route exact path="/user-settings" component={UserSettings}/>
           <Route exact path="/" component={Home}/>
-          <Route path="/register" component={RegisterUser}/>
-          <Route path="/privacy-page" component={PrivacyPage}/>
-          <Route path="/contact-us" component={ContactUs}/>
-          <Route path="/saved-concerts" component={SavedConcerts}/>
-          <Route path="/user-favorites" component={UserFavorites}/>
-          <Route path="/user-settings" component={UserSettings}/>
           <Route component={FourOhFour}/>
         </Switch>
         <Footer/>
