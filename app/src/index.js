@@ -16,7 +16,7 @@ import { SavedConcerts } from './pages/SavedConcerts'
 import { UserFavorites } from './pages/UserFavorites'
 import { configureStore } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
-import { UserSettings} from './pages/UserSettings'
+import { UserSettings } from './pages/UserSettings'
 
 const store = configureStore({reducer})
 
