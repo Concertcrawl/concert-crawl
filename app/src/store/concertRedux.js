@@ -27,7 +27,11 @@ const pages = createSlice({
     getPageNumber: (pages, action) => {
       console.log(action)
       const {payload} = action
-      return payload.pages[0]
+      if (payload != null) {
+        return payload.pages[0]
+      } else {
+        return null
+      }
     },
   }
 })
@@ -35,7 +39,6 @@ const pages = createSlice({
 export const {getSearchResults, resetSearchResults} = search.actions;
 
 export const {getPageNumber} = pages.actions
-
 
 export const fetchResults = (page, name, genre, location, sDate, eDate) => async (dispatch) => {
   const {data} = await httpConfig.get(`/apis/search/page=${page}&name=${name}&genre=${genre}&location=${location}&sDate=${sDate}&eDate=${eDate}&venue=`)

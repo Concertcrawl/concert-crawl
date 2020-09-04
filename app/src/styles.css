@@ -36,7 +36,8 @@ body{
 }
 
 .search-bar{
-    background: #23526F;
+    background: rgba(35, 82, 111, .4);
+    box-shadow: 0 0 5px 10px  rgba(35, 82, 111, .4);
 }
 
 .concert-modals-search {
