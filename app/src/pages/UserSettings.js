@@ -53,6 +53,15 @@ export const UserSettings = () => {
               </Accordion>
             </Col>
             <Col className="py-3 border-dark border-top">
+              <Accordion>
+                <Card>
+                  <Card.Header>
+                    <Accordion.Toggle variant="link" eventKey="0">
+                      Change your Password!
+                    </Accordion.Toggle>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
               <Form.Group>
                 <Form.Label>Change Password</Form.Label>
                 <Form.Control type="text" placeholder="Password"/>
@@ -60,10 +69,14 @@ export const UserSettings = () => {
               <Form.Group>
                 <Form.Label>Confirm New Password</Form.Label>
                 <Form.Control type="text" placeholder="Confirm New Password"/>
+              </Form.Group>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
                 <Button variant="secondary" type="submit">
                   Submit
                 </Button>
-              </Form.Group>
             </Col>
           </Row>
         </Container>
