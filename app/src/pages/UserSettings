@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { httpConfig } from '../utils/http-config'
 
 export const UserSettings = () => {
   return (
@@ -10,6 +11,34 @@ export const UserSettings = () => {
             <h2 className="text-center pb-2"> User Settings!</h2>
           </Col>
         </Row>
+
+        <Container xs={12}>
+          <Row>
+            <Col className=className="border-right border-top border-dark py-3">
+              <Form.Group>
+                <Form.Label>Change First Name</Form.Label>
+                <Form.Control
+                type="text" placeholder="First Name" value={values.userFirstName}/>
+              </Form.Group>
+
+                <Form.Group>
+                  <Form.Label>Change Zip Code</Form.Label>
+                  <Form.Control
+                    type="text" placeholder="Zip Code" value={values.userZip}/>
+                </Form.Group>
+            </Col>
+            <Col className="py-3 border-dark border-top">
+              <Form.Group>
+                <Form.Label>Change Password</Form.Label>
+                <Form.Control type="text" placeholder="Password" value={values.userPassword}/>
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Confirm New Password</Form.Label>
+                <Form.Control type="text" placeholder="Confirm New Password" value={values.userPasswordConfirm}/>
+              </Form.Group>
+            </Col>
+          </Row>
+        </Container>
 
       </Container>
       </>
