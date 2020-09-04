@@ -29,7 +29,7 @@ export const NavBar = () => {
 
   return (
     <>
-      <Navbar bg="dark" className="navbar-dark">
+      <Navbar className="navbar">
         <Navbar.Brand href="/">Concert Crawl</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
@@ -39,7 +39,7 @@ export const NavBar = () => {
           </Nav>
           {auth !== null && (
             <Nav className="ml-auto">
-              <button className="btn btn-primary" onClick={signOut}>
+              <button className="btn btn-light" onClick={signOut}>
                 Sign Out&nbsp;&nbsp;
               </button>
             </Nav>

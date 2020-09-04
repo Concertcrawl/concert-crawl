@@ -12,6 +12,39 @@
     object-fit: cover;
 }
 
+body{
+    color: #23526F;
+    font-weight: bold;
+}
+
+.navbar{
+    background: #E19A5B;
+}
+
+.header-home {
+    background-image: url("https://api.time.com/wp-content/uploads/2019/08/tallconcertshirt.jpeg");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    text-align: center;
+}
+
+.jumbotron-title{
+    background: transparent;
+}
+
+.search-bar{
+
+    background: #23526F;
+}
+
+.concert-modals-search {
+    background: #23526F;
+    color: #F5ECB4;
+}
+
 .star-yellow {
     font-size: 50px;
     color: yellow;

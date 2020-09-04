@@ -58,24 +58,23 @@ export const Home = () => {
 
   return (
     <>
-      <Container fluid className="bg-light p-0">
-        <Jumbotron fluid>
-          <h1 className="text-center">Concert Crawl Placeholder</h1>
-        </Jumbotron>
-        <Container fluid className="bg-light py-3">
-          <h2 className="text-center">About ConcertCrawl</h2>
-          <p>
-            Concert Crawl was birthed during the covid era, in an era where almost no live music was being shown. We
-            wanted to provide a user friendly experience to allow people to follow their favorite bands and see local
-            live concerts in their area.
+      <Container fluid className="header-home p-0">
+        <Container fluid className="py-5">
+          <Jumbotron fluid className="jumbotron-title">
+            <h1 className="text-center">Concert Crawl Placeholder</h1>
+            <p>
+              Concert Crawl was birthed during the covid era, in an era where almost no live music was being shown. We
+              wanted to provide a user friendly experience to allow people to follow their favorite bands and see local
+              live concerts in their area.
 
-            Few experiences match up to the feeling of seeing your favorite band live in concert, the joy of hearing
-            your favorite song live. We wanted to provide a user-first way to make sure that you can track and get
-            tickets to local concerts, in an easy and concise manner.
+              Few experiences match up to the feeling of seeing your favorite band live in concert, the joy of hearing
+              your favorite song live. We wanted to provide a user-first way to make sure that you can track and get
+              tickets to local concerts, in an easy and concise manner.
+            </p>
+          </Jumbotron>
 
-          </p>
         </Container>
-        <Container fluid className="bg-dark py-3">
+        <Container fluid className="search-bar py-3">
           <Container className="mb-3 text-light">
             <Form>
               <Form.Group controlId='bandField'>
@@ -144,7 +143,7 @@ export const Home = () => {
                   </Col>
                 </Row>
               </Form.Group>
-              <Button onClick={submitSearch} variant="primary" size="lg" block>
+              <Button onClick={submitSearch} variant="light" size="lg" block>
                 Search!
               </Button>
             </Form>

@@ -61,8 +61,8 @@ export const SearchResult = (props) => {
 
     <>
       <ConcertInfoModal props={concert} ref={modalRef}/>
-      <Container fluid className="pb-3 mt-3">
-        <Row className="border-top border-bottom border-dark">
+      <Container fluid className="concert-modals-search pb-1 mt-1">
+        <Row>
           <Col md={1} className="d-none d-lg-flex">
           </Col>
           <Col md={2} className="d-none d-md-flex">
