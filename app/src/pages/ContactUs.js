@@ -4,7 +4,7 @@ import { Container, Row, Col, Image, Form, Button } from 'react-bootstrap'
 export const ContactUs = () => {
   return (
     <>
-      <Container className = "pt-5">
+      <Container className = "contact-us">
         <Row className="border border-dark">
           <Col xs={12} className = "py-2 px-0">
             <h1 className="text-center"> About the Concert Crawl Team </h1>
@@ -21,7 +21,7 @@ export const ContactUs = () => {
             <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
           </Col>
           <Col xs={8} className="border-top border-dark py-2 pt-3">
-            <p>Dixie Cooper: </p>
+            <p>Dixie Cooper:  </p>
           </Col>
           <Col xs={4} className="border-top border-dark py-2 pt-3">
             <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>

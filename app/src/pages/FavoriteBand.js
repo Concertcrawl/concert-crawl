@@ -38,7 +38,7 @@ export const FavoritedBand = (props) => {
   return (
     <>
       {console.log(band)}
-      <Container className="border border-dark px-0 mb-4">
+      <Container className="favorite-bands px-0 mb-4">
         <Row>
           <Col md={2} className="my-auto text-center">
             <Button className="bg-transparent border-0"><span className="star-yellow display-4 text-warning" role="img" aria-label="star" onClick={removeBand}>&#9733;</span></Button>

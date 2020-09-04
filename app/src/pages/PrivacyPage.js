@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 export const PrivacyPage = () => {
   return (
     <>
-      <Container className="border border-dark  mb-5 mt-5">
+      <Container className="privacy-page border border-dark  mb-5 mt-5">
         <Row>
           <Col xs={12} className="p-0">
             <h1 className="text-center mt-3 border-bottom border-dark"> Privacy Page </h1>

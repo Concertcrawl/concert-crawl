@@ -31,7 +31,7 @@ export const SavedConcerts = () => {
 
   return (
     <>
-      <Container fluid className="border border-dark">
+      <Container fluid className="saved-concerts">
         <Row>
           <Col>
           <h1 className="text-center col-12">Saved Concerts</h1>

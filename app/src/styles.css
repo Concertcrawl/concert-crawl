@@ -45,6 +45,22 @@ body{
     margin-top: 10px;
 }
 
+.favorite-bands{
+    background: #4C8E98 !important;
+}
+
+.saved-concerts {
+    background: #4C8E98;
+}
+
+.privacy-page {
+    background: #4C8E98;
+}
+
+.contact-us{
+    background: #4C8E98;
+}
+
 .star-yellow {
     font-size: 50px;
     color: yellow;
@@ -61,5 +77,4 @@ body{
     margin-top: 220px;
     padding: 10px;
     background: #E19A5B !important;
-    color: #F5ECB4 !important;
 }
