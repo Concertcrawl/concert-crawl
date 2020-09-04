@@ -10,7 +10,7 @@ export const ContactUs = () => {
             <h1 className="text-center"> About the Concert Crawl Team </h1>
           </Col>
           <Col xs={4} className="py-2 pt-3 border-top border-dark">
-            <Image src="calvin.png" roundedCircle alt="pic-contact-us"/>
+            <Image src="calvin.JPG" roundedCircle alt="pic-contact-us"/>
           </Col>
           <Col xs={8} className="py-2 pt-3 border-top border-dark">
             <p> Calvin Reed: Calvin is a New Mexican born and raised Web Developer, who has a passion for live music.

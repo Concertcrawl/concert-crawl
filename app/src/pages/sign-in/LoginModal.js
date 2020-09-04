@@ -10,7 +10,7 @@ export const LoginModal = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="light" onClick={handleShow}>
         Sign In
       </Button>
 
