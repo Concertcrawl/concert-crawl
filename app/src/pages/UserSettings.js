@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Accordion, Button, Card, Col, Container, Form, Row } from 'react-bootstrap'
 import { httpConfig } from '../utils/http-config'
 
 export const UserSettings = () => {
@@ -17,17 +17,40 @@ export const UserSettings = () => {
         <Container xs={12}>
           <Row>
             <Col className="border-right border-top border-dark py-3">
-              <Form.Group>
-                <Form.Label>Change First Name</Form.Label>
-                <Form.Control
-                  type="text" placeholder="First Name"/>
-              </Form.Group>
-
-              <Form.Group>
-                <Form.Label>Change Zip Code</Form.Label>
-                <Form.Control
-                  type="text" placeholder="Zip Code"/>
-              </Form.Group>
+              <Accordion>
+                <Card>
+                  <Card.Header>
+                    <Accordion.Toggle variant="link" eventKey="0">
+                      Change your First Name!
+                    </Accordion.Toggle>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                      <Form.Group>
+                        <Form.Label>Change First Name</Form.Label>
+                        <Form.Control
+                          type="text" placeholder="First Name"/>
+                      </Form.Group>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+                <Card>
+                  <Card.Header>
+                    <Accordion.Toggle variant="link" eventKey="1">
+                      Change your Zip Code!
+                    </Accordion.Toggle>
+                  </Card.Header>
+                  <Accordion.Collapse eventKey="1">
+                    <Card.Body>
+                      <Form.Group>
+                        <Form.Label>Change Zip Code</Form.Label>
+                        <Form.Control
+                          type="text" placeholder="Zip Code"/>
+                      </Form.Group>
+                    </Card.Body>
+                  </Accordion.Collapse>
+                </Card>
+              </Accordion>
             </Col>
             <Col className="py-3 border-dark border-top">
               <Form.Group>
