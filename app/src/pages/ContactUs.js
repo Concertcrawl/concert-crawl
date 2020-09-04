@@ -10,7 +10,7 @@ export const ContactUs = () => {
             <h1 className="text-center"> About the Concert Crawl Team </h1>
           </Col>
           <Col xs={4} className="py-2 pt-3 border-top border-dark">
-            <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
+            <Image src="calvin.png" roundedCircle alt="pic-contact-us"/>
           </Col>
           <Col xs={8} className="py-2 pt-3 border-top border-dark">
             <p> Calvin Reed: Calvin is a New Mexican born and raised Web Developer, who has a passion for live music.
@@ -18,13 +18,13 @@ export const ContactUs = () => {
             music, especially punk and metal. </p>
           </Col>
           <Col xs={4} className="border-top border-dark py-2 pt-3">
-            <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
+            <Image src="dixie.JPG" roundedCircle alt="pic-contact-us"/>
           </Col>
           <Col xs={8} className="border-top border-dark py-2 pt-3">
-            <p>Dixie Cooper:  </p>
+            <p>Dixie Cooper: Dixie is a Web Developer </p>
           </Col>
           <Col xs={4} className="border-top border-dark py-2 pt-3">
-            <Image src="https://via.placeholder.com/150" roundedCircle alt="placeholder"/>
+            <Image src="jordan.png" roundedCircle alt="pic-contact-us"/>
           </Col>
           <Col xs={8} className="border-top border-dark py-2 pt-3">
             <p> Jordan Hicks: </p>

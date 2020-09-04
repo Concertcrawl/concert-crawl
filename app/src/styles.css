@@ -61,6 +61,11 @@ body{
     background: #4C8E98;
 }
 
+.contact-us img{
+    max-height: 200px;
+    max-width: 200px;
+}
+
 .star-yellow {
     font-size: 50px;
     color: yellow;
