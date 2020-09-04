@@ -1,22 +1,51 @@
 import { createSlice } from '@reduxjs/toolkit'
-import {httpConfig} from "../utils/http-config"
+import { httpConfig } from "../utils/http-config"
 
-const slice = createSlice({
-  name : "search",
+const search = createSlice({
+  name: "search",
   initialState: [],
   reducers: {
-    getSearchResults : (concerts, action) => {
+    getSearchResults: (concerts, action) => {
       const {payload} = action
-      return payload.results
+      if (payload != null) {
+        return [...concerts, ...payload.results]
+      } else {
+        return null
+      }
+    },
+    resetSearchResults: (concerts, action) => {
+      return []
     }
   }
 })
 
-export const {getSearchResults} = slice.actions;
+const pages = createSlice({
 
-export const fetchResults = (name, genre, location, sDate, eDate) => async(dispatch) => {
-  const {data} = await httpConfig.get(`/apis/search/page=1&name=${name}&genre=${genre}&location=${location}&sDate=${sDate}&eDate=${eDate}&venue=`)
+  name: "pages",
+  initialState: 0,
+  reducers: {
+    getPageNumber: (pages, action) => {
+      console.log(action)
+      const {payload} = action
+      return payload.pages[0]
+    },
+  }
+})
+
+export const {getSearchResults, resetSearchResults} = search.actions;
+
+export const {getPageNumber} = pages.actions
+
+
+export const fetchResults = (page, name, genre, location, sDate, eDate) => async (dispatch) => {
+  const {data} = await httpConfig.get(`/apis/search/page=${page}&name=${name}&genre=${genre}&location=${location}&sDate=${sDate}&eDate=${eDate}&venue=`)
   dispatch(getSearchResults(data))
+  dispatch(getPageNumber(data))
 }
 
-export default slice.reducer
+export const resetSearch = () => dispatch => {
+  dispatch(resetSearchResults())
+}
+
+export const searchSlice = search.reducer
+export const pageSlice = pages.reducer

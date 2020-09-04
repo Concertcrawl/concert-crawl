@@ -13,7 +13,7 @@ export const UserFavorites = () => {
   })
 
   const bands = useSelector(store => {
-    return store.favoriteBand
+    return store.favoriteBand ? store.favoriteBand : []
   })
 
   const sideEffects = () => {

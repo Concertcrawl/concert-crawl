@@ -4,40 +4,55 @@ import { SearchResult } from './SearchResult'
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchResults } from '../store/concertRedux'
+import { fetchResults, resetSearch } from '../store/concertRedux'
 import { fetchSavedConcerts } from '../store/savedConcerts'
 import { fetchFavoriteBands } from '../store/favoriteBands'
+import { fetchAuth } from '../store/loginRedux'
+import { storeSearchInputs } from '../store/searchInputs'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 export const Home = () => {
+
+  const [morePages, setMorePages] = useState(true)
 
   const initialState = {band: "", genre: "", location: "", sDate: "", eDate: ""}
 
   const dispatch = useDispatch()
 
   const concerts = useSelector(store => {
-    return store.concertsSearch ? store.concertsSearch : []
+    return store.searchSlice ? store.searchSlice : []
   })
 
-  useSelector(store => {
+  const pages = useSelector(store => {
+    return store.pageSlice.count ? store.pageSlice : 0
+  })
+
+
+  const auth = useSelector(store => {
     return store.auth
   })
 
-  useSelector(store => {
-    return store.savedConcerts
+  const inputs = useSelector(store => {
+    return store.searchInputs
   })
 
+  useSelector(store => {
+    return store.savedConcerts ? store.savedConcerts: []
+  })
 
   useSelector(store => {
-    return store.favoriteBand
+    return store.favoriteBand ? store.favoriteBand : []
   })
 
   const sideEffects = () => {
+    dispatch(fetchAuth())
     dispatch(fetchSavedConcerts())
     dispatch(fetchFavoriteBands())
+    dispatch(storeSearchInputs(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
+    dispatch(fetchResults(...inputs))
   };
 
   React.useEffect(sideEffects, [])
-
 
   const [eachEntry, setEachEntry] = useState(initialState);
   const [startDate, setStartDate] = useState('');
@@ -50,10 +65,21 @@ export const Home = () => {
   }
 
   const submitSearch = () => {
-    dispatch(fetchResults(band, genre, location, eachEntry.sDate, eachEntry.eDate))
+    setMorePages(true)
+    dispatch(resetSearch())
+    dispatch(fetchResults(1, band, genre, location, startDate, endDate))
+    dispatch(storeSearchInputs(1, band, genre, location, startDate, endDate))
     setEachEntry({...initialState})
     setStartDate(initialState.sDate)
     setEndDate(initialState.eDate)
+  }
+
+  const updateSearch = () => {
+    dispatch(storeSearchInputs(...inputs))
+    dispatch(fetchResults(...inputs))
+    if ((inputs[0] - 1) === parseInt(pages.count)) {
+      setMorePages(false)
+    }
   }
 
   return (
@@ -150,7 +176,10 @@ export const Home = () => {
           </Container>
         </Container>
       </Container>
-        {concerts.map(concert => <SearchResult concert={concert} key={concert.concertId}/>)}
+        {concerts.length === 0 && (<p>Something went wrong! No concerts to display! :(</p>)}
+      <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4>Loadin'</h4>} dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
+          {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert} key={concert.concertId}/>))}
+      </InfiniteScroll>
     </>
   )
 }

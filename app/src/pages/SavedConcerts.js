@@ -14,17 +14,19 @@ export const SavedConcerts = () => {
   })
 
   const concerts = useSelector(store => {
-    return store.savedConcerts
+    return store.savedConcerts ? store.savedConcerts : []
   })
 
+  console.log(concerts)
+
   useSelector(store => {
-    return store.favoriteBand
+    return store.favoriteBand ? store.favoriteBand : []
   })
 
   const sideEffects = () => {
-    dispatch (fetchSavedConcerts())
-    dispatch (fetchAuth())
-    dispatch (fetchFavoriteBands())
+    dispatch(fetchFavoriteBands())
+    dispatch(fetchSavedConcerts())
+    dispatch(fetchAuth())
   }
 
   React.useEffect(sideEffects, [])
@@ -34,13 +36,15 @@ export const SavedConcerts = () => {
       <Container fluid className="saved-concerts">
         <Row>
           <Col>
-          <h1 className="text-center col-12">Saved Concerts</h1>
-          {auth !== null && (
-            concerts.map(concert => <SearchResult concert={concert} key={concert.concertId}/>)
-          )}
-          {auth === null && (
-            <p className="text-center lead">Welcome to Concert Crawl! You must be logged in to start adding concerts!</p>
-          )}
+            <h1 className="text-center col-12">Saved Concerts</h1>
+            {auth !== null && (concerts.map(concert => <SearchResult concert={concert}
+                                                                           key={concert.concertId}/>))
+
+              }
+            {auth === null && (
+              <p className="text-center lead">Welcome to Concert Crawl! You must be logged in to start adding
+                concerts!</p>
+            )}
           </Col>
         </Row>
       </Container>

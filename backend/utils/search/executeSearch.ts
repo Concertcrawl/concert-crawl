@@ -55,6 +55,7 @@ export async function executeSearch(search: Search) {
     params.push(20)
     params.push((page-1)*20)
     let [results] = await mySqlConnection.execute(sql, params)
+    mySqlConnection.end()
     // @ts-ignore
     return {results, pages};
 }

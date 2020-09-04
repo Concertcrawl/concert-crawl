@@ -20,7 +20,7 @@ export const SearchResult = (props) => {
   })
 
   const favBands = useSelector(store => {
-    return store.favoriteBand
+    return store.favoriteBand ? store.favoriteBand : []
   })
 
   const openModal = (concert) => {
@@ -28,18 +28,17 @@ export const SearchResult = (props) => {
   }
 
   const testFavorites = () => {
-    if (auth !== null) {
+    if (auth !== null && favBands != undefined) {
       favBands.forEach(e => {
         if (e.bandId === concert.bandId) {
+          console.log(e.bandId, concert.bandId)
           setStar("star-yellow")
-        } else {
-          setStar("star-white")
         }
       })
     }
   }
 
-  {React.useEffect(testFavorites, [])}
+  React.useEffect(testFavorites, [])
 
   const addBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: concert.bandId})
@@ -56,9 +55,7 @@ export const SearchResult = (props) => {
       );
   }
 
-
   return (
-
     <>
       <ConcertInfoModal props={concert} ref={modalRef}/>
       <Container fluid className="concert-modals-search pb-1 mt-1">

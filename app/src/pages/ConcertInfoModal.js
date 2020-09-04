@@ -32,7 +32,7 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
   });
 
   const testFavorites = () => {
-    if (auth !== null) {
+    if (auth !== null && concerts != undefined) {
       concerts.forEach(e => {
         if (e.concertId === props.concertId) {
           setColor("secondary")
