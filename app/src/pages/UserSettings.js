@@ -18,9 +18,9 @@ export const UserSettings = () => {
           <Row>
             <Col className="border-right border-top border-dark py-3">
               <Accordion>
-                <Card>
-                  <Card.Header>
-                    <Accordion.Toggle variant="link" eventKey="0">
+                <Card className="mb-3">
+                  <Card.Header className="bg-dark">
+                    <Accordion.Toggle className="btn btn-light" variant="link" eventKey="0">
                       Change your First Name!
                     </Accordion.Toggle>
                   </Card.Header>
@@ -35,8 +35,8 @@ export const UserSettings = () => {
                   </Accordion.Collapse>
                 </Card>
                 <Card>
-                  <Card.Header>
-                    <Accordion.Toggle variant="link" eventKey="1">
+                  <Card.Header className="bg-dark">
+                    <Accordion.Toggle className="btn btn-light" variant="link" eventKey="1">
                       Change your Zip Code!
                     </Accordion.Toggle>
                   </Card.Header>
@@ -53,10 +53,10 @@ export const UserSettings = () => {
               </Accordion>
             </Col>
             <Col className="py-3 border-dark border-top">
-              <Accordion>
+              <Accordion className="mb-3">
                 <Card>
-                  <Card.Header>
-                    <Accordion.Toggle variant="link" eventKey="0">
+                  <Card.Header className="bg-dark">
+                    <Accordion.Toggle className="btn btn-light" variant="link" eventKey="0">
                       Change your Password!
                     </Accordion.Toggle>
                   </Card.Header>
@@ -74,7 +74,7 @@ export const UserSettings = () => {
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
-                <Button variant="secondary" type="submit">
+                <Button className="mt-3" variant="secondary" type="submit">
                   Submit
                 </Button>
             </Col>
