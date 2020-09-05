@@ -25,12 +25,11 @@ const pages = createSlice({
   initialState: 0,
   reducers: {
     getPageNumber: (pages, action) => {
-      console.log(action)
       const {payload} = action
       if (payload != null) {
         return payload.pages[0]
       } else {
-        return null
+        return 0
       }
     },
   }

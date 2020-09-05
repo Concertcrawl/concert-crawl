@@ -67,8 +67,8 @@ export const Home = () => {
   const submitSearch = () => {
     setMorePages(true)
     dispatch(resetSearch())
-    dispatch(fetchResults(1, band, genre, location, startDate, endDate))
-    dispatch(storeSearchInputs(1, band, genre, location, startDate, endDate))
+    dispatch(fetchResults(1, band, genre, location, startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]))
+    dispatch(storeSearchInputs(1, band, genre, location, startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]))
     setEachEntry({...initialState})
     setStartDate(initialState.sDate)
     setEndDate(initialState.eDate)
@@ -77,7 +77,7 @@ export const Home = () => {
   const updateSearch = () => {
     dispatch(storeSearchInputs(...inputs))
     dispatch(fetchResults(...inputs))
-    if ((inputs[0] - 1) === parseInt(pages.count)) {
+    if ((inputs[0] - 1) >= parseInt(pages.count)) {
       setMorePages(false)
     }
   }
