@@ -24,11 +24,12 @@ export const UserSettings = () => {
       .max(30, "User Name must be less than 30 characters."),
     userPassword: Yup.string()
       .min(8, "Password must be at least 8 characters."),
+    userPasswordConfirm: Yup.string()
+      .min(8, "Confirmation password must be at least 8 characters."),
     userZip: Yup.number()
       .typeError("Zip code must be a number.")
-      .min(5, "Your Zip Code must be at least 5 numbers.")
-      .max(5, "Your Zip code can only be 5 numbers."),
-    userPasswordConfirm: Yup.string()
+      .min(5, "Your Zip Code must be at least 5 numbers."),
+    currentEnteredPass: Yup.string()
       .min(8, "Password must be at least 8 characters.")
   })
 
@@ -61,7 +62,18 @@ export const UserSettings = () => {
   const submitUpdatePassword = (values, {
     resetForm, setStatus
   }) => {
-    httpConfig.post("/apis/settings/updatePassword", values)
+    if (values.userPassword === values.userPasswordConfirm) {
+      httpConfig.post("/apis/settings/updatePassword", values)
+        .then(reply => {
+          let {message, type} = reply
+          if (reply.status === 200) {
+            resetForm()
+          }
+          setStatus({message, type})
+        })
+    } else {
+      setStatus({message: "Passwords do not match.", type: "alert alert-danger"})
+    }
   }
 
   const userName = {
@@ -70,21 +82,13 @@ export const UserSettings = () => {
 
   const password = {
     userPassword: "",
-    userPasswordConfirm: ""
+    userPasswordConfirm: "",
+    currentEnteredPass: ""
   }
 
   const zip = {
     userZip: ""
   }
-
-  const {
-    status,
-    values,
-    errors,
-    handleChange,
-    handleBlur,
-    handleSubmit
-  } = props
 
   return (
     <>
@@ -110,23 +114,36 @@ export const UserSettings = () => {
                     <Accordion.Collapse eventKey="0">
                       <Card.Body>
                         <Formik initialValues={userName} onSubmit={submitUpdateName} validationSchema={validator}>
-                          <Form onSubmit={handleSubmit}>
-                            <Form.Group>
-                              <Form.Label>Change First Name</Form.Label>
-                              <Form.Control name="userFirstName" value={values.userFirstName}
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            type="text" placeholder="First Name"/>
-                              {errors.userFirstName && (
-                                <div className="alert-danger alert">
-                                  {errors.userFirstName}
-                                </div>
-                              )}
-                              <Button className="mt-3" variant="secondary" type="submit">
-                                Submit
-                              </Button>
-                            </Form.Group>
-                          </Form>
+                          {(props) => {
+                            const {
+                              status,
+                              values,
+                              errors,
+                              handleChange,
+                              handleBlur,
+                              handleSubmit
+                            } = props
+                            return (
+                              <Form onSubmit={handleSubmit}>
+                                <Form.Group>
+                                  <Form.Label>Change First Name</Form.Label>
+                                  <Form.Control name="userFirstName" value={values.userFirstName}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                type="text" placeholder="First Name"/>
+                                  {errors.userFirstName && (
+                                    <div className="alert-danger alert">
+                                      {errors.userFirstName}
+                                    </div>
+                                  )}
+                                  <Button className="mt-3" variant="secondary" type="submit">
+                                    Submit
+                                  </Button>
+                                </Form.Group>
+                                {status && (<div className={status.type}>{status.message}</div>)}
+                              </Form>
+                            )
+                          }}
                         </Formik>
                       </Card.Body>
                     </Accordion.Collapse>
@@ -140,16 +157,36 @@ export const UserSettings = () => {
                     <Accordion.Collapse eventKey="1">
                       <Card.Body>
                         <Formik initialValues={zip} onSubmit={submitUpdateZip} validationSchema={validator}>
-                          <Form>
-                            <Form.Group>
-                              <Form.Label>Change Zip Code</Form.Label>
-                              <Form.Control
-                                type="text" placeholder="Zip Code"/>
-                              <Button className="mt-3" variant="secondary" type="submit">
-                                Submit
-                              </Button>
-                            </Form.Group>
-                          </Form>
+                          {(props) => {
+                            const {
+                              status,
+                              values,
+                              errors,
+                              handleChange,
+                              handleBlur,
+                              handleSubmit
+                            } = props
+                            return (
+                              <Form onSubmit={handleSubmit}>
+                                <Form.Group>
+                                  <Form.Label>Change Zip Code</Form.Label>
+                                  <Form.Control
+                                    type="text" placeholder="Zip Code" name="userZip" value={values.userZip}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}/>
+                                  {errors.userZip && (
+                                    <div className="alert-danger alert">
+                                      {errors.userZip}
+                                    </div>
+                                  )}
+                                  <Button className="mt-3" variant="secondary" type="submit">
+                                    Submit
+                                  </Button>
+                                </Form.Group>
+                                {status && (<div className={status.type}>{status.message}</div>)}
+                              </Form>
+                            )
+                          }}
                         </Formik>
                       </Card.Body>
                     </Accordion.Collapse>
@@ -167,19 +204,61 @@ export const UserSettings = () => {
                     <Accordion.Collapse eventKey="0">
                       <Card.Body>
                         <Formik initialValues={password} onSubmit={submitUpdatePassword} validationSchema={validator}>
-                          <Form>
-                            <Form.Group>
-                              <Form.Label>Change Password</Form.Label>
-                              <Form.Control type="text" placeholder="Password"/>
-                            </Form.Group>
-                            <Form.Group>
-                              <Form.Label>Confirm New Password</Form.Label>
-                              <Form.Control type="text" placeholder="Confirm New Password"/>
-                            </Form.Group>
-                            <Button className="mt-3" variant="secondary" type="submit">
-                              Submit
-                            </Button>
-                          </Form>
+                          {(props) => {
+                            const {
+                              status,
+                              values,
+                              errors,
+                              handleChange,
+                              handleBlur,
+                              handleSubmit
+                            } = props
+                            return (
+                              <Form onSubmit={handleSubmit}>
+                                <Form.Group>
+                                  <Form.Label>Current Password</Form.Label>
+                                  <Form.Control type="text" placeholder="Current Password"
+                                                name="currentEnteredPass" value={values.currentEnteredPass}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}/>
+                                  {errors.currentEnteredPass && (
+                                    <div className="alert-danger alert">
+                                      {errors.currentEnteredPass}
+                                    </div>
+                                  )}
+                                </Form.Group>
+                                <Form.Group>
+                                  <Form.Label>New Password</Form.Label>
+                                  <Form.Control type="text" placeholder="New Password"
+                                                name="userPassword" value={values.userPassword}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}/>
+                                  {errors.userPassword && (
+                                    <div className="alert-danger alert">
+                                      {errors.userPassword}
+                                    </div>
+                                  )}
+                                </Form.Group>
+                                <Form.Group>
+                                  <Form.Label>Confirm Password</Form.Label>
+                                  <Form.Control type="text" placeholder="Confirm Password"
+                                                name="userPasswordConfirm" value={values.userPasswordConfirm}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}/>
+                                  {errors.userPasswordConfirm && (
+                                    <div className="alert-danger alert">
+                                      {errors.userPasswordConfirm}
+                                    </div>
+                                  )}
+                                  <Button className="mt-3" variant="secondary" type="submit">
+                                    Submit
+                                  </Button>
+                                </Form.Group>
+
+                                {status && (<div className={status.type}>{status.message}</div>)}
+                              </Form>
+                            )
+                          }}
                         </Formik>
                       </Card.Body>
                     </Accordion.Collapse>

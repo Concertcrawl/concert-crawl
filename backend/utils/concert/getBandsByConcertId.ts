@@ -1,4 +1,3 @@
-// @ts-ignore
 import {connect} from "../../src/database";
 
 export async function selectBandConcertId(concertId: string) {

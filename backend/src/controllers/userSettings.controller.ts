@@ -31,9 +31,11 @@ export async function updateFirstName(request: Request, response: Response) {
 
 export async function updatePassword(request: Request, response: Response) {
     const {userPassword, currentEnteredPass} = request.body
+    console.log(request.body)
     const userHash = await setHash(userPassword)
     const user: User = request.session?.profile
     const userId = <string>user.userId
+    console.log(userId)
 
     const setPassword: SetPassword = {
         userId,
@@ -52,7 +54,7 @@ export async function updatePassword(request: Request, response: Response) {
             return response.json({status: 400, data: null, message: "Password update failed."})
         }
     } else {
-        return response.json({status: 400, data: null, message: "New password does not match current password."})
+        return response.json({status: 400, data: null, message: "Wrong current password."})
     }
 
 }

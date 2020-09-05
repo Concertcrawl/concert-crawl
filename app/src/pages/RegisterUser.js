@@ -37,6 +37,7 @@ export const RegisterUser = () => {
   });
 
   const submitSignUp = (values, {resetForm, setStatus}) => {
+    if (values.userPassword === values.userPasswordConfirm) {
     httpConfig.post("/apis/sign-up/", values)
       .then(reply => {
           let {message, type} = reply;
@@ -47,6 +48,9 @@ export const RegisterUser = () => {
           setStatus({message, type});
         }
       );
+  } else {
+      setStatus({message: "Passwords do not match.", type: "alert alert-danger"})
+    }
   };
 
   return (
