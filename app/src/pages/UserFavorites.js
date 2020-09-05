@@ -24,8 +24,8 @@ export const UserFavorites = () => {
   return (
     <>
       <Container fluid>
-        <Row>
-          <Col>
+        <Row className="fav-bands-body">
+          <Col className="favorite-bands">
             <h1 className="text-center mb-3"> Favorited Bands</h1>
             {auth !== null && (
             bands.map(band => <FavoritedBand band={band} key={band.bandId}/>)
