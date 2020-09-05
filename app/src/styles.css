@@ -47,11 +47,20 @@ body{
 }
 
 .favorite-bands{
-    background: #4C8E98 !important;
+    background: #4C8E98;
+    padding: 10px;
+}
+
+.fav-bands-body{
+    background: #23526F;
 }
 
 .saved-concerts {
     background: #4C8E98;
+}
+
+.saved-header {
+    color: #F5ECB4;
 }
 
 .privacy-page {

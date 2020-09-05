@@ -36,7 +36,7 @@ export const SavedConcerts = () => {
       <Container fluid className="saved-concerts">
         <Row>
           <Col>
-            <h1 className="text-center col-12">Saved Concerts</h1>
+            <h1 className="saved-header text-center col-12">Saved Concerts</h1>
             {auth !== null && (concerts.map(concert => <SearchResult concert={concert}
                                                                            key={concert.concertId}/>))
 

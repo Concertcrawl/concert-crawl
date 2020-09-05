@@ -35,7 +35,7 @@ export const NavBar = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Item><Nav.Link href="/saved-concerts">Saved Concerts</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link href="/user-favorites">Followed Bands</Nav.Link></Nav.Item>
+            <Nav.Item><Nav.Link href="/user-favorites">Favorited Bands</Nav.Link></Nav.Item>
           </Nav>
           {auth !== null && (
             <Nav className="ml-auto">
