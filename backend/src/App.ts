@@ -9,8 +9,7 @@ import {SignInRouter} from "./routes/sign-in.route";
 import {passportMiddleware} from "./lib/auth.controller";
 import {SignOutRoute} from "./routes/sign-out.route";
 import {SaveConcertRouter} from "./routes/save-concert.route"
-import {FavoriteBandRouter} from "./routes/favorite-bands.route"
-import {ShowFavoritedBandRouter, ShowConcertsByBandRouter} from "./routes/favorite-bands.route";
+import {FavoriteBandRouter, ShowBandsByConcertRouter, ShowFavoritedBandRouter, ShowConcertsByBandRouter} from "./routes/favorite-bands.route"
 import {ShowSavedConcertRouter} from "./routes/save-concert.route";
 
 const session = require("express-session");
@@ -72,6 +71,7 @@ export class App {
     this.app.use('/apis/user-bands', ShowFavoritedBandRouter)
     this.app.use('/apis/user-concerts', ShowSavedConcertRouter)
     this.app.use('/apis/concert-bands', ShowConcertsByBandRouter)
+    this.app.use('/apis/bands-concert', ShowBandsByConcertRouter)
   }
 
   // starts the server and tells the terminal to post a message that the server is running and on what port
