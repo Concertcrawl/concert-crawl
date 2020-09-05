@@ -20,53 +20,76 @@ export const UserSettings = () => {
   React.useEffect(sideEffects, [])
 
   const validator = Yup.object().shape({
-    userFirstName:Yup.string()
-      .optional
+    userFirstName: Yup.string()
       .max(30, "User Name must be less than 30 characters."),
-    userPassword:Yup.string()
-      .optional
+    userPassword: Yup.string()
       .min(8, "Password must be at least 8 characters."),
-    userZip:Yup.string()
-      .isNumeric
+    userZip: Yup.number()
+      .typeError("Zip code must be a number.")
       .min(5, "Your Zip Code must be at least 5 numbers.")
       .max(5, "Your Zip code can only be 5 numbers."),
-    userPasswordConfirm:Yup.string()
-      .optional
+    userPasswordConfirm: Yup.string()
       .min(8, "Password must be at least 8 characters.")
   })
 
-  const submitUpdateName = (values,{
-    resetForm,setStatus}) => {
-    httpConfig.post("/apis/settings/updateName/",values)
+  const submitUpdateName = (values, {
+    resetForm, setStatus
+  }) => {
+    httpConfig.post("/apis/settings/updateName/", values)
       .then(reply => {
         let {message, type} = reply
-        if (reply.status === 200){
+        if (reply.status === 200) {
           resetForm()
         }
-        setStatus({message,type})
+        setStatus({message, type})
       })
   }
 
-  const submitUpdateZip = (values,{
-    resetForm,setStatus}) => {
-    httpConfig.post("/apis/settings/updateZip",values)
+  const submitUpdateZip = (values, {
+    resetForm, setStatus
+  }) => {
+    httpConfig.post("/apis/settings/updateZip", values)
       .then(reply => {
         let {message, type} = reply
-        if (reply.status === 200){
+        if (reply.status === 200) {
           resetForm()
         }
-        setStatus({message,type})
+        setStatus({message, type})
       })
   }
 
-  const submitUpdatePassword = (Values,{
-  resetForm,setStatus}) => {
-    httpConfig.post("/apis/settings/updatePassword",values)
+  const submitUpdatePassword = (values, {
+    resetForm, setStatus
+  }) => {
+    httpConfig.post("/apis/settings/updatePassword", values)
   }
+
+  const userName = {
+    userName: ""
+  }
+
+  const password = {
+    userPassword: "",
+    userPasswordConfirm: ""
+  }
+
+  const zip = {
+    userZip: ""
+  }
+
+  const {
+    status,
+    values,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit
+  } = props
+
   return (
     <>
-      {auth ==null && (<p>You need to be logged in to change your user settings!</p>)}
-      {auth !== null &&(
+      {auth == null && (<p>You need to be logged in to change your user settings!</p>)}
+      {auth !== null && (
         <Container className="border border-dark p-0 my-5">
           <Row>
             <Col xs={12} className="mt-5 mb-5">
@@ -86,14 +109,25 @@ export const UserSettings = () => {
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                       <Card.Body>
-                        <Form.Group>
-                          <Form.Label>Change First Name</Form.Label>
-                          <Form.Control
-                            type="text" placeholder="First Name"/>
-                        </Form.Group>
-                        <Button className="mt-3" variant="secondary" type="submit">
-                          Submit
-                        </Button>
+                        <Formik initialValues={userName} onSubmit={submitUpdateName} validationSchema={validator}>
+                          <Form onSubmit={handleSubmit}>
+                            <Form.Group>
+                              <Form.Label>Change First Name</Form.Label>
+                              <Form.Control name="userFirstName" value={values.userFirstName}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            type="text" placeholder="First Name"/>
+                              {errors.userFirstName && (
+                                <div className="alert-danger alert">
+                                  {errors.userFirstName}
+                                </div>
+                              )}
+                              <Button className="mt-3" variant="secondary" type="submit">
+                                Submit
+                              </Button>
+                            </Form.Group>
+                          </Form>
+                        </Formik>
                       </Card.Body>
                     </Accordion.Collapse>
                   </Card>
@@ -105,14 +139,18 @@ export const UserSettings = () => {
                     </Card.Header>
                     <Accordion.Collapse eventKey="1">
                       <Card.Body>
-                        <Form.Group>
-                          <Form.Label>Change Zip Code</Form.Label>
-                          <Form.Control
-                            type="text" placeholder="Zip Code"/>
-                        </Form.Group>
-                        <Button className="mt-3" variant="secondary" type="submit">
-                          Submit
-                        </Button>
+                        <Formik initialValues={zip} onSubmit={submitUpdateZip} validationSchema={validator}>
+                          <Form>
+                            <Form.Group>
+                              <Form.Label>Change Zip Code</Form.Label>
+                              <Form.Control
+                                type="text" placeholder="Zip Code"/>
+                              <Button className="mt-3" variant="secondary" type="submit">
+                                Submit
+                              </Button>
+                            </Form.Group>
+                          </Form>
+                        </Formik>
                       </Card.Body>
                     </Accordion.Collapse>
                   </Card>
@@ -128,17 +166,21 @@ export const UserSettings = () => {
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                       <Card.Body>
-                        <Form.Group>
-                          <Form.Label>Change Password</Form.Label>
-                          <Form.Control type="text" placeholder="Password"/>
-                        </Form.Group>
-                        <Form.Group>
-                          <Form.Label>Confirm New Password</Form.Label>
-                          <Form.Control type="text" placeholder="Confirm New Password"/>
-                        </Form.Group>
-                        <Button className="mt-3" variant="secondary" type="submit">
-                          Submit
-                        </Button>
+                        <Formik initialValues={password} onSubmit={submitUpdatePassword} validationSchema={validator}>
+                          <Form>
+                            <Form.Group>
+                              <Form.Label>Change Password</Form.Label>
+                              <Form.Control type="text" placeholder="Password"/>
+                            </Form.Group>
+                            <Form.Group>
+                              <Form.Label>Confirm New Password</Form.Label>
+                              <Form.Control type="text" placeholder="Confirm New Password"/>
+                            </Form.Group>
+                            <Button className="mt-3" variant="secondary" type="submit">
+                              Submit
+                            </Button>
+                          </Form>
+                        </Formik>
                       </Card.Body>
                     </Accordion.Collapse>
                   </Card>
