@@ -1,7 +1,7 @@
 import React from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { LoginModal } from './sign-in/LoginModal'
-import { fetchAuth} from '../store/loginRedux'
+import { fetchAuth } from '../store/loginRedux'
 import { httpConfig } from '../utils/http-config'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -34,8 +34,11 @@ export const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Item><Nav.Link href="/saved-concerts">Saved Concerts</Nav.Link></Nav.Item>
-            <Nav.Item><Nav.Link href="/user-favorites">Favorited Bands</Nav.Link></Nav.Item>
+            <NavDropdown id="basic-navbar-dropdown" title="DropDown">
+              <NavDropdown.Item href="/saved-concerts">Saved Concerts</NavDropdown.Item>
+              <NavDropdown.Item href="/user-favorites">Favorited Bands</NavDropdown.Item>
+              <NavDropdown.Item href="/user-settings">User Settings</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
           {auth !== null && (
             <Nav className="ml-auto">
