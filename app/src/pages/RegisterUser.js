@@ -67,7 +67,7 @@ export const RegisterUser = () => {
             handleSubmit
           } = props;
           return (
-            <Container className="border border-dark p-0 my-5">
+            <Container className="register-user border border-dark p-0">
               <Row>
                 <Col xs={12} className="mt-5 mb-5">
                   <h2 className="text-center pb-2">Welcome To Concert Crawl!</h2>

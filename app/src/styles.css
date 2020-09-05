@@ -68,16 +68,33 @@ body{
 }
 
 .privacy-page {
-    background: #4C8E98;
+    background-image: url("https://api.time.com/wp-content/uploads/2019/08/tallconcertshirt.jpeg");
 }
 
-.contact-us{
-    background: #4C8E98;
+.contact-us-body {
+    background-image: url("https://api.time.com/wp-content/uploads/2019/08/tallconcertshirt.jpeg");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    max-width: 100%;
 }
 
 .contact-us img{
-    max-height: 200px;
-    max-width: 200px;
+    max-height: 1500px;
+    max-width: 150px;
+}
+
+.register-user{
+    background-image: url("https://api.time.com/wp-content/uploads/2019/08/tallconcertshirt.jpeg");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 100%;
+}
+
+.register-user-body{
+
 }
 
 .star-yellow {
