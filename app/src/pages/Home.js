@@ -48,7 +48,7 @@ export const Home = () => {
     return store.savedConcerts ? store.savedConcerts : []
   })
 
-  useSelector(store => {
+  const favBand = useSelector(store => {
     return store.favoriteBand ? store.favoriteBand : []
   })
 
@@ -198,7 +198,7 @@ export const Home = () => {
       {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
       <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
                       dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
-        {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert} key={concert.concertId}/>))}
+        {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert} favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")} key={concert.concertId}/>))}
       </InfiniteScroll>
     </>
   )

@@ -1,13 +1,9 @@
 import React from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchSavedConcerts } from '../store/savedConcerts'
+import { useSelector } from 'react-redux'
 import { SearchResult } from './SearchResult'
-import { fetchAuth } from '../store/loginRedux'
-import { fetchFavoriteBands } from '../store/favoriteBands'
 
 export const SavedConcerts = () => {
-  const dispatch = useDispatch()
 
   const auth = useSelector(store => {
     return store.auth
@@ -17,19 +13,9 @@ export const SavedConcerts = () => {
     return store.savedConcerts ? store.savedConcerts : []
   })
 
-  console.log(concerts)
-
-  useSelector(store => {
+  const favBand = useSelector(store => {
     return store.favoriteBand ? store.favoriteBand : []
   })
-
-  const sideEffects = () => {
-    dispatch(fetchFavoriteBands())
-    dispatch(fetchSavedConcerts())
-    dispatch(fetchAuth())
-  }
-
-  React.useEffect(sideEffects, [])
 
   return (
     <>
@@ -37,7 +23,7 @@ export const SavedConcerts = () => {
         <Row>
           <Col>
             <h1 className="saved-header text-center col-12">Saved Concerts</h1>
-            {auth !== null && (concerts.map(concert => <SearchResult concert={concert}
+            {auth !== null && (concerts.map(concert => <SearchResult concert={concert} favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")}
                                                                            key={concert.concertId}/>))
 
               }

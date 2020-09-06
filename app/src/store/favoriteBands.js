@@ -6,6 +6,8 @@ const slice = createSlice({
   initialState: [],
   reducers:{
     getFavoriteBands: (bands, action) => {
+      if(action.payload != null){
+      action.payload.forEach(e => e['bandState'] = 'star-yellow')}
       return action.payload
     },
   }

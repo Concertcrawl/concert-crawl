@@ -17,6 +17,9 @@ export const FavoritedBand = (props) => {
     return store.concertsFromBand
   })
 
+  const favBand = useSelector(store => {
+    return store.favoriteBand ? store.favoriteBand : []
+  })
 
   const sideEffects = () => {
     dispatch(fetchConcertsFromBands(band.bandId))
@@ -26,11 +29,8 @@ export const FavoritedBand = (props) => {
 
   const removeBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: band.bandId})
-      .then(reply => {
-          let {message} = reply
-          console.log(message)
+      .then(
           dispatch(fetchFavoriteBands())
-        }
       );
   }
 
@@ -62,7 +62,7 @@ export const FavoritedBand = (props) => {
           <Col xs={12}>
             <Collapse in={open}>
               <div>
-                {concerts.filter(concert => band.bandId === concert.bandId).map(concert => <SearchResult concert={concert} key={concert.concertId}/>)}
+                {concerts.filter(concert => band.bandId === concert.bandId).map(concert => <SearchResult concert={concert} favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")} key={concert.concertId}/>)}
               </div>
             </Collapse>
           </Col>

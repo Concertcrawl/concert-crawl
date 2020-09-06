@@ -22,6 +22,10 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
     return store.auth
   })
 
+  const favBand = useSelector(store => {
+    return store.favoriteBand ? store.favoriteBand : []
+  })
+
   const {props, bands} = concert
 
   const handleShow = () => setShow(true);
@@ -33,7 +37,7 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
     }
   });
 
-  const [star, setStar] = useState('star-white')
+  let star = "star-white"
 
   const testFavorites = () => {
     if (auth !== null && concerts !== undefined) {
@@ -46,12 +50,26 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
 
   React.useEffect(testFavorites, [])
 
-
   const addBand = async (bandId) => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: bandId})
-      .then(
+      .then(reply => {
+          console.log(reply)
           dispatch(fetchFavoriteBands())
-      );
+          if (reply.message.includes("added")) {
+            star = "star-yellow"
+          } else {
+            star = "star-white"
+          }
+        }
+      )
+  }
+
+  const testFun = (band) => {
+    if (favBand.some(e => e['bandId'] === band.bandId) === true) {
+      star = "star-yellow"
+    } else {
+      star = "star-white"
+    }
   }
 
   const addConcert = async () => {
@@ -137,12 +155,11 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
               >Bands &#8659;</Button>
               <Collapse in={open}>
                 <div id="bands-collapse">
-                  {bands.filter(band => band.concertId === props.concertId).length === 1 && (
-                    <p className="border-bottom py-3 text-center">No other bands playing at this concert.</p>)}
-                  {bands.filter(band => band.concertId === props.concertId && band.isHeadliner === 0).map(band => <p
+                  {bands.filter(band => band.concertId === props.concertId).map(band => <p
                     key={uuidv4()} className="display-4 border-bottom py-3 text-center">{band.bandName}<Button
                     role="img"
-                    aria-label="Star" className="bg-transparent border-0" onClick={() => addBand(band.bandId)}><span className={star}>&#9733;</span></Button></p>)}
+                    aria-label="Star" className="bg-transparent border-0" onClick={() => (addBand(band.bandId))}>{testFun(band)}<span
+                    className={star}>&#9733;</span></Button></p>)}
                 </div>
               </Collapse>
             </Modal.Body>

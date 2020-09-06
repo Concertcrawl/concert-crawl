@@ -1,12 +1,9 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { FavoritedBand } from './FavoriteBand'
-import { fetchFavoriteBands } from '../store/favoriteBands'
-import { fetchAuth } from '../store/loginRedux'
-import { useDispatch, useSelector } from 'react-redux'
+import {  useSelector } from 'react-redux'
 
 export const UserFavorites = () => {
-  const dispatch = useDispatch()
 
   const auth = useSelector(store => {
     return store.auth
@@ -16,11 +13,6 @@ export const UserFavorites = () => {
     return store.favoriteBand ? store.favoriteBand : []
   })
 
-  const sideEffects = () => {
-    dispatch(fetchFavoriteBands())
-    dispatch(fetchAuth())
-  }
-  React.useEffect(sideEffects, [])
   return (
     <>
       <Container fluid>
@@ -37,7 +29,6 @@ export const UserFavorites = () => {
           </Col>
         </Row>
       </Container>
-
     </>
   )
 }
