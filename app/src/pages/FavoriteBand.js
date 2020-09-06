@@ -14,7 +14,6 @@ export const FavoritedBand = (props) => {
   const dispatch = useDispatch()
 
   const concerts = useSelector(store => {
-    console.log(store.concertsFromBand)
     return store.concertsFromBand
   })
 
@@ -37,7 +36,6 @@ export const FavoritedBand = (props) => {
 
   return (
     <>
-      {console.log(band)}
       <Container fluid>
         <Row className="border-top border-dark">
           <Col md={2} className="my-auto text-center">

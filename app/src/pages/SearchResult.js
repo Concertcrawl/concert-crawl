@@ -5,6 +5,7 @@ import { httpConfig } from '../utils/http-config'
 import { fetchSavedConcerts } from '../store/savedConcerts'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchFavoriteBands } from '../store/favoriteBands'
+import { fetchBandsFromConcerts } from '../store/bandsFromConcerts'
 
 export const SearchResult = (props) => {
   const modalRef = React.useRef();
@@ -23,6 +24,10 @@ export const SearchResult = (props) => {
     return store.favoriteBand ? store.favoriteBand : []
   })
 
+  const concertBands = useSelector(store => {
+    return store.bandsFromConcert ? store.bandsFromConcert : []
+  })
+
   const openModal = (concert) => {
     modalRef.current.openModal(concert)
   }
@@ -38,7 +43,15 @@ export const SearchResult = (props) => {
     }
   }
 
+  const sideEffects = () => {
+    dispatch(fetchBandsFromConcerts(concert.concertId))
+  }
+
   React.useEffect(testFavorites, [])
+
+  React.useEffect(sideEffects, [])
+
+
 
   const addBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: concert.bandId})
@@ -57,7 +70,7 @@ export const SearchResult = (props) => {
 
   return (
     <>
-      <ConcertInfoModal props={concert} ref={modalRef}/>
+      <ConcertInfoModal props={concert} bands={concertBands} ref={modalRef}/>
       <Container fluid className="concert-modals-search pb-1 mt-1">
         <Row>
           <Col md={1} className="d-none d-lg-flex">

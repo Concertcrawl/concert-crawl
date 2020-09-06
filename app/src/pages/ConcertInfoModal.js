@@ -3,6 +3,9 @@ import { Button, Col, Collapse, Container, Modal, Row } from 'react-bootstrap'
 import { httpConfig } from '../utils/http-config'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSavedConcerts } from '../store/savedConcerts'
+import { SearchResult } from './SearchResult'
+import { v4 as uuidv4 } from 'uuid';
+import { fetchFavoriteBands } from '../store/favoriteBands'
 
 export const ConcertInfoModal = forwardRef((concert, ref) => {
   const [open, setOpen] = useState(false);
@@ -13,14 +16,14 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
   const dispatch = useDispatch()
 
   const concerts = useSelector(store => {
-    return store.savedConcerts
+    return store.savedConcerts ? store.savedConcerts : []
   })
 
   const auth = useSelector(store => {
     return store.auth
   })
 
-  const {props} = concert
+  const {props, bands} = concert
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -31,17 +34,31 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
     }
   });
 
+  const [star, setStar] = useState('star-white')
+
   const testFavorites = () => {
     if (auth !== null && concerts != undefined) {
-      concerts.forEach(e => {
+      concerts.some(e => {
         if (e.concertId === props.concertId) {
           setColor("secondary")
           setText("Click to remove concert.")
+          return true
         }
       })
     }
   }
+
   React.useEffect(testFavorites, [])
+
+
+  const addBand = async (bandId) => {
+    httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: bandId})
+      .then(reply => {
+          let {message} = reply
+          dispatch(fetchFavoriteBands())
+        }
+      );
+  }
 
   const addConcert = async () => {
     httpConfig.post("/apis/save-concert/", {userConcertsConcertId: props.concertId})
@@ -125,15 +142,13 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
                       aria-expanded={open}
               >Bands &#8659;</Button>
               <Collapse in={open}>
-                <div id="example-collapse-text">
-                  <p className="display-4 border-bottom py-3 text-center">Band A<span role="img"
-                                                                                      aria-label="Star">&#11088;</span>
-                  </p>
-                  <p className="display-4 border-bottom py-3 text-center">Band B<span role="img"
-                                                                                      aria-label="Star">&#11088;</span>
-                  </p>
-                  <p className="display-4 py-3 text-center">Band C<span role="img"
-                                                                        aria-label="Star">&#11088;</span></p>
+                <div id="bands-collapse">
+                  {bands.filter(band => band.concertId === props.concertId).length === 1 && (
+                    <p className="border-bottom py-3 text-center">No other bands playing at this concert.</p>)}
+                  {bands.filter(band => band.concertId === props.concertId && band.isHeadliner === 0).map(band => <p
+                    key={uuidv4()} className="display-4 border-bottom py-3 text-center">{band.bandName}<Button
+                    role="img"
+                    aria-label="Star" className="bg-transparent border-0" onClick={() => addBand(band.bandId)}><span className={star}>&#9733;</span></Button></p>)}
                 </div>
               </Collapse>
             </Modal.Body>

@@ -5,5 +5,6 @@ import savedConcerts from './savedConcerts'
 import concertsFromBand from './concertsFromBand'
 import auth from './loginRedux'
 import searchInputs from './searchInputs'
+import bandsFromConcert from './bandsFromConcerts'
 
-export default combineReducers({searchSlice, pageSlice, searchInputs, favoriteBand, savedConcerts, concertsFromBand, auth})
+export default combineReducers({searchSlice, pageSlice, searchInputs, bandsFromConcert, favoriteBand, savedConcerts, concertsFromBand, auth})

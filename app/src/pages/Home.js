@@ -67,8 +67,8 @@ export const Home = () => {
   const submitSearch = () => {
     setMorePages(true)
     dispatch(resetSearch())
-    dispatch(fetchResults(1, band, genre, location, startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]))
-    dispatch(storeSearchInputs(1, band, genre, location, startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]))
+    dispatch(fetchResults(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
+    dispatch(storeSearchInputs(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
     setEachEntry({...initialState})
     setStartDate(initialState.sDate)
     setEndDate(initialState.eDate)
