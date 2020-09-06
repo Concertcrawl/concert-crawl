@@ -94,7 +94,7 @@ export const UserSettings = () => {
     <>
       {auth == null && (<p>You need to be logged in to change your user settings!</p>)}
       {auth !== null && (
-        <Container className="user-settings border border-dark p-0">
+        <Container className="user-settings p-0">
           <Row>
             <Col xs={12} className="mt-5 mb-5">
               <h2 className="text-center pb-2"> User Settings!</h2>
@@ -103,7 +103,7 @@ export const UserSettings = () => {
 
           <Container xs={12}>
             <Row>
-              <Col className="border-right border-top border-dark py-3">
+              <Col className="py-3">
                 <Accordion>
                   <Card className="mb-3">
                     <Card.Header className="bg-dark">
@@ -193,7 +193,7 @@ export const UserSettings = () => {
                   </Card>
                 </Accordion>
               </Col>
-              <Col className="py-3 border-dark border-top">
+              <Col className="py-3">
                 <Accordion className="mb-3">
                   <Card>
                     <Card.Header className="bg-dark">
