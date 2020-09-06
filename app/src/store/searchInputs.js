@@ -1,9 +1,8 @@
 import { createSlice} from '@reduxjs/toolkit'
-import { httpConfig } from '../utils/http-config'
 
 const slice = createSlice({
   name:"inputs",
-  initialState: [1, '', '', '', '', '', ''],
+  initialState: [1, '', '', 35.19722, -106.685095, '', ''],
   reducers:{
     getSearchInputs: (inputs, action) => {
       return action.payload
@@ -13,8 +12,8 @@ const slice = createSlice({
 
 export const {getSearchInputs} = slice.actions
 
-export const storeSearchInputs = (page, name, genre, location, sDate, eDate) => dispatch => {
-  const data = [page, name, genre, location, sDate, eDate]
+export const storeSearchInputs = (page, name, genre, lat,  long, sDate, eDate) => dispatch => {
+  const data = [page, name, genre, lat, long, sDate, eDate]
   data[0]++
   dispatch(getSearchInputs(data))
 }

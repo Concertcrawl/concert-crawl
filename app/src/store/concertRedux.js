@@ -39,8 +39,8 @@ export const {getSearchResults, resetSearchResults} = search.actions;
 
 export const {getPageNumber} = pages.actions
 
-export const fetchResults = (page, name, genre, location, sDate, eDate) => async (dispatch) => {
-  const {data} = await httpConfig.get(`/apis/search/page=${page}&name=${name}&genre=${genre}&location=${location}&sDate=${sDate}&eDate=${eDate}&venue=`)
+export const fetchResults = (page, name, genre, lat, long, sDate, eDate) => async (dispatch) => {
+  const {data} = await httpConfig.get(`/apis/search/page=${page}&name=${name}&genre=${genre}&lat=${lat}&long=${long}&sDate=${sDate}&eDate=${eDate}`)
   dispatch(getSearchResults(data))
   dispatch(getPageNumber(data))
 }

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { NavBar } from './NavBar'
 
 export const Footer = () => {
   return (

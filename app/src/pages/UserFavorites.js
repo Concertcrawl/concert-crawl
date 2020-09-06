@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { FavoritedBand } from './FavoriteBand'
 import { fetchFavoriteBands } from '../store/favoriteBands'
-import { fetchAuth} from '../store/loginRedux'
+import { fetchAuth } from '../store/loginRedux'
 import { useDispatch, useSelector } from 'react-redux'
 
 export const UserFavorites = () => {
@@ -17,8 +17,8 @@ export const UserFavorites = () => {
   })
 
   const sideEffects = () => {
-    dispatch (fetchFavoriteBands())
-    dispatch (fetchAuth())
+    dispatch(fetchFavoriteBands())
+    dispatch(fetchAuth())
   }
   React.useEffect(sideEffects, [])
   return (
@@ -28,10 +28,11 @@ export const UserFavorites = () => {
           <Col className="favorite-bands">
             <h1 className="text-center mb-3"> Favorited Bands</h1>
             {auth !== null && (
-            bands.map(band => <FavoritedBand band={band} key={band.bandId}/>)
-              )}
+              bands.map(band => <FavoritedBand band={band} key={band.bandId}/>)
+            )}
             {auth === null && (
-              <p className="text-center lead">Welcome to Concert Crawl! You must be logged in to start adding bands to your favorites!</p>
+              <p className="text-center lead">Welcome to Concert Crawl! You must be logged in to start adding bands to
+                your favorites!</p>
             )}
           </Col>
         </Row>

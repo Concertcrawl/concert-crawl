@@ -33,7 +33,7 @@ export const SearchResult = (props) => {
   }
 
   const testFavorites = () => {
-    if (auth !== null && favBands != undefined) {
+    if (auth !== null && favBands !== undefined) {
       favBands.forEach(e => {
         if (e.bandId === concert.bandId) {
           console.log(e.bandId, concert.bandId)

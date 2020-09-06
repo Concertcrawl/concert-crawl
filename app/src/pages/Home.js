@@ -5,19 +5,23 @@ import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchResults, resetSearch } from '../store/concertRedux'
-import { fetchSavedConcerts } from '../store/savedConcerts'
-import { fetchFavoriteBands } from '../store/favoriteBands'
-import { fetchAuth } from '../store/loginRedux'
 import { storeSearchInputs } from '../store/searchInputs'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import usZips from 'us-zips'
 
 export const Home = () => {
 
   const [morePages, setMorePages] = useState(true)
 
-  const initialState = {band: "", genre: "", location: "", sDate: "", eDate: ""}
-
   const dispatch = useDispatch()
+
+  let zip = useSelector(store => {
+    if (store?.auth !== null) {
+      return store?.auth.userZip ? store.auth.userZip : 87114
+    } else {
+      return 87114
+    }
+  })
 
   const concerts = useSelector(store => {
     return store.searchSlice ? store.searchSlice : []
@@ -27,38 +31,41 @@ export const Home = () => {
     return store.pageSlice.count ? store.pageSlice : 0
   })
 
-
-  const auth = useSelector(store => {
-    return store.auth
-  })
+  const initialState = {
+    band: "",
+    genre: "",
+    lat: usZips[zip.userZip] ?? 35.19722,
+    long: usZips[zip.userZip] ?? -106.685095,
+    sDate: "",
+    eDate: ""
+  }
 
   const inputs = useSelector(store => {
     return store.searchInputs
   })
 
   useSelector(store => {
-    return store.savedConcerts ? store.savedConcerts: []
+    return store.savedConcerts ? store.savedConcerts : []
   })
 
   useSelector(store => {
     return store.favoriteBand ? store.favoriteBand : []
   })
 
-  const sideEffects = () => {
-    dispatch(fetchAuth())
-    dispatch(fetchSavedConcerts())
-    dispatch(fetchFavoriteBands())
-    dispatch(storeSearchInputs(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
-    dispatch(fetchResults(...inputs))
-  };
-
-  React.useEffect(sideEffects, [])
-
   const [eachEntry, setEachEntry] = useState(initialState);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
   const {band, genre, location} = eachEntry;
+
+  let latLong = usZips[location] ?? usZips[87114]
+
+  const sideEffects = () => {
+    dispatch(storeSearchInputs(1, band, genre, latLong.latitude, latLong.longitude, eachEntry.sDate, eachEntry.eDate))
+    dispatch(fetchResults(...inputs))
+  };
+
+  React.useEffect(sideEffects, [])
 
   const handleInputChange = e => {
     setEachEntry({...eachEntry, [e.target.name]: e.target.value});
@@ -67,8 +74,11 @@ export const Home = () => {
   const submitSearch = () => {
     setMorePages(true)
     dispatch(resetSearch())
-    dispatch(fetchResults(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
-    dispatch(storeSearchInputs(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
+    dispatch(fetchResults(1, band, genre, latLong.latitude, latLong.longitude, eachEntry.sDate, eachEntry.eDate))
+    dispatch(storeSearchInputs(1, band, genre, latLong.latitude, latLong.longitude, eachEntry.sDate, eachEntry.eDate))
+  }
+
+  const clearSearch = () => {
     setEachEntry({...initialState})
     setStartDate(initialState.sDate)
     setEndDate(initialState.eDate)
@@ -124,7 +134,7 @@ export const Home = () => {
                     />
                   </Col>
                   <Col xs={6} md={3}>
-                    <Form.Label>Location</Form.Label>
+                    <Form.Label>Zip</Form.Label>
                     <Form.Control
                       type="text"
                       name="location"
@@ -169,16 +179,26 @@ export const Home = () => {
                   </Col>
                 </Row>
               </Form.Group>
-              <Button onClick={submitSearch} variant="light" size="lg" block>
-                Search!
-              </Button>
+              <Row>
+                <Col xs={9}>
+                  <Button onClick={submitSearch} xs={9} variant="light" size="lg" block>
+                    Search!
+                  </Button>
+                </Col>
+                <Col xs={3}>
+                  <Button onClick={clearSearch} variant="light" size="lg" block>
+                    Clear Search!
+                  </Button>
+                </Col>
+              </Row>
             </Form>
           </Container>
         </Container>
       </Container>
-        {concerts.length === 0 && (<p>Something went wrong! No concerts to display! :(</p>)}
-      <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4>Loadin'</h4>} dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
-          {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert} key={concert.concertId}/>))}
+      {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
+      <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
+                      dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
+        {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert} key={concert.concertId}/>))}
       </InfiniteScroll>
     </>
   )

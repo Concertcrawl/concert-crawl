@@ -1,8 +1,8 @@
 export interface Search {
     name: string,
     genre: string,
-    location: number,
-    venue: string,
+    lat: number,
+    long: number,
     sDate: number,
     eDate: number,
     page: number

@@ -3,7 +3,6 @@ import { Button, Col, Collapse, Container, Modal, Row } from 'react-bootstrap'
 import { httpConfig } from '../utils/http-config'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSavedConcerts } from '../store/savedConcerts'
-import { SearchResult } from './SearchResult'
 import { v4 as uuidv4 } from 'uuid';
 import { fetchFavoriteBands } from '../store/favoriteBands'
 
@@ -37,14 +36,11 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
   const [star, setStar] = useState('star-white')
 
   const testFavorites = () => {
-    if (auth !== null && concerts != undefined) {
-      concerts.some(e => {
-        if (e.concertId === props.concertId) {
-          setColor("secondary")
-          setText("Click to remove concert.")
-          return true
-        }
-      })
+    if (auth !== null && concerts !== undefined) {
+      if (concerts.some(e => e.concertId === props.concertId)) {
+        setColor("secondary")
+        setText("Click to remove concert.")
+      }
     }
   }
 
@@ -53,10 +49,8 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
 
   const addBand = async (bandId) => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: bandId})
-      .then(reply => {
-          let {message} = reply
+      .then(
           dispatch(fetchFavoriteBands())
-        }
       );
   }
 

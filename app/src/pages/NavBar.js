@@ -1,9 +1,11 @@
 import React from 'react';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Nav, Navbar } from 'react-bootstrap';
 import { LoginModal } from './sign-in/LoginModal'
 import { fetchAuth } from '../store/loginRedux'
 import { httpConfig } from '../utils/http-config'
 import { useDispatch, useSelector } from 'react-redux'
+import { fetchSavedConcerts } from '../store/savedConcerts'
+import { fetchFavoriteBands } from '../store/favoriteBands'
 
 export const NavBar = () => {
   const dispatch = useDispatch()
@@ -12,6 +14,8 @@ export const NavBar = () => {
   })
   const sideEffects = () => {
     dispatch(fetchAuth())
+    dispatch(fetchSavedConcerts())
+    dispatch(fetchFavoriteBands())
   };
 
   React.useEffect(sideEffects, [])
@@ -29,16 +33,14 @@ export const NavBar = () => {
 
   return (
     <>
-      <Navbar className="navbar">
+      <Navbar className="navbar" expand="lg">
         <Navbar.Brand href="/">Concert Crawl</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <NavDropdown id="basic-navbar-dropdown" title="DropDown">
-              <NavDropdown.Item href="/saved-concerts">Saved Concerts</NavDropdown.Item>
-              <NavDropdown.Item href="/user-favorites">Favorited Bands</NavDropdown.Item>
-              <NavDropdown.Item href="/user-settings">User Settings</NavDropdown.Item>
-            </NavDropdown>
+              <Nav.Link href="/saved-concerts">Saved Concerts</Nav.Link>
+              <Nav.Link href="/user-favorites">Favorite Bands</Nav.Link>
+              <Nav.Link href="/user-settings">User Settings</Nav.Link>
           </Nav>
           {auth !== null && (
             <Nav className="ml-auto">

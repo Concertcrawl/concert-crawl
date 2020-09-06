@@ -15,9 +15,9 @@ export async function signInController(request: Request, response: Response, nex
             'local',
             {session: false},
             async (err: any, passportUser: User) => {
-                const {userId, userEmail} = passportUser;
+                const {userId, userEmail, userZip} = passportUser;
                 const signature: string = uuid();
-                const authorization: string = generateJwt({userId, userEmail}, signature);
+                const authorization: string = generateJwt({userId, userZip, userEmail}, signature);
 
 
                 const signInFailed = (message: string) => response.json({
