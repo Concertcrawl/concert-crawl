@@ -97,6 +97,15 @@ body{
 
 }
 
+.user-settings{
+    background-image: url("https://api.time.com/wp-content/uploads/2019/08/tallconcertshirt.jpeg");
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 100%;
+}
+
 .star-yellow {
     font-size: 50px;
     color: yellow;

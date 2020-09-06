@@ -94,7 +94,7 @@ export const UserSettings = () => {
     <>
       {auth == null && (<p>You need to be logged in to change your user settings!</p>)}
       {auth !== null && (
-        <Container className="border border-dark p-0 my-5">
+        <Container className="user-settings border border-dark p-0">
           <Row>
             <Col xs={12} className="mt-5 mb-5">
               <h2 className="text-center pb-2"> User Settings!</h2>
