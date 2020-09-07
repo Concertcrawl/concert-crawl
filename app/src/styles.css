@@ -13,14 +13,14 @@
 }
 
 body{
-    color: #23526F;
+    color: #537369;
     font-weight: bold;
     font-family: "Helvetica Neue", "Arial", sans-serif;
     font-style: italic;
 }
 
 .navbar{
-    background: #E19A5B;
+    background: #ACDEDA;
 }
 
 .header-home {
@@ -43,32 +43,37 @@ body{
 }
 
 .concert-modals-search {
-    background: #23526F;
-    color: #F5ECB4;
+    background: #94a68e;
+    color: #f7f7f4;
     margin-top: 10px;
 }
 
 .favorite-bands{
-    background: #4C8E98;
+    background: #537369;
     padding: 10px;
 }
 
 .fav-bands-body{
-    background: #23526F;
+    background: #537369;
     padding: 20px;
-    color: #F5ECB4;
+    color: #f7f7f4;
 }
 
 .saved-concerts {
-    background: #4C8E98;
+    background: #537369;
 }
 
 .saved-header {
-    color: #F5ECB4;
+    color: #f7f7f4;
 }
 
 .privacy-page {
     background-image: url("https://api.time.com/wp-content/uploads/2019/08/tallconcertshirt.jpeg");
+}
+
+.contact-us-header {
+    background: #537369;
+    color: #f7f7f4;
 }
 
 .contact-us-body {
@@ -119,5 +124,5 @@ body{
 }
 
 .footer{
-    background: #E19A5B !important;
+    background: #ACDEDA !important;
 }
