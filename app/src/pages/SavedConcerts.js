@@ -22,7 +22,7 @@ export const SavedConcerts = () => {
       <Container fluid className="saved-concerts">
         <Row>
           <Col>
-            <h1 className="saved-header text-center col-12">Saved Concerts</h1>
+            <h1 className="saved-header text-center">Saved Concerts</h1>
             {auth !== null && (concerts.map(concert => <SearchResult concert={concert}
                                                                      favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")}
                                                                      key={concert.concertId}/>))

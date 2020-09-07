@@ -45,26 +45,32 @@ body{
 .concert-modals-search {
     background: #94a68e;
     color: #f7f7f4;
-    margin-top: 10px;
 }
 
 .favorite-bands{
-    background: #537369;
-    padding: 10px;
+
 }
 
 .fav-bands-body{
-    background: #537369;
-    padding: 20px;
+    background: white;
     color: #f7f7f4;
+}
+
+.fav-bands-modal{
+    background: #537369;
+    margin-top: 10px;
+}
+
+.fav-bands-header{
+    color: black;
 }
 
 .saved-concerts {
-    background: #537369;
+    background: white;
 }
 
 .saved-header {
-    color: #f7f7f4;
+    color: black;
 }
 
 .privacy-page {
