@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, Navbar } from 'react-bootstrap';
+import { Image, Nav, Navbar } from 'react-bootstrap';
 import { LoginModal } from './sign-in/LoginModal'
 import { fetchAuth } from '../store/loginRedux'
 import { httpConfig } from '../utils/http-config'
@@ -33,8 +33,10 @@ export const NavBar = () => {
 
   return (
     <>
-      <Navbar className="navbar" expand="lg">
-        <Navbar.Brand href="/">Concert Crawl</Navbar.Brand>
+      <Navbar sticky="top" className="navbar" expand="lg">
+        <Navbar.Brand href="/"><Image src="ConcertCrawlLogo.png" id="nav-logo"className="img-fluid">
+
+        </Image></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

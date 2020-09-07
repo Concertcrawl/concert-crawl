@@ -19,7 +19,7 @@ body{
 }
 
 .navbar{
-    background: #ACDEDA;
+    background: rgba(172, 222, 218, .95);
 }
 
 .header-home {
@@ -124,9 +124,13 @@ body{
 }
 
 .footer{
-    background: #ACDEDA !important;
+     background: rgba(172, 222, 218, .8) !important;
 }
 
 .not-logged-in{
     color:#f7f7f4;
+}
+
+#nav-logo{
+    max-height: 50px;
 }

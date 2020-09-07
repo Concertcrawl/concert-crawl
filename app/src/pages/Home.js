@@ -8,6 +8,7 @@ import { fetchResults, resetSearch } from '../store/concertRedux'
 import { storeSearchInputs } from '../store/searchInputs'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Fade } from "react-awesome-reveal"
+import Image from 'react-bootstrap/Image'
 
 export const Home = () => {
 
@@ -80,100 +81,101 @@ export const Home = () => {
   return (
     <>
       <Container fluid className="header-home p-0">
-        <Container fluid className="py-5">
-          <Jumbotron fluid className="jumbotron-title">
-            <h1 className="text-center">Concert Crawl Placeholder</h1>
+        <Container fluid className="py-5 px-0">
+          <Jumbotron fluid className="jumbotron-title py-0">
+            <Image src="ConcertCrawlLogoLarge.png" className="img-fluid pb-5"/>
             <p>
               Concert Crawl was birthed during the COVID-19 global health pandemic, in an era where almost no live                music was happening. We miss live shows and wanted to provide a service that made finding a concert                simple, fun, and organized no matter what kind of a music fan you are.
             </p>
           </Jumbotron>
-
-        </Container>
-        <Container fluid className="search-bar py-3">
-          <Container className="mb-3 text-light">
-            <Form>
-              <Form.Group controlId='bandField'>
-                <Form.Label className="mx-auto"><h2>Band Search</h2></Form.Label>
-                <Form.Control
-                  type="text"
-                  name="band"
-                  value={band}
-                  onChange={handleInputChange}
-                />
-              </Form.Group>
-              <Form.Group>
+          <Container fluid className="search-bar py-3 px-0">
+            <Container className="mb-3 text-light">
+              <Form>
+                <Form.Group controlId='bandField'>
+                  <Form.Label className="mx-auto"><h2>Band Search</h2></Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="band"
+                    value={band}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+                <Form.Group>
+                  <Row>
+                    <Col xs={6} md={3} className="ml-md-5">
+                      <Form.Label>Genre</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="genre"
+                        value={genre}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                    <Col xs={6} md={3}>
+                      <Form.Label>Zip</Form.Label>
+                      <Form.Control
+                        type="text"
+                        name="location"
+                        value={location}
+                        onChange={handleInputChange}
+                      />
+                    </Col>
+                    <Col xs={5} md={2} className="ml-3 ml-md-0">
+                      <Form.Label>
+                        Start Date
+                      </Form.Label>
+                      <DatePicker
+                        className="form-control"
+                        selected={startDate}
+                        onChange={(date) => {
+                          setStartDate(date);
+                          if (endDate !== '' && date > endDate) {setEndDate(date);}
+                          eachEntry.sDate = date?.toISOString().split('T')[0];
+                        }}
+                        selectsStart
+                        startDate={startDate}
+                        endDate={endDate}
+                      />
+                    </Col>
+                    <h1 className="display-3">-</h1>
+                    <Col xs={5} md={2}>
+                      <Form.Label>
+                        End Date
+                      </Form.Label>
+                      <DatePicker
+                        className="form-control"
+                        selected={endDate}
+                        onChange={(date) => {
+                          setEndDate(date)
+                          eachEntry.eDate = date?.toISOString().split('T')[0];
+                        }}
+                        selectsEnd
+                        startDate={startDate}
+                        endDate={endDate}
+                        minDate={startDate}
+                      />
+                    </Col>
+                  </Row>
+                </Form.Group>
                 <Row>
-                  <Col xs={6} md={3} className="ml-md-5">
-                    <Form.Label>Genre</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="genre"
-                      value={genre}
-                      onChange={handleInputChange}
-                    />
+                  <Col xs={8}>
+                    <Button onClick={submitSearch} variant="light" size="lg" block>
+                      Search
+                    </Button>
                   </Col>
-                  <Col xs={6} md={3}>
-                    <Form.Label>Zip</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="location"
-                      value={location}
-                      onChange={handleInputChange}
-                    />
-                  </Col>
-                  <Col xs={5} md={2} className="ml-3 ml-md-0">
-                    <Form.Label>
-                      Start Date
-                    </Form.Label>
-                    <DatePicker
-                      className="form-control"
-                      selected={startDate}
-                      onChange={(date) => {
-                        setStartDate(date);
-                        if (endDate !== '' && date > endDate) {setEndDate(date);}
-                        eachEntry.sDate = date?.toISOString().split('T')[0];
-                      }}
-                      selectsStart
-                      startDate={startDate}
-                      endDate={endDate}
-                    />
-                  </Col>
-                  <h1 className="display-3">-</h1>
-                  <Col xs={5} md={2}>
-                    <Form.Label>
-                      End Date
-                    </Form.Label>
-                    <DatePicker
-                      className="form-control"
-                      selected={endDate}
-                      onChange={(date) => {
-                        setEndDate(date)
-                        eachEntry.eDate = date?.toISOString().split('T')[0];
-                      }}
-                      selectsEnd
-                      startDate={startDate}
-                      endDate={endDate}
-                      minDate={startDate}
-                    />
+                  <Col xs={4}>
+                    <Button onClick={clearSearch} variant="light" size="lg" block>
+                      Clear
+                    </Button>
                   </Col>
                 </Row>
-              </Form.Group>
-              <Row>
-                <Col xs={9}>
-                  <Button onClick={submitSearch} xs={9} variant="light" size="lg" block>
-                    Search!
-                  </Button>
-                </Col>
-                <Col xs={3}>
-                  <Button onClick={clearSearch} variant="light" size="lg" block>
-                    Clear Search!
-                  </Button>
-                </Col>
-              </Row>
-            </Form>
+              </Form>
+            </Container>
           </Container>
         </Container>
+
       </Container>
+      <Container fluid className="p-0">
       {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
       <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
                       dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
@@ -184,6 +186,7 @@ export const Home = () => {
                                                                            key={concert.concertId}/>))}
         </Fade>
       </InfiniteScroll>
+      </Container>
     </>
   )
 }
