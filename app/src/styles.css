@@ -13,7 +13,7 @@
 }
 
 body{
-    color: #537369;
+    color: #17202a ;
     font-weight: bold;
     font-family: "Kanit", sans-serif;
 }
@@ -137,6 +137,18 @@ body{
     color:#f7f7f4;
 }
 
-#nav-logo{
+
+#nav-logo {
     max-height: 50px;
+}
+.modal-top{
+    background:#537369;
+}
+
+.band-venue{
+    background: #94a68e;
+}
+
+.modal-content{
+    background: #ACDEDA;
 }

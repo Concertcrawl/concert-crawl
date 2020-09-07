@@ -111,9 +111,9 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
           }}
         >
           <Modal.Dialog className="custom-modal-style">
-            <Modal.Header>
+            <Modal.Header className="p-0 pb-1">
               <h3
-                className='col-12 modal-title text-center'>{props.concertDate.slice(0, 10)} - {props.bandName} - {props.concertAddress} @ {props.concertTime}
+                className='col-12 modal-title text-center modal-top'>{props.concertDate.slice(0, 10)} - {props.bandName} - {props.concertAddress} @ {props.concertTime}
                 <Button type='button' className='close my-auto' onClick={() => {
                   handleClose();
                   setOpen(false);
@@ -124,7 +124,7 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
               </h3>
             </Modal.Header>
             <Modal.Body className="p-0">
-              <Container>
+              <Container className="band-venue">
                 <Row>
                   <Col xs={12} md={4} className="d-flex justify-content-center">
                     <img src={props.concertImage} alt="Placeholder"
