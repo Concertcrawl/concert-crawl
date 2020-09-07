@@ -15,8 +15,7 @@
 body{
     color: #537369;
     font-weight: bold;
-    font-family: "Helvetica Neue", "Arial", sans-serif;
-    font-style: italic;
+    font-family: "Kanit", sans-serif;
 }
 
 .navbar{
@@ -31,6 +30,7 @@ body{
     background-repeat: no-repeat;
     max-width: 100%;
     text-align: center;
+    display: block;
 }
 
 .jumbotron-title{
