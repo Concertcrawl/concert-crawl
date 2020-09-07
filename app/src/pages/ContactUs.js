@@ -16,13 +16,15 @@ export const ContactUs = () => {
             <Col xs={8} className="py-2 pt-3">
               <p> Calvin Reed: Calvin is a New Mexican born and raised Web Developer, who has a passion for live music.
                 Spending much of his formative years in small venues and at house shows, he has a huge passion for live
-                music, especially punk and metal. </p>
+                music, especially punk and metal. His favorite band to see live is  </p>
             </Col>
             <Col xs={4} className="py-2 pt-3">
               <Image src="dixie.JPG" roundedCircle alt="pic-contact-us"/>
             </Col>
             <Col xs={8} className="py-2 pt-3">
-              <p>Dixie Cooper: Dixie is a Web Developer and educator who grew up in Albuquerque, New Mexico.  Formally a middle school coding teacher, she is now pursuing a career in Web Development.  Dixie loves going to live shows and her favorite band is Haim, who she has seen a total of 8 times in concert! </p>
+              <p>Dixie Cooper: Dixie is a Web Developer and educator who grew up in Albuquerque, New Mexico. Formally a
+                middle school coding teacher, she is now pursuing a career in Web Development. Dixie loves going to live
+                shows and her favorite band is Haim, who she has seen a total of 8 times in concert! </p>
             </Col>
             <Col xs={4} className="py-2 pt-3">
               <Image src="jordan.png" roundedCircle alt="pic-contact-us"/>
