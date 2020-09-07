@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchResults, resetSearch } from '../store/concertRedux'
 import { storeSearchInputs } from '../store/searchInputs'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { Fade } from "react-awesome-reveal"
 
 export const Home = () => {
 
@@ -37,7 +38,6 @@ export const Home = () => {
     sDate: "",
     eDate: ""
   }
-
 
   const [eachEntry, setEachEntry] = useState(initialState);
   const [startDate, setStartDate] = useState('');
@@ -183,7 +183,11 @@ export const Home = () => {
       {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
       <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
                       dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
-        {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert} favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")} key={concert.concertId}/>))}
+        <Fade triggerOnce={true}>
+          {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert}
+                                                                           favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")}
+                                                                           key={concert.concertId}/>))}
+        </Fade>
       </InfiniteScroll>
     </>
   )
