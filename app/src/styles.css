@@ -126,3 +126,7 @@ body{
 .footer{
     background: #ACDEDA !important;
 }
+
+.not-logged-in{
+    color:#f7f7f4;
+}
