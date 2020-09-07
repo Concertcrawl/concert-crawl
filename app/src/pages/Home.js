@@ -34,11 +34,13 @@ export const Home = () => {
   const initialState = {
     band: "",
     genre: "",
-    lat: usZips[zip.userZip] ?? 35.19722,
-    long: usZips[zip.userZip] ?? -106.685095,
+    lat: usZips[zip].latitude ?? 35.19722,
+    long: usZips[zip].longitude ?? -106.685095,
     sDate: "",
     eDate: ""
   }
+
+  console.log(initialState)
 
   const inputs = useSelector(store => {
     return store.searchInputs
@@ -58,10 +60,8 @@ export const Home = () => {
 
   const {band, genre, location} = eachEntry;
 
-  let latLong = usZips[location] ?? usZips[87114]
-
   const sideEffects = () => {
-    dispatch(storeSearchInputs(1, band, genre, latLong.latitude, latLong.longitude, eachEntry.sDate, eachEntry.eDate))
+    dispatch(storeSearchInputs(1, band, genre, usZips[location]?.latitude ?? 35.19722, usZips[location]?.longitude ?? -106.685095, eachEntry.sDate, eachEntry.eDate))
     dispatch(fetchResults(...inputs))
   };
 
@@ -74,8 +74,8 @@ export const Home = () => {
   const submitSearch = () => {
     setMorePages(true)
     dispatch(resetSearch())
-    dispatch(fetchResults(1, band, genre, latLong.latitude, latLong.longitude, eachEntry.sDate, eachEntry.eDate))
-    dispatch(storeSearchInputs(1, band, genre, latLong.latitude, latLong.longitude, eachEntry.sDate, eachEntry.eDate))
+    dispatch(fetchResults(1, band, genre, usZips[location]?.latitude ?? 35.19722, usZips[location]?.longitude ?? -106.685095, eachEntry.sDate, eachEntry.eDate))
+    dispatch(storeSearchInputs(1, band, genre, usZips[location]?.latitude ?? 35.19722, usZips[location]?.longitude ?? -106.685095, eachEntry.sDate, eachEntry.eDate))
   }
 
   const clearSearch = () => {
@@ -138,7 +138,7 @@ export const Home = () => {
                     <Form.Control
                       type="text"
                       name="location"
-                      value={location}
+                      value={location || ''}
                       onChange={handleInputChange}
                     />
                   </Col>

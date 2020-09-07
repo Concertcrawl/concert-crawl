@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchSavedConcerts } from '../store/savedConcerts'
 import { v4 as uuidv4 } from 'uuid';
 import { fetchFavoriteBands } from '../store/favoriteBands'
+import { fetchBandsFromConcerts } from '../store/bandsFromConcerts'
 
 export const ConcertInfoModal = forwardRef((concert, ref) => {
   const [open, setOpen] = useState(false);
@@ -26,7 +27,17 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
     return store.favoriteBand ? store.favoriteBand : []
   })
 
-  const {props, bands} = concert
+  const {props} = concert
+
+  const bands = useSelector(store => {
+    return store.bandsFromConcert ? store.bandsFromConcert : []
+  })
+
+  const sideEffects = () => {
+    dispatch(fetchBandsFromConcerts(props.concertId))
+  }
+
+  React.useEffect(sideEffects, [])
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -50,6 +61,7 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
 
   React.useEffect(testFavorites, [])
 
+
   const addBand = async (bandId) => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: bandId})
       .then(reply => {
@@ -67,8 +79,10 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
   const testFun = (band) => {
     if (favBand.some(e => e['bandId'] === band.bandId) === true) {
       star = "star-yellow"
+      console.log("hey")
     } else {
       star = "star-white"
+      console.log("nay")
     }
   }
 

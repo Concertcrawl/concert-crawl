@@ -14,19 +14,19 @@ export const SearchResult = (props) => {
 
   const {concert} = props
 
-  const concertBands = useSelector(store => {
-    return store.bandsFromConcert ? store.bandsFromConcert : []
-  })
+  // const concertBands = useSelector(store => {
+  //   return store.bandsFromConcert ? store.bandsFromConcert : []
+  // })
 
   const openModal = (concert) => {
     modalRef.current.openModal(concert)
   }
 
-  const sideEffects = () => {
-    dispatch(fetchBandsFromConcerts(concert.concertId))
-  }
-
-  React.useEffect(sideEffects, [])
+  // const sideEffects = () => {
+  //   dispatch(fetchBandsFromConcerts(concert.concertId))
+  // }
+  //
+  // React.useEffect(sideEffects, [])
 
   const addBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: concert.bandId})
@@ -38,7 +38,7 @@ export const SearchResult = (props) => {
 
   return (
     <>
-      <ConcertInfoModal props={concert} bands={concertBands} ref={modalRef}/>
+      <ConcertInfoModal props={concert} ref={modalRef}/>
       <Container fluid className="concert-modals-search pb-1 mt-1">
         <Row>
           <Col md={1} className="d-none d-lg-flex">
