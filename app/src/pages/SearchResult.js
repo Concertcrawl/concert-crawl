@@ -2,9 +2,8 @@ import React from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import { ConcertInfoModal } from './ConcertInfoModal'
 import { httpConfig } from '../utils/http-config'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchFavoriteBands } from '../store/favoriteBands'
-import { fetchBandsFromConcerts } from '../store/bandsFromConcerts'
 
 export const SearchResult = (props) => {
   const modalRef = React.useRef();
@@ -14,19 +13,9 @@ export const SearchResult = (props) => {
 
   const {concert} = props
 
-  // const concertBands = useSelector(store => {
-  //   return store.bandsFromConcert ? store.bandsFromConcert : []
-  // })
-
   const openModal = (concert) => {
     modalRef.current.openModal(concert)
   }
-
-  // const sideEffects = () => {
-  //   dispatch(fetchBandsFromConcerts(concert.concertId))
-  // }
-  //
-  // React.useEffect(sideEffects, [])
 
   const addBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: concert.bandId})

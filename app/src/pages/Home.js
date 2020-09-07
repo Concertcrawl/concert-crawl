@@ -7,21 +7,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchResults, resetSearch } from '../store/concertRedux'
 import { storeSearchInputs } from '../store/searchInputs'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import usZips from 'us-zips'
 
 export const Home = () => {
 
   const [morePages, setMorePages] = useState(true)
 
   const dispatch = useDispatch()
-
-  let zip = useSelector(store => {
-    if (store?.auth !== null) {
-      return store?.auth.userZip ? store.auth.userZip : 87114
-    } else {
-      return 87114
-    }
-  })
 
   const concerts = useSelector(store => {
     return store.searchSlice ? store.searchSlice : []
@@ -31,28 +22,22 @@ export const Home = () => {
     return store.pageSlice.count ? store.pageSlice : 0
   })
 
-  const initialState = {
-    band: "",
-    genre: "",
-    lat: usZips[zip].latitude ?? 35.19722,
-    long: usZips[zip].longitude ?? -106.685095,
-    sDate: "",
-    eDate: ""
-  }
-
-  console.log(initialState)
-
   const inputs = useSelector(store => {
     return store.searchInputs
-  })
-
-  useSelector(store => {
-    return store.savedConcerts ? store.savedConcerts : []
   })
 
   const favBand = useSelector(store => {
     return store.favoriteBand ? store.favoriteBand : []
   })
+
+  const initialState = {
+    band: "",
+    genre: "",
+    location: "",
+    sDate: "",
+    eDate: ""
+  }
+
 
   const [eachEntry, setEachEntry] = useState(initialState);
   const [startDate, setStartDate] = useState('');
@@ -61,11 +46,9 @@ export const Home = () => {
   const {band, genre, location} = eachEntry;
 
   const sideEffects = () => {
-    dispatch(storeSearchInputs(1, band, genre, usZips[location]?.latitude ?? 35.19722, usZips[location]?.longitude ?? -106.685095, eachEntry.sDate, eachEntry.eDate))
+    dispatch(storeSearchInputs(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
     dispatch(fetchResults(...inputs))
   };
-
-  React.useEffect(sideEffects, [])
 
   const handleInputChange = e => {
     setEachEntry({...eachEntry, [e.target.name]: e.target.value});
@@ -74,8 +57,8 @@ export const Home = () => {
   const submitSearch = () => {
     setMorePages(true)
     dispatch(resetSearch())
-    dispatch(fetchResults(1, band, genre, usZips[location]?.latitude ?? 35.19722, usZips[location]?.longitude ?? -106.685095, eachEntry.sDate, eachEntry.eDate))
-    dispatch(storeSearchInputs(1, band, genre, usZips[location]?.latitude ?? 35.19722, usZips[location]?.longitude ?? -106.685095, eachEntry.sDate, eachEntry.eDate))
+    dispatch(fetchResults(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
+    dispatch(storeSearchInputs(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
   }
 
   const clearSearch = () => {
@@ -91,6 +74,8 @@ export const Home = () => {
       setMorePages(false)
     }
   }
+
+  React.useEffect(sideEffects, [])
 
   return (
     <>
@@ -138,7 +123,7 @@ export const Home = () => {
                     <Form.Control
                       type="text"
                       name="location"
-                      value={location || ''}
+                      value={location}
                       onChange={handleInputChange}
                     />
                   </Col>

@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { httpConfig } from "../utils/http-config"
+import usZips from 'us-zips'
 
 const search = createSlice({
   name: "search",
@@ -39,7 +40,19 @@ export const {getSearchResults, resetSearchResults} = search.actions;
 
 export const {getPageNumber} = pages.actions
 
-export const fetchResults = (page, name, genre, lat, long, sDate, eDate) => async (dispatch) => {
+export const fetchResults = (page, name, genre, location, sDate, eDate) => async (dispatch, getState) => {
+  console.log(getState().auth)
+  let lat
+  let long
+  if ((location === '' || undefined) && (getState().auth !== null)) {
+    lat = usZips[getState().auth.userZip].latitude
+    long = usZips[getState().auth.userZip].longitude} else if(location.match(/^[/\d]{5}?$/)) {
+    lat = usZips[location]?.latitude
+    long = usZips[location]?.longitude
+  } else {
+    lat = 35.19722
+    long = -106.685095
+  }
   const {data} = await httpConfig.get(`/apis/search/page=${page}&name=${name}&genre=${genre}&lat=${lat}&long=${long}&sDate=${sDate}&eDate=${eDate}`)
   dispatch(getSearchResults(data))
   dispatch(getPageNumber(data))

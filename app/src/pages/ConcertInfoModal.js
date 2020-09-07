@@ -65,7 +65,6 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
   const addBand = async (bandId) => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: bandId})
       .then(reply => {
-          console.log(reply)
           dispatch(fetchFavoriteBands())
           if (reply.message.includes("added")) {
             star = "star-yellow"
@@ -79,10 +78,8 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
   const testFun = (band) => {
     if (favBand.some(e => e['bandId'] === band.bandId) === true) {
       star = "star-yellow"
-      console.log("hey")
     } else {
       star = "star-white"
-      console.log("nay")
     }
   }
 
