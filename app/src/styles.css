@@ -90,9 +90,22 @@ body{
     max-width: 100%;
 }
 
+.contact-us {
+    background: rgba(35, 82, 111, .9);
+    color: #ACDEDA;
+}
+
 .contact-us img{
     max-height: 1500px;
     max-width: 150px;
+}
+
+.fa-github-square {
+    color: white;
+}
+
+.fa-linkedin {
+    color: white;
 }
 
 .register-user{
