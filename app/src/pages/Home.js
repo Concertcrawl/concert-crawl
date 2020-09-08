@@ -85,7 +85,8 @@ export const Home = () => {
           <Jumbotron fluid className="jumbotron-title py-0">
             <Image src="ConcertCrawlLogoLarge.png" className="img-fluid pb-5"/>
             <p>
-              Concert Crawl was birthed during the COVID-19 global health pandemic, in an era where almost no live                music was happening. We miss live shows and wanted to provide a service that made finding a concert                simple, fun, and organized no matter what kind of a music fan you are.
+              Concert Crawl was birthed during the COVID-19 global health pandemic, in an era where almost no live                music was happening.
+             Few experiences match up to the feeling of seeing your favorite band live in concert, the joy of                hearing your favorite song live. We miss live shows and wanted to provide a service that made finding               a concert simple, fun, and organized no matter what kind of a music fan you are.
             </p>
           </Jumbotron>
           <Container fluid className="search-bar py-3 px-0">
@@ -176,17 +177,17 @@ export const Home = () => {
 
       </Container>
       <Container fluid className="p-0">
-      {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
-      <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
-                      dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
+        {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
+        <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
+                        dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
 
-        <Fade triggerOnce={true}>
-          {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert}
-                                                                           favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")}
-                                                                           key={concert.concertId}/>))}
-        </Fade>
-      </InfiniteScroll>
+          <Fade triggerOnce={true}>
+            {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert}
+                                                                             favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")}
+                                                                             key={concert.concertId}/>))}
+          </Fade>
+        </InfiniteScroll>
       </Container>
     </>
-  )
+)
 }

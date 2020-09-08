@@ -23,7 +23,7 @@ export const UserFavorites = () => {
               bands.map(band => <FavoritedBand band={band} key={band.bandId}/>)
             )}
             {auth === null && (
-              <p className="text-center lead">Welcome to Concert Crawl! You must be logged in to start adding bands to
+              <p className="text-center lead not-logged-in">Welcome to Concert Crawl! You must be logged in to start adding bands to
                 your favorites!</p>
             )}
           </Col>

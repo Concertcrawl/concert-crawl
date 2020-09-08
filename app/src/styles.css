@@ -100,8 +100,8 @@ body{
     max-width: 100%;
 }
 
-.register-user-body{
-
+.not-logged-in{
+    color: #537369 !important;
 }
 
 .user-settings{
