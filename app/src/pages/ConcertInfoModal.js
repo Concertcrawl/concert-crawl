@@ -48,7 +48,7 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
     }
   });
 
-  let star = "star-white"
+  let star = "star-no-favorite"
 
   const testFavorites = () => {
     if (auth !== null && concerts !== undefined) {
@@ -67,9 +67,9 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
       .then(reply => {
           dispatch(fetchFavoriteBands())
           if (reply.message.includes("added")) {
-            star = "star-yellow"
+            star = "star-favorite"
           } else {
-            star = "star-white"
+            star = "star-no-favorite"
           }
         }
       )
@@ -77,9 +77,9 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
 
   const testFun = (band) => {
     if (favBand.some(e => e['bandId'] === band.bandId) === true) {
-      star = "star-yellow"
+      star = "star-favorite"
     } else {
-      star = "star-white"
+      star = "star-no-favorite"
     }
   }
 
@@ -159,7 +159,7 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
                 </Row>
               </Container>
               <Button variant="outline-dark"
-                      className="border-top border-bottom-0 border-right-0 border-left-0 btn-block p-0"
+                      className="border-0 btn-block p-0"
                       onClick={() => setOpen(!open)}
                       aria-controls="example-collapse-text"
                       aria-expanded={open}

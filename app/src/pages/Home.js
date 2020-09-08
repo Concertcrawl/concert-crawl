@@ -176,17 +176,17 @@ export const Home = () => {
         </Container>
 
       </Container>
-      <Container fluid className="p-0">
-        {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
-        <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
-                        dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
+      <Container fluid>
+      {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
+      <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
+                      dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
 
-          <Fade triggerOnce={true}>
-            {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert}
-                                                                             favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")}
-                                                                             key={concert.concertId}/>))}
-          </Fade>
-        </InfiniteScroll>
+        <Fade triggerOnce={true}>
+          {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert}
+                                                                           favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-favorite")) || ("star-no-favorite")}
+                                                                           key={concert.concertId}/>))}
+        </Fade>
+      </InfiniteScroll>
       </Container>
     </>
 )

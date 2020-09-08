@@ -18,7 +18,7 @@ export const LoginModal = () => {
         show={show}
         onHide={handleClose}
         data-backdrop={false}
-        className="test-class">
+        id="login-modal">
         <LogInForm/>
       </Modal>
     </>

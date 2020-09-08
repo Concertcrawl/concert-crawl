@@ -76,21 +76,6 @@ export const PrivacyPage = () => {
         <p>For more general information on cookies, please read <a
           href="https://www.cookieconsent.com/what-are-cookies/">"What Are Cookies"</a>.</p>
 
-
-        <h2>Advertising Partners Privacy Policies</h2>
-
-        <p>You may consult this list to find the Privacy Policy for each of the advertising partners of Concert
-          Crawl.</p>
-
-        <p>Third-party ad servers or ad networks uses technologies like cookies, JavaScript, or Web Beacons that are
-          used in their respective advertisements and links that appear on Concert Crawl, which are sent directly to
-          users' browser. They automatically receive your IP address when this occurs. These technologies are used to
-          measure the effectiveness of their advertising campaigns and/or to personalize the advertising content that
-          you see on websites that you visit.</p>
-
-        <p>Note that Concert Crawl has no access to or control over these cookies that are used by third-party
-          advertisers.</p>
-
         <h2>Third Party Privacy Policies</h2>
 
         <p>Concert Crawl's Privacy Policy does not apply to other advertisers or websites. Thus, we are advising you

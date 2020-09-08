@@ -65,7 +65,7 @@ function dataDownloader(): Promise<any> {
                                 classificationName: 'music',
                                 size: 100,
                                 stateCode: states[i],
-                                startDateTime: '2020-09-02T00:00:00Z'
+                                startDateTime: '2020-09-11T00:00:00Z'
                             }
                         })
                     let correctedData

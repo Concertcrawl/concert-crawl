@@ -39,7 +39,7 @@ export const FavoritedBand = (props) => {
       <Container fluid className="p-0">
         <Row className="fav-bands-modal">
           <Col md={2} className="my-auto text-center">
-            <Button className="bg-transparent border-0"><span className="star-yellow display-4 text-warning" role="img" aria-label="star" onClick={removeBand}>&#9733;</span></Button>
+            <Button className="bg-transparent border-0"><span className="star-favorite display-4" role="img" aria-label="star" onClick={removeBand}>&#9733;</span></Button>
           </Col>
           <Col md={4} lg={2} className="text-center">
             <img src={band.bandImage} alt="A band." className="img-fluid">
@@ -62,7 +62,7 @@ export const FavoritedBand = (props) => {
           <Col xs={12}>
             <Collapse in={open}>
               <div>
-                {concerts.filter(concert => band.bandId === concert.bandId).map(concert => <SearchResult concert={concert} favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-yellow")) || ("star-white")} key={concert.concertId}/>)}
+                {concerts.filter(concert => band.bandId === concert.bandId).map(concert => <SearchResult concert={concert} favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-favorite")) || ("star-no-favorite")} key={concert.concertId}/>)}
               </div>
             </Collapse>
           </Col>

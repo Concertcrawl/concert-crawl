@@ -28,32 +28,28 @@ export const SearchResult = (props) => {
   return (
     <>
       <ConcertInfoModal props={concert} ref={modalRef}/>
-      <Container fluid className="concert-modals-search mt-1 newly-added">
+      <Container fluid className="concert-search-result mt-1 newly-added">
         <Row>
           <Col md={1} className="d-none d-lg-flex">
           </Col>
-          <Col md={2} className="d-none d-md-flex">
-            <img src={concert.concertImage} className="float-right cover img-fluid" alt="This is a placeholder.">
-            </img>
-          </Col>
-          <Col xs={12} sm={3} md={2} className="my-auto text-center">
-            <p className="lead">{concert.concertDate.slice(0, 10)}</p>
-            <p className="lead">{concert.concertTime}</p>
-          </Col>
-          <Col xs={12} sm={6} md={2} className="my-auto">
-            <h2 className="text-center">{concert.concertName}<Button variant="outline-dark" className="border-0 p-0"
-                                                                     onClick={openModal}><h2>&#65291;</h2></Button></h2>
-          </Col>
-          <Col xs={12} sm={3} md={4} lg={2} className="my-auto text-center">
-            <p className="lead">{concert.bandName}<Button variant="outline-dark" className="border-0 p-0"
+          <Col xs={12} sm={3} md={4} lg={3} className="my-auto text-center">
+            <p>{concert.bandName}<Button variant="outline-dark" className="border-0 p-0"
                                                           onClick={addBand}><h2><span role="img"
                                                                                       aria-label="Star"
                                                                                       className={props.favStat}>&#9733;</span>
             </h2></Button></p>
-            <p className="lead">{concert.concertAddress}</p>
+            <p>{concert.concertAddress}</p>
+          </Col>
+          <Col xs={12} sm={6} md={3} className="my-auto">
+            <h5 className="text-center">{concert.concertName}<Button variant="outline-dark" className="border-0 p-0"
+                                                                     onClick={openModal}><h2>&#65291;</h2></Button></h5>
+          </Col>
+          <Col xs={12} sm={3} md={2} className="my-auto text-center">
+            <p>{concert.concertDate.slice(0, 10)}</p>
+            <p>{concert.concertTime}</p>
           </Col>
           <Col md={2} className="d-none d-md-flex">
-            <img src={concert.bandImage} alt="This is a placeholder." className="img-fluid cover">
+            <img src={concert.concertImage} className="float-right cover img-fluid" alt="This is a placeholder.">
             </img>
           </Col>
           <Col md={1} className="d-none d-lg-flex">
