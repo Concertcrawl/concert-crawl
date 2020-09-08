@@ -132,7 +132,7 @@ function dataDownloader(): Promise<any> {
                                                 // @ts-ignore
                                                 await mySqlConnection.execute(insertConcertBand, [post.concertUuid, storedUuid[0][0].uuid, 1])
                                             }
-                                        // All bands other than headliner.
+                                            // All bands other than headliner.
                                         } else if (currentPost._embedded?.attractions[j].name != undefined) {
                                             // Selecting uuid from concert.
                                             let storedUuid = await mySqlConnection.execute(selectBandUuid, [currentPost._embedded?.attractions[j].name])

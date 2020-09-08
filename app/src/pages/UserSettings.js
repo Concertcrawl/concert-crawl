@@ -92,9 +92,18 @@ export const UserSettings = () => {
 
   return (
     <>
-      {auth == null && (<p>You need to be logged in to change your user settings!</p>)}
+      {auth == null && (
+        <Container className="user-settings p-0 register-user">
+          <Row>
+            <Col>
+              <h1 className="text-center pb-2"> User Settings!</h1>
+              <p className="text-center not-logged-in">You need to be logged in to change your user settings!</p>
+            </Col>
+          </Row>
+        </Container>
+      )}
       {auth !== null && (
-        <Container className="user-settings p-0">
+        <Container className="user-settings p-0 register-user">
           <Row>
             <Col xs={12} className="mt-5 mb-5">
               <h2 className="text-center pb-2"> User Settings!</h2>
