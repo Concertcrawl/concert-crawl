@@ -10,7 +10,6 @@ import {removeFavoritedBand} from "../../utils/favorite/removeFavoritedBand";
 export async function toggleFavoritedBands(request: Request,response: Response) {
 
     try{
-        console.log(request.body)
         const {userFavoritesBandId} = request.body
         const user: User = request.session?.profile
         const userFavoritesUserId = <string>user.userId
@@ -23,7 +22,7 @@ export async function toggleFavoritedBands(request: Request,response: Response) 
         const select = await selectBand(favoritedBand)
 
 
-        // @ts-ignore
+        // @ts-ignore ts does not know select is an array yet
         if (select[0]){
             const result = await removeFavoritedBand(favoritedBand)
             message='Band removed successfully.'

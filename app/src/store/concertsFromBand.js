@@ -2,9 +2,9 @@ import { httpConfig } from '../utils/http-config'
 import { createSlice } from '@reduxjs/toolkit'
 
 const slice = createSlice({
-  name:"concertsFromBands",
+  name: "concertsFromBands",
   initialState: [],
-  reducers:{
+  reducers: {
     getConcertsFromBands: (concerts, action) => {
       return [...concerts, ...action.payload]
     }
@@ -13,8 +13,7 @@ const slice = createSlice({
 })
 export const {getConcertsFromBands} = slice.actions
 
-
-export const fetchConcertsFromBands = (bandId) => async(dispatch) => {
+export const fetchConcertsFromBands = (bandId) => async (dispatch) => {
   const {data} = await httpConfig.get(`/apis/concert-bands/${bandId}`)
   dispatch(getConcertsFromBands(data))
 }

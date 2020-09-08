@@ -102,7 +102,6 @@ function dataDownloader(): Promise<any> {
                                     concertLong: currentPost._embedded.venues[0].location?.longitude ?? 123.1234,
                                     concertBands: currentPost._embedded?.attractions
                                 }
-                                console.log(post)
 
 
                                 // Declaring MySQL functions.

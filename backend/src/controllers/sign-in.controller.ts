@@ -45,7 +45,7 @@ export async function signInController(request: Request, response: Response, nex
 
                     return response.json({status: 200, data: null, message: "Sign in successful."})
                 };
-                //@ts-ignore
+
                 const isPasswordValid: boolean = passportUser && await validatePassword(passportUser.userHash, userPassword);
 
                 return isPasswordValid ? signInSuccessful() : signInFailed("Invalid email or password");

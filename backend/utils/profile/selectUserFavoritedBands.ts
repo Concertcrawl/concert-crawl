@@ -13,6 +13,5 @@ export async function selectUserFavoritedBands(userId: string) {
 
     } catch (e) {
         console.error(e)
-        console.log(userId)
     }
 }

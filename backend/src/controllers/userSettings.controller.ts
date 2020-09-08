@@ -32,11 +32,9 @@ export async function updateFirstName(request: Request, response: Response) {
 
 export async function updatePassword(request: Request, response: Response) {
     const {userPassword, currentEnteredPass} = request.body
-    console.log(request.body)
     const userHash = await setHash(userPassword)
     const user: User = request.session?.profile
     const userId = <string>user.userId
-    console.log(userId)
 
     const setPassword: SetPassword = {
         userId,

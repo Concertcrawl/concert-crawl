@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Button, Col, Container, Row } from 'react-bootstrap'
 import { ConcertInfoModal } from './ConcertInfoModal'
 import { httpConfig } from '../utils/http-config'
 import { useDispatch } from 'react-redux'
@@ -9,7 +9,6 @@ export const SearchResult = (props) => {
   const modalRef = React.useRef();
 
   const dispatch = useDispatch()
-
 
   const {concert} = props
 
@@ -34,9 +33,9 @@ export const SearchResult = (props) => {
           </Col>
           <Col xs={12} sm={3} md={4} lg={3} className="my-auto text-center">
             <p>{concert.bandName}<Button variant="outline-dark" className="border-0 p-0"
-                                                          onClick={addBand}><h2><span role="img"
-                                                                                      aria-label="Star"
-                                                                                      className={props.favStat}>&#9733;</span>
+                                         onClick={addBand}><h2><span role="img"
+                                                                     aria-label="Star"
+                                                                     className={props.favStat}>&#9733;</span>
             </h2></Button></p>
             <p>{concert.concertAddress}</p>
           </Col>

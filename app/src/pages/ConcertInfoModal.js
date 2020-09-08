@@ -61,7 +61,6 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
 
   React.useEffect(testFavorites, [])
 
-
   const addBand = async (bandId) => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: bandId})
       .then(reply => {
@@ -126,13 +125,13 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
             <Modal.Body className="p-0">
               <Container className="band-venue">
                 <Row>
-                  <Col xs={12} md={4} className="d-flex justify-content-center">
+                  <Col md={12} lg={4} className="d-flex justify-content-center">
                     <img src={props.concertImage} alt="Placeholder"
                          className="img-fluid my-auto cover">
 
                     </img>
                   </Col>
-                  <Col xs={12} md={8} className="my-5">
+                  <Col md={12} lg={8} className="my-5">
                     <Container className="border mb-3">
                       <h1> {props.bandName} @ {props.concertVenueName}</h1>
                     </Container>
@@ -142,7 +141,8 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
                           <h2> {props.concertDate.slice(0, 10)} & {props.concertTime}</h2>
                         </Col>
                         <Col>
-                          <Button as="a" className="my-3 btn-block btn-dark py-2" target="_blank" href={props.concertTicketUrl}>Purchase
+                          <Button as="a" className="my-3 btn-block btn-dark py-2" target="_blank"
+                                  href={props.concertTicketUrl}>Purchase
                             Tickets on Ticketmaster.</Button>
                           {auth === null && (
                             <p>You need to log in to save this concert.</p>
@@ -169,7 +169,8 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
                   {bands.filter(band => band.concertId === props.concertId).map(band => <p
                     key={uuidv4()} className="display-4 border-bottom py-3 text-center">{band.bandName}<Button
                     role="img"
-                    aria-label="Star" className="bg-transparent border-0" onClick={() => (addBand(band.bandId))}>{testFun(band)}<span
+                    aria-label="Star" className="bg-transparent border-0"
+                    onClick={() => (addBand(band.bandId))}>{testFun(band)}<span
                     className={star}>&#9733;</span></Button></p>)}
                 </div>
               </Collapse>

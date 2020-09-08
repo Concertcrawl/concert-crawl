@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Collapse, Button } from 'react-bootstrap'
+import { Button, Col, Collapse, Container, Row } from 'react-bootstrap'
 import { httpConfig } from '../utils/http-config'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchFavoriteBands } from '../store/favoriteBands'
 import { fetchConcertsFromBands } from '../store/concertsFromBand'
 import { SearchResult } from './SearchResult'
-
 
 export const FavoritedBand = (props) => {
   const {band} = props
@@ -30,7 +29,7 @@ export const FavoritedBand = (props) => {
   const removeBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: band.bandId})
       .then(
-          dispatch(fetchFavoriteBands())
+        dispatch(fetchFavoriteBands())
       );
   }
 
@@ -39,7 +38,9 @@ export const FavoritedBand = (props) => {
       <Container fluid className="p-0 concert-search-result">
         <Row className="m-1">
           <Col md={2} className="my-auto text-center">
-            <Button className="bg-transparent border-0"><span className="star-favorite display-4" role="img" aria-label="star" onClick={removeBand}>&#9733;</span></Button>
+            <Button className="bg-transparent border-0"><span className="star-favorite display-4" role="img"
+                                                              aria-label="star"
+                                                              onClick={removeBand}>&#9733;</span></Button>
           </Col>
           <Col md={4} lg={2} className="text-center">
             <img src={band.bandImage} alt="A band." className="img-fluid">
@@ -62,7 +63,10 @@ export const FavoritedBand = (props) => {
           <Col xs={12}>
             <Collapse in={open}>
               <div>
-                {concerts.filter(concert => band.bandId === concert.bandId).map(concert => <SearchResult concert={concert} favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-favorite")) || ("star-no-favorite")} key={concert.concertId}/>)}
+                {concerts.filter(concert => band.bandId === concert.bandId).map(concert => <SearchResult
+                  concert={concert}
+                  favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-favorite")) || ("star-no-favorite")}
+                  key={concert.concertId}/>)}
               </div>
             </Collapse>
           </Col>

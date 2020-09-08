@@ -34,14 +34,14 @@ export const NavBar = () => {
   return (
     <>
       <Navbar sticky="top" className="navbar" expand="lg">
-        <Navbar.Brand href="/"><Image src="ConcertCrawlLogo.png" id="nav-logo"className="img-fluid">
+        <Navbar.Brand href="/"><Image src="ConcertCrawlLogo.png" id="nav-logo" className="img-fluid">
 
         </Image></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-              <Nav.Link href="/saved-concerts">Saved Concerts</Nav.Link>
-              <Nav.Link href="/user-favorites">Favorite Bands</Nav.Link>
+            <Nav.Link href="/saved-concerts">Saved Concerts</Nav.Link>
+            <Nav.Link href="/user-favorites">Favorite Bands</Nav.Link>
             {auth !== null && (
               <Nav.Link href="/user-settings">User Settings</Nav.Link>
             )}

@@ -52,7 +52,6 @@ export const UserSettings = () => {
     httpConfig.post("/apis/settings/updateZip", values)
       .then(reply => {
         let {message, type} = reply
-        console.log(reply.headers["authorization"])
         if (reply.status === 200 && reply.headers["authorization"]) {
           window.localStorage.removeItem("authorization");
           window.localStorage.setItem("authorization", reply.headers["authorization"]);

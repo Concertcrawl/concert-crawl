@@ -1,9 +1,9 @@
-import { createSlice} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const slice = createSlice({
-  name:"inputs",
+  name: "inputs",
   initialState: [1, '', '', '', '', ''],
-  reducers:{
+  reducers: {
     getSearchInputs: (inputs, action) => {
       return action.payload
     },

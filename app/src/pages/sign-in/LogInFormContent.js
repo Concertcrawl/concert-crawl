@@ -1,7 +1,6 @@
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import React from 'react'
 
-
 export const LogInFormContent = (props) => {
   const {
     status,

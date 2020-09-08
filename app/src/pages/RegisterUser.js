@@ -203,7 +203,8 @@ export const RegisterUser = () => {
           }}
         </Formik>
       )}
-      {auth !== null && ( <Container className="register-user text-center"><h1>You are already logged in.</h1></Container>)}
+      {auth !== null && (
+        <Container className="register-user text-center"><h1>You are already logged in.</h1></Container>)}
     </>
   )
 }

@@ -29,7 +29,8 @@ export const SavedConcerts = () => {
 
             }
             {auth === null && (
-              <p className="text-center lead not-logged-in">Welcome to Concert Crawl! You must be logged in to start adding
+              <p className="text-center lead not-logged-in">Welcome to Concert Crawl! You must be logged in to start
+                adding
                 concerts!</p>
             )}
           </Col>

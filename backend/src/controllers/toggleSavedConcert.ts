@@ -26,7 +26,7 @@ export async function toggleSavedConcert(request: Request,response: Response) {
         const select = await selectConcert(savedConcert)
 
 
-        // @ts-ignore
+        // @ts-ignore Does not know select is an array yet.
         if (select[0]){
             const result = await removeSavedConcert(savedConcert)
             message = 'Concert removed successfully.'
