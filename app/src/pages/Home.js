@@ -183,7 +183,7 @@ export const Home = () => {
       </Container>
       <Container fluid className="p-0">
         {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
-        <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
+        <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loading</h4>}
                         dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
 
           <Fade triggerOnce={true} className="test">
