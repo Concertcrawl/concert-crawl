@@ -4,7 +4,8 @@ import {updateUserFirstName} from "../../utils/profile/updateUserFirstName";
 import {updateUserPassword} from "../../utils/profile/updateUserPassword";
 import {updateUserZip} from "../../utils/profile/updateZip";
 import {SetUserName, SetPassword, SetZip} from "../../utils/interfaces/Settings";
-import {setHash, validatePassword} from "../../utils/auth.utils";
+import {generateJwt, setHash, validatePassword} from "../../utils/auth.utils";
+import uuid from "uuid";
 
 export async function updateFirstName(request: Request, response: Response) {
     const {userFirstName} = request.body
@@ -63,6 +64,7 @@ export async function updateZip(request: Request, response: Response) {
     const {userZip} = request.body
     const user: User = request.session?.profile
     const userId = <string>user.userId
+    const userEmail = <string>user.userEmail
 
     const setZip: SetZip = {
         userId,
@@ -71,6 +73,17 @@ export async function updateZip(request: Request, response: Response) {
 
     try {
         await updateUserZip(setZip)
+        const signature: string = uuid();
+        const authorization: string = generateJwt({userId, userZip, userEmail}, signature);
+        response.header({
+            authorization
+        });
+
+        if (request.session) {
+            request.session.profile.userZip = userZip;
+            request.session.jwt = authorization;
+            request.session.signature = signature;
+        }
         return response.json({
             status: 200,
             data: null,

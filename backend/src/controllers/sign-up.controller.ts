@@ -14,7 +14,7 @@ export async function signupUserController(request: Request, response: Response)
         const {userFirstName, userLastName, userProfileName, userEmail, userPassword, userZip} = request.body;
         const userHash = await setHash(userPassword);
         const userActivationToken = setActivationToken();
-        const basePath = `${request.protocol}://${request.get('host')}${request.originalUrl}/activation/${userActivationToken}`
+        const basePath = `${request.protocol}://${request.get('host')}${request.originalUrl}activation/${userActivationToken}`
 
         const message = `<h2>Welcome to ConcertCrawl.</h2>
                         <p>If you want to start favoriting bands and saving concerts you need to verify your email! Just click the link below!</p>

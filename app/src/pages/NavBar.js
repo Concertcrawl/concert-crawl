@@ -42,7 +42,9 @@ export const NavBar = () => {
           <Nav className="mr-auto">
               <Nav.Link href="/saved-concerts">Saved Concerts</Nav.Link>
               <Nav.Link href="/user-favorites">Favorite Bands</Nav.Link>
+            {auth !== null && (
               <Nav.Link href="/user-settings">User Settings</Nav.Link>
+            )}
           </Nav>
           {auth !== null && (
             <Nav className="ml-auto">

@@ -142,7 +142,7 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
                           <h2> {props.concertDate.slice(0, 10)} & {props.concertTime}</h2>
                         </Col>
                         <Col>
-                          <Button className="my-3 btn-block btn-dark py-2" href={props.concertTicketUrl}>Purchase
+                          <Button as="a" className="my-3 btn-block btn-dark py-2" target="_blank" href={props.concertTicketUrl}>Purchase
                             Tickets on Ticketmaster.</Button>
                           {auth === null && (
                             <p>You need to log in to save this concert.</p>

@@ -45,8 +45,8 @@ export const fetchResults = (page, name, genre, location, sDate, eDate) => async
   let lat
   let long
   if ((location === '' || undefined) && (getState().auth !== null)) {
-    lat = usZips[getState().auth.userZip].latitude
-    long = usZips[getState().auth.userZip].longitude} else if(location.match(/^[/\d]{5}?$/)) {
+    lat = usZips[getState().auth.userZip]?.latitude
+    long = usZips[getState().auth.userZip]?.longitude} else if(location.match(/^[/\d]{5}?$/)) {
     lat = usZips[location]?.latitude
     long = usZips[location]?.longitude
   } else {

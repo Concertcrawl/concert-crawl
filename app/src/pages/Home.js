@@ -9,6 +9,7 @@ import { storeSearchInputs } from '../store/searchInputs'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import { Fade } from "react-awesome-reveal"
 import Image from 'react-bootstrap/Image'
+import { fetchAuth } from '../store/loginRedux'
 
 export const Home = () => {
 
@@ -47,6 +48,7 @@ export const Home = () => {
   const {band, genre, location} = eachEntry;
 
   const sideEffects = () => {
+    dispatch(fetchAuth())
     dispatch(storeSearchInputs(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
     dispatch(fetchResults(...inputs))
   };
@@ -57,6 +59,7 @@ export const Home = () => {
 
   const submitSearch = () => {
     setMorePages(true)
+    console.log(eachEntry.sDate, eachEntry.eDate)
     dispatch(resetSearch())
     dispatch(fetchResults(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
     dispatch(storeSearchInputs(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
@@ -176,12 +179,12 @@ export const Home = () => {
         </Container>
 
       </Container>
-      <Container fluid>
+      <Container fluid className="p-0">
       {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
       <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loadin'</h4>}
                       dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
 
-        <Fade triggerOnce={true}>
+        <Fade triggerOnce={true} className="test">
           {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert}
                                                                            favStat={(favBand.some(e => e['bandId'] === concert.bandId) === true && ("star-favorite")) || ("star-no-favorite")}
                                                                            key={concert.concertId}/>))}

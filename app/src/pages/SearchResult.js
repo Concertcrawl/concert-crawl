@@ -28,7 +28,7 @@ export const SearchResult = (props) => {
   return (
     <>
       <ConcertInfoModal props={concert} ref={modalRef}/>
-      <Container fluid className="concert-search-result mt-1 newly-added">
+      <Container fluid className="concert-search-result mt-1 border-dark">
         <Row>
           <Col md={1} className="d-none d-lg-flex">
           </Col>

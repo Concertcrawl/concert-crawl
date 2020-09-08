@@ -19,7 +19,7 @@ export const SavedConcerts = () => {
 
   return (
     <>
-      <Container fluid className="saved-concerts register-user">
+      <Container fluid className="saved-concerts register-user p-0">
         <Row>
           <Col>
             <h1 className="saved-header text-center">Saved Concerts</h1>

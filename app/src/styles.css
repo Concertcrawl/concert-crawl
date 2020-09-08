@@ -44,11 +44,7 @@ body{
 .concert-search-result {
     background: #94a68e;
     color: #f7f7f4;
-    box-shadow: 0 8px 6px -6px black;
-}
-
-.concert-search-result:nth-of-type(2n) {
-    background:#537369;
+    box-shadow: 0 0 6px 1px black;
 }
 
 .favorite-bands{

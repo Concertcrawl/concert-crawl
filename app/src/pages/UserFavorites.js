@@ -15,7 +15,7 @@ export const UserFavorites = () => {
   return (
     <>
       {auth !== null && (
-        <Container fluid className="fav-bands-body register-user">
+        <Container fluid className="fav-bands-body register-user p-0">
           <Row>
             <Col className="favorite-bands">
               <h1 className="fav-bands-header text-center mb-3"> Favorited Bands</h1>
@@ -25,7 +25,7 @@ export const UserFavorites = () => {
         </Container>
       )}
       {auth === null && (
-        <Container fluid className="fav-bands-body register-user">
+        <Container fluid className="fav-bands-body register-user p-0">
           <Row>
             <Col className="favorite-bands">
               <h1 className="fav-bands-header text-center mb-3"> Favorited Bands</h1>
