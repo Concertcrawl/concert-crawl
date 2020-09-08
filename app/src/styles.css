@@ -47,10 +47,6 @@ body{
     box-shadow: 0 0 6px 1px black;
 }
 
-.favorite-bands{
-
-}
-
 .fav-bands-body{
     background: white;
     color: #f7f7f4;
@@ -95,6 +91,10 @@ body{
 .contact-us img{
     max-height: 1500px;
     max-width: 150px;
+}
+
+.float-left {
+    padding: 10px;
 }
 
 .fa-github-square {
