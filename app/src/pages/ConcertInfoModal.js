@@ -6,6 +6,7 @@ import { fetchSavedConcerts } from '../store/savedConcerts'
 import { v4 as uuidv4 } from 'uuid';
 import { fetchFavoriteBands } from '../store/favoriteBands'
 import { fetchBandsFromConcerts } from '../store/bandsFromConcerts'
+import Image from 'react-bootstrap/Image'
 
 // Modal uses forwardRef to get props and other references from external components.
 
@@ -157,10 +158,10 @@ export const ConcertInfoModal = forwardRef((concert, ref) => {
               <Container className="band-venue">
                 <Row>
                   <Col md={12} xl={4} className="d-flex justify-content-center">
-                    <img src={props.concertImage} alt="Placeholder"
+                    <Image src={props.concertImage} alt="Concert Flyer"
                          className="img-fluid cover box-shadow mt-3 my-xl-auto">
 
-                    </img>
+                    </Image>
                   </Col>
                   <Col md={12} xl={8} className="my-5">
                     <Container className="border border-light mb-3 box-shadow">

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Container, Row, Image } from 'react-bootstrap'
 
 export const PrivacyPage = () => {
   return (
@@ -10,7 +10,7 @@ export const PrivacyPage = () => {
             <h1 className="text-center mt-3 border-bottom border-dark"> Privacy Page </h1>
           </Col>
         </Row>
-        <img src="https://via.placeholder.com/200" alt="placeholder" className="img-fluid float-left pt-3 pr-5 pb-3"/>
+        <Image src="privacy-policy-image.png" alt="Privacy Policy" className="img-fluid float-left pt-3 pr-3 pb-3"/>
         <h1>Privacy Policy for Concert Crawl</h1>
 
         <p>At Concert Crawl, accessible from https://www.concertcrawl.com, one of our main priorities is the privacy

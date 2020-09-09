@@ -6,6 +6,7 @@ import { httpConfig } from '../utils/http-config'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchSavedConcerts } from '../store/savedConcerts'
 import { fetchFavoriteBands } from '../store/favoriteBands'
+import Button from 'react-bootstrap/Button'
 
 export const NavBar = () => {
 
@@ -46,24 +47,24 @@ export const NavBar = () => {
 
   return (
     <>
-      <Navbar sticky="top" className="navbar" expand="lg">
+      <Navbar sticky="top" className="navbar" expand="md">
         <Navbar.Brand href="/"><Image src="ConcertCrawlLogo.png" id="nav-logo" className="img-fluid">
 
         </Image></Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Toggle aria-controls="main-navbar"/>
+        <Navbar.Collapse id="main-navbar">
           <Nav className="mr-auto">
-            <Nav.Link href="/saved-concerts">Saved Concerts</Nav.Link>
-            <Nav.Link href="/user-favorites">Favorite Bands</Nav.Link>
+            <Nav.Link href="/saved-concerts" className="nav-color">Saved Concerts</Nav.Link>
+            <Nav.Link href="/user-favorites" className="nav-color">Favorite Bands</Nav.Link>
             {auth !== null && (
-              <Nav.Link href="/user-settings">User Settings</Nav.Link>
+              <Nav.Link href="/user-settings" className="nav-color">User Settings</Nav.Link>
             )}
           </Nav>
           {auth !== null && (
-            <Nav className="ml-auto">
-              <button className="btn btn-light" onClick={signOut}>
+            <Nav className="ml-auto" >
+              <Button variant="light" onClick={signOut}>
                 Sign Out&nbsp;&nbsp;
-              </button>
+              </Button>
             </Nav>
           )}
           {auth === null && (

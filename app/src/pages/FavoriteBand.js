@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchFavoriteBands } from '../store/favoriteBands'
 import { fetchConcertsFromBands } from '../store/concertsFromBand'
 import { SearchResult } from './SearchResult'
+import Image from 'react-bootstrap/Image'
 
 export const FavoritedBand = (props) => {
 
@@ -59,9 +60,9 @@ export const FavoritedBand = (props) => {
                                                               onClick={removeBand}>&#9733;</span></Button>
           </Col>
           <Col md={4} lg={2} className="text-center">
-            <img src={band.bandImage} alt="A band." className="img-fluid">
+            <Image src={band.bandImage} alt={band.bandName} className="img-fluid">
 
-            </img>
+            </Image>
           </Col>
           <Col md={3} lg={5} className="my-auto text-center">
             <h2>

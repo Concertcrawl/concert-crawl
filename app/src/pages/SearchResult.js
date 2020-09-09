@@ -4,6 +4,7 @@ import { ConcertInfoModal } from './ConcertInfoModal'
 import { httpConfig } from '../utils/http-config'
 import { useDispatch } from 'react-redux'
 import { fetchFavoriteBands } from '../store/favoriteBands'
+import Image from 'react-bootstrap/Image'
 
 export const SearchResult = (props) => {
 
@@ -59,8 +60,8 @@ export const SearchResult = (props) => {
             <p>{concert.concertTime}</p>
           </Col>
           <Col md={2} className="d-none d-md-flex">
-            <img src={concert.concertImage} className="float-right cover img-fluid" alt="This is a placeholder.">
-            </img>
+            <Image src={concert.concertImage} className="float-right cover img-fluid" alt="Concert Flyer">
+            </Image>
           </Col>
           <Col md={1} className="d-none d-lg-flex">
           </Col>
