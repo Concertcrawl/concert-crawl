@@ -16,6 +16,14 @@ services:
         - ./backend/src:/home/node/app/src
         - ./backend/utils:/home/node/app/utils/
         - ./backend/tsconfig.json:/home/node/app/tsconfig.json
+  app:
+    build: app
+    depends_on:
+      - node
+    #    For deploying to server use ports: - 80:80
+    #    For deploying on localhost on linux you may need to use ports: - 81:80
+    ports:
+      - 80:80
   sql:
     build: ./sql
     # Make sure to update this to match your project.

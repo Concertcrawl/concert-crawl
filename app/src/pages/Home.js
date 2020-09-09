@@ -108,9 +108,9 @@ export const Home = () => {
     <>
       <Container fluid className="header-home p-0">
         <Container fluid className="py-5 px-0">
-          <Jumbotron fluid className="jumbotron-title py-0">
+          <Jumbotron className="jumbotron-title py-0">
             <Image src="ConcertCrawlLogoLarge.png" className="img-fluid pb-5"/>
-            <p>
+            <p className="d-none d-sm-flex">
               Concert Crawl was birthed during the COVID-19 global health pandemic, in an era where almost no live music
               was happening.
               Few experiences match up to the feeling of seeing your favorite band live in concert, the joy of hearing
@@ -203,7 +203,6 @@ export const Home = () => {
             </Container>
           </Container>
         </Container>
-
       </Container>
       <Container fluid className="p-0">
         {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
@@ -217,6 +216,7 @@ export const Home = () => {
           </Fade>
         </InfiniteScroll>
       </Container>
+
     </>
   )
 }

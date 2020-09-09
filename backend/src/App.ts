@@ -11,12 +11,10 @@ import {SignOutRoute} from "./routes/sign-out.route";
 import {SaveConcertRouter} from "./routes/save-concert.route"
 import {FavoriteBandRouter, ShowBandsByConcertRouter, ShowFavoritedBandRouter, ShowConcertsByBandRouter} from "./routes/favorite-bands.route"
 import {ShowSavedConcertRouter} from "./routes/save-concert.route";
-
 const session = require("express-session");
 import passport = require('passport');
 const MemoryStore = require('memorystore')(session);
-
-
+const helmet = require("helmet");
 
 // The following class creates the app and instantiates the server
 export class App {
@@ -53,6 +51,7 @@ export class App {
 
     this.app.use(morgan('dev'));
     this.app.use(express.json());
+    this.app.use(helmet())
     this.app.use(session(sessionConfig));
     this.app.use(passport.initialize());
     this.app.use(passport.session());

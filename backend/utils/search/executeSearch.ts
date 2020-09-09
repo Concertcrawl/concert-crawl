@@ -13,8 +13,8 @@ export async function executeSearch(search: Search) {
 
 
     if (name != undefined) {
-        sql += " AND concert.concertName LIKE ?"
-        countSql += " AND concert.concertName LIKE ?"
+        sql += " AND band.bandName LIKE ?"
+        countSql += " AND band.bandName LIKE ?"
         params.push("%"+name+"%")
     }
     if (genre != undefined) {
