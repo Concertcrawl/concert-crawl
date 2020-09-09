@@ -10,6 +10,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import { Fade } from "react-awesome-reveal"
 import Image from 'react-bootstrap/Image'
 import { fetchAuth } from '../store/loginRedux'
+import FormLabel from 'react-bootstrap/FormLabel'
 
 export const Home = () => {
 
@@ -109,7 +110,7 @@ export const Home = () => {
       <Container fluid className="header-home p-0">
         <Container fluid className="py-5 px-0">
           <Jumbotron className="jumbotron-title py-0">
-            <Image src="ConcertCrawlLogoLarge.png" className="img-fluid pb-5"/>
+            <Image src="ConcertCrawlLogoLarge.png" className="img-fluid pb-5" alt="ConcertCrawl logo."/>
             <p className="d-none d-sm-flex">
               Concert Crawl was birthed during the COVID-19 global health pandemic, in an era where almost no live music
               was happening.
@@ -122,7 +123,7 @@ export const Home = () => {
             <Container className="mb-3 text-light">
               <Form>
                 <Form.Group controlId='bandField'>
-                  <Form.Label className="mx-auto"><h2>Band Search</h2></Form.Label>
+                  <FormLabel className="mx-auto"><h2>Band Search</h2></FormLabel>
                   <Form.Control
                     type="text"
                     name="band"
@@ -133,7 +134,7 @@ export const Home = () => {
                 <Form.Group>
                   <Row>
                     <Col xs={6} md={3} className="ml-md-5">
-                      <Form.Label>Genre</Form.Label>
+                      <FormLabel>Genre</FormLabel>
                       <Form.Control
                         type="text"
                         name="genre"
@@ -142,7 +143,7 @@ export const Home = () => {
                       />
                     </Col>
                     <Col xs={6} md={3}>
-                      <Form.Label>Zip</Form.Label>
+                      <FormLabel>Zip</FormLabel>
                       <Form.Control
                         type="text"
                         name="location"
@@ -151,9 +152,9 @@ export const Home = () => {
                       />
                     </Col>
                     <Col xs={5} md={2} className="ml-3 ml-md-0">
-                      <Form.Label>
+                      <FormLabel>
                         Start Date
-                      </Form.Label>
+                      </FormLabel>
                       <DatePicker
                         className="form-control"
                         selected={startDate}
@@ -167,11 +168,11 @@ export const Home = () => {
                         endDate={endDate}
                       />
                     </Col>
-                    <h1 className="display-3">-</h1>
+                    <h3 className="display-3">-</h3>
                     <Col xs={5} md={2}>
-                      <Form.Label>
+                      <FormLabel>
                         End Date
-                      </Form.Label>
+                      </FormLabel>
                       <DatePicker
                         className="form-control"
                         selected={endDate}
@@ -206,8 +207,8 @@ export const Home = () => {
       </Container>
       <Container fluid className="p-0">
         {concerts.length === 0 && (<p className="text-center">Something went wrong! No concerts to display! :(</p>)}
-        <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h4 className="text-center">Loading</h4>}
-                        dataLength={concerts.length} endMessage={<h4>No more results</h4>}>
+        <InfiniteScroll next={updateSearch} hasMore={morePages} loader={<h5 className="text-center">Loading</h5>}
+                        dataLength={concerts.length} endMessage={<h5>No more results</h5>}>
 
           <Fade triggerOnce={true} className="test">
             {concerts.length !== 0 && (concerts.map(concert => <SearchResult concert={concert}

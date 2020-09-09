@@ -247,7 +247,7 @@ export const UserSettings = () => {
                               <Form onSubmit={handleSubmit}>
                                 <Form.Group>
                                   <Form.Label>Current Password</Form.Label>
-                                  <Form.Control type="text" placeholder="Current Password"
+                                  <Form.Control type="password" placeholder="Current Password"
                                                 name="currentEnteredPass" value={values.currentEnteredPass}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}/>
@@ -259,7 +259,7 @@ export const UserSettings = () => {
                                 </Form.Group>
                                 <Form.Group>
                                   <Form.Label>New Password</Form.Label>
-                                  <Form.Control type="text" placeholder="New Password"
+                                  <Form.Control type="password" placeholder="New Password"
                                                 name="userPassword" value={values.userPassword}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}/>
@@ -271,7 +271,7 @@ export const UserSettings = () => {
                                 </Form.Group>
                                 <Form.Group>
                                   <Form.Label>Confirm Password</Form.Label>
-                                  <Form.Control type="text" placeholder="Confirm Password"
+                                  <Form.Control type="password" placeholder="Confirm Password"
                                                 name="userPasswordConfirm" value={values.userPasswordConfirm}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}/>

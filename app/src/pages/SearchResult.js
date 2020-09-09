@@ -45,15 +45,15 @@ export const SearchResult = (props) => {
           </Col>
           <Col xs={12} sm={3} md={4} lg={3} className="my-auto text-center">
             <p>{concert.bandName}<Button variant="outline-dark" className="border-0 p-0"
-                                         onClick={addBand}><h2><span role="img"
+                                         onClick={addBand}><h5><span role="img"
                                                                      aria-label="Star"
                                                                      className={props.favStat}>&#9733;</span>
-            </h2></Button></p>
+            </h5></Button></p>
             <p>{concert.concertAddress}</p>
           </Col>
           <Col xs={12} sm={6} md={3} className="my-auto">
             <h5 className="text-center">{concert.concertName}<Button variant="outline-dark" className="border-0 p-0"
-                                                                     onClick={openModal}><h2>&#65291;</h2></Button></h5>
+                                                                     onClick={openModal}><h5 className="plus-icon">&#65291;</h5></Button></h5>
           </Col>
           <Col xs={12} sm={3} md={2} className="my-auto text-center">
             <p>{concert.concertDate.slice(0, 10)}</p>

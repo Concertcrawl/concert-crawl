@@ -21,6 +21,10 @@ body{
     background: rgba(172, 222, 218, .95);
 }
 
+.plus-icon{
+    font-size: 2em;
+}
+
 .header-home {
     background-image: url("background/tallconcertshirt.jpg");
     height: 100vh;

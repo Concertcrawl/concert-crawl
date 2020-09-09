@@ -20,8 +20,6 @@ services:
     build: app
     depends_on:
       - node
-    #    For deploying to server use ports: - 80:80
-    #    For deploying on localhost on linux you may need to use ports: - 81:80
     ports:
       - 80:80
   sql:

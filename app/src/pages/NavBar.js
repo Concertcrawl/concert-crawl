@@ -48,7 +48,7 @@ export const NavBar = () => {
   return (
     <>
       <Navbar sticky="top" className="navbar" expand="md">
-        <Navbar.Brand href="/"><Image src="ConcertCrawlLogo.png" id="nav-logo" className="img-fluid">
+        <Navbar.Brand href="/"><Image src="ConcertCrawlLogo.png" id="nav-logo" aria-label="Home" alt="ConcertCrawl logo." className="img-fluid">
 
         </Image></Navbar.Brand>
         <Navbar.Toggle aria-controls="main-navbar"/>
