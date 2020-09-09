@@ -145,6 +145,8 @@ body{
 
 .footer{
      background: rgba(172, 222, 218, .8) !important;
+    font-size: small;
+    text-align: center;
 }
 
 .not-logged-in{
