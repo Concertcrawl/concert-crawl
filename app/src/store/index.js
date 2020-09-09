@@ -7,6 +7,8 @@ import auth from './loginRedux'
 import searchInputs from './searchInputs'
 import bandsFromConcert from './bandsFromConcerts'
 
+// Combined reducers.
+
 export default combineReducers({
   searchSlice,
   pageSlice,

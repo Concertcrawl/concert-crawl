@@ -10,7 +10,11 @@ import { fetchFavoriteBands } from '../../store/favoriteBands'
 
 export const LogInForm = () => {
 
+  // Declaring dispatch handler.
+
   const dispatch = useDispatch()
+
+  // Login form frontend validation.
 
   const validator = Yup.object().shape({
     userEmail: Yup.string()
@@ -21,10 +25,14 @@ export const LogInForm = () => {
       .min(8, "Password must be at least eight characters.")
   });
 
+  // Declaring inital form values.
+
   const signIn = {
     userEmail: "",
     userPassword: ""
   };
+
+  // Logic to submit user sign in, determines if sign in was successful then sets JWT token to header.
 
   const submitSignIn = (values, {resetForm, setStatus}) => {
     httpConfig.post("/apis/sign-in/", values)

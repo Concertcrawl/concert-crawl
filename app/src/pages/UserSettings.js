@@ -7,17 +7,27 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 
 export const UserSettings = () => {
+  // Declaring dispatch handler.
+
   const dispatch = useDispatch()
+
+  // Declaring auth selector from redux store.
 
   const auth = useSelector(store => {
     return store.auth
   })
 
+  // Declaring side effects to dispatch fetching of auth.
+
   const sideEffects = () => {
     dispatch(fetchAuth())
   }
 
+  // Hook to use sideEffects.
+
   React.useEffect(sideEffects, [])
+
+  // User settings front end validation.
 
   const validator = Yup.object().shape({
     userFirstName: Yup.string()
@@ -33,6 +43,8 @@ export const UserSettings = () => {
       .min(8, "Password must be at least 8 characters.")
   })
 
+  // Logic to update first name.
+
   const submitUpdateName = (values, {
     resetForm, setStatus
   }) => {
@@ -45,6 +57,8 @@ export const UserSettings = () => {
         setStatus({message, type})
       })
   }
+
+  // Logic to update user zip, generates new JWT token with input user zip.
 
   const submitUpdateZip = (values, {
     resetForm, setStatus
@@ -62,6 +76,8 @@ export const UserSettings = () => {
       })
   }
 
+  // Logic to update password, determines if passwords match.
+
   const submitUpdatePassword = (values, {
     resetForm, setStatus
   }) => {
@@ -78,6 +94,8 @@ export const UserSettings = () => {
       setStatus({message: "Passwords do not match.", type: "alert alert-danger"})
     }
   }
+
+  // Declaring initial form values.
 
   const userName = {
     userName: ""

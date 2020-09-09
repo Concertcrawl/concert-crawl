@@ -7,9 +7,13 @@ import { useSelector } from 'react-redux'
 
 export const RegisterUser = () => {
 
+  // Declaring auth redux store selector.
+
   const auth = useSelector(store => {
     return store.auth
   })
+
+  // Declaring initial form values.
 
   const signUp = {
     userFirstName: '',
@@ -20,6 +24,8 @@ export const RegisterUser = () => {
     userPassword: '',
     userPasswordConfirm: ''
   }
+
+  // Front end validation logic.
 
   const validator = Yup.object().shape({
     userFirstName: Yup.string()
@@ -40,6 +46,8 @@ export const RegisterUser = () => {
       .required("Password Confirm is required")
       .min(8, "Password must be at least eight characters")
   });
+
+  // Logic to submit sign up, determines if passwords match before doing api request.
 
   const submitSignUp = (values, {resetForm, setStatus}) => {
     if (values.userPassword === values.userPasswordConfirm) {

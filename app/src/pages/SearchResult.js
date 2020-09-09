@@ -6,15 +6,26 @@ import { useDispatch } from 'react-redux'
 import { fetchFavoriteBands } from '../store/favoriteBands'
 
 export const SearchResult = (props) => {
+
+  // Declaring useRef
+
   const modalRef = React.useRef();
+
+  // Declaring dispatch handler.
 
   const dispatch = useDispatch()
 
+  // Object destructuring, grabbing concert from props.
+
   const {concert} = props
+
+  // Passing modal concert props via useRef handler and useImperativeHandler
 
   const openModal = (concert) => {
     modalRef.current.openModal(concert)
   }
+
+  // Post request to add band to favorites.
 
   const addBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: concert.bandId})

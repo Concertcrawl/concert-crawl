@@ -13,9 +13,15 @@ import { fetchAuth } from '../store/loginRedux'
 
 export const Home = () => {
 
+  // Use state for infinite scroll, used to set if there are more pages left to load.
+
   const [morePages, setMorePages] = useState(true)
 
+  // Declaring dispatch handler.
+
   const dispatch = useDispatch()
+
+  // Declaring selectors for redux store.
 
   const concerts = useSelector(store => {
     return store.searchSlice ? store.searchSlice : []
@@ -33,6 +39,8 @@ export const Home = () => {
     return store.favoriteBand ? store.favoriteBand : []
   })
 
+  // Storing initial state of search parameters.
+
   const initialState = {
     band: "",
     genre: "",
@@ -41,11 +49,17 @@ export const Home = () => {
     eDate: ""
   }
 
+  // Use state handlers for updating search parameters.
+
   const [eachEntry, setEachEntry] = useState(initialState);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
+  // Object destructuring for band, genre, and location.
+
   const {band, genre, location} = eachEntry;
+
+  // Declaring side effects for dispatching redux action, fetchAuth, storeSearchInputs, and fetchResults
 
   const sideEffects = () => {
     dispatch(fetchAuth())
@@ -53,9 +67,13 @@ export const Home = () => {
     dispatch(fetchResults(...inputs))
   };
 
+  // Function to pull entries from form fields, ties into useState above.
+
   const handleInputChange = e => {
     setEachEntry({...eachEntry, [e.target.name]: e.target.value});
   }
+
+  // Resets infinite scroll more pages state, resets search parameters, dispatches and stores new search parameters.
 
   const submitSearch = () => {
     setMorePages(true)
@@ -64,11 +82,15 @@ export const Home = () => {
     dispatch(storeSearchInputs(1, band, genre, location, eachEntry.sDate, eachEntry.eDate))
   }
 
+  // Clears current search parameters.
+
   const clearSearch = () => {
     setEachEntry({...initialState})
     setStartDate(initialState.sDate)
     setEndDate(initialState.eDate)
   }
+
+  // Updates search, used with infinite scroll to update current page number.
 
   const updateSearch = () => {
     dispatch(storeSearchInputs(...inputs))
@@ -77,6 +99,8 @@ export const Home = () => {
       setMorePages(false)
     }
   }
+
+  // Side effect hook.
 
   React.useEffect(sideEffects, [])
 

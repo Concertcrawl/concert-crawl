@@ -7,10 +7,20 @@ import { fetchConcertsFromBands } from '../store/concertsFromBand'
 import { SearchResult } from './SearchResult'
 
 export const FavoritedBand = (props) => {
+
+  // Object destructuring to grab band element from props.
+
   const {band} = props
+
+  // State handler for dropdown to show concerts.
+
   const [open, setOpen] = useState(false);
 
+  // Declaring dispatch handler.
+
   const dispatch = useDispatch()
+
+  // Declaring use selectors for redux store.
 
   const concerts = useSelector(store => {
     return store.concertsFromBand
@@ -20,11 +30,17 @@ export const FavoritedBand = (props) => {
     return store.favoriteBand ? store.favoriteBand : []
   })
 
+  // Declaring side effects and what to dispatch.
+
   const sideEffects = () => {
     dispatch(fetchConcertsFromBands(band.bandId))
   }
 
+  // Use effect handler for side effects.
+
   React.useEffect(sideEffects, [])
+
+  // Api call to remove/app favorite band.
 
   const removeBand = async () => {
     httpConfig.post("/apis/favorite-band/", {userFavoritesBandId: band.bandId})

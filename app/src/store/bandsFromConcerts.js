@@ -1,6 +1,8 @@
 import { httpConfig } from '../utils/http-config'
 import { createSlice } from '@reduxjs/toolkit'
 
+// Reducer filters out duplicate bands, checks store to see if bandId and concertId match any bandId or concertId in action.
+
 const slice = createSlice({
   name: "bandsFromConcerts",
   initialState: [],
@@ -15,6 +17,8 @@ const slice = createSlice({
 })
 
 export const {getBandsFromConcerts} = slice.actions
+
+// Action to fetch bands from concert Id
 
 export const fetchBandsFromConcerts = (concertId) => async (dispatch) => {
   const {data} = await httpConfig.get(`/apis/bands-concert/${concertId}`)

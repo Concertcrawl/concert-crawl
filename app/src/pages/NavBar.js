@@ -8,17 +8,30 @@ import { fetchSavedConcerts } from '../store/savedConcerts'
 import { fetchFavoriteBands } from '../store/favoriteBands'
 
 export const NavBar = () => {
+
+  // Declaring dispatch handler.
+
   const dispatch = useDispatch()
+
+  // Declaring selector for redux store.
+
   const auth = useSelector(store => {
     return store.auth
   })
+
+  // Setting up dispatch side effects.
+
   const sideEffects = () => {
     dispatch(fetchAuth())
     dispatch(fetchSavedConcerts())
     dispatch(fetchFavoriteBands())
   };
 
+  // Hook for performing side effects.
+
   React.useEffect(sideEffects, [])
+
+  // Does api call to sign user out, clears JSX token.
 
   const signOut = () => {
     httpConfig.get("/apis/sign-out/")

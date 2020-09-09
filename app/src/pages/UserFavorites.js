@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 
 export const UserFavorites = () => {
 
+  // Redux store selector for auth and bands.
+
   const auth = useSelector(store => {
     return store.auth
   })
@@ -12,6 +14,7 @@ export const UserFavorites = () => {
   const bands = useSelector(store => {
     return store.favoriteBand ? store.favoriteBand : []
   })
+
   return (
     <>
       {auth !== null && (

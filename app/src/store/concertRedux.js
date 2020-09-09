@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import { httpConfig } from "../utils/http-config"
 import usZips from 'us-zips'
 
+// First reducer adds new results to store based on the action, second reducer clears state.
+
 const search = createSlice({
   name: "search",
   initialState: [],
@@ -19,6 +21,8 @@ const search = createSlice({
     }
   }
 })
+
+// Reducer used to store total number of pages from result.
 
 const pages = createSlice({
 
@@ -40,6 +44,8 @@ export const {getSearchResults, resetSearchResults} = search.actions;
 
 export const {getPageNumber} = pages.actions
 
+// Action receives parameters from search inputs, attempts to get zip from input, if input does not exist it attempts to get it from the users auth in store, if all else fails defaults to Albuquerque.
+
 export const fetchResults = (page, name, genre, location, sDate, eDate) => async (dispatch, getState) => {
   let lat
   let long
@@ -57,6 +63,8 @@ export const fetchResults = (page, name, genre, location, sDate, eDate) => async
   dispatch(getSearchResults(data))
   dispatch(getPageNumber(data))
 }
+
+// Action to dispatch reducer which resets store.
 
 export const resetSearch = () => dispatch => {
   dispatch(resetSearchResults())

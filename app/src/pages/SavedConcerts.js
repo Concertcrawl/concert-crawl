@@ -5,6 +5,8 @@ import { SearchResult } from './SearchResult'
 
 export const SavedConcerts = () => {
 
+  // Declaring redux store use selectors.
+
   const auth = useSelector(store => {
     return store.auth
   })

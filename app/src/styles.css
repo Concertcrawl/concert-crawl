@@ -41,6 +41,10 @@ body{
     box-shadow: 0 0 5px 10px  rgba(35, 82, 111, .4);
 }
 
+.box-shadow {
+    box-shadow: 0px 1px 5px 1px black;
+}
+
 .concert-search-result {
     background: #94a68e;
     color: #f7f7f4;
@@ -153,6 +157,7 @@ body{
 }
 .modal-top{
     background:#537369;
+    border-radius: .25rem;
 }
 
 .band-venue{

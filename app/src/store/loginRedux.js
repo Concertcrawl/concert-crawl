@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import * as jwtDecode from 'jwt-decode'
 
+// Reducer to add auth information to store from JSX token.
+
 const slice = createSlice({
   name: "auth",
   initialState: [],
@@ -13,6 +15,8 @@ const slice = createSlice({
 })
 
 export const {getAuth} = slice.actions
+
+// Action fetches JSX token from header, checks if auth already exists first.
 
 export const fetchAuth = () => async (dispatch, getState) => {
   const state = getState()
